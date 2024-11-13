@@ -20,7 +20,7 @@
     "@fontsource-variable/noto-sans-jp": "^5.1.0",
     "@fontsource/ibm-plex-mono": "^5.1.0",
     "@fontsource/ibm-plex-sans-jp": "^5.1.0",
-    "@iconify-json/carbon": "^1.2.1",
+    "@iconify-json/carbon": "^1.2.4",
     "@iconify-json/simple-icons": "^1.2.2",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.7",
