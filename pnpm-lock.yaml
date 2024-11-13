@@ -90,8 +90,8 @@ dependencies:
     specifier: ^0.168.0
     version: 0.168.0
   tocbot:
-    specifier: ^4.29.0
-    version: 4.29.0
+    specifier: ^4.32.2
+    version: 4.32.2
   typescript:
     specifier: ^5.6.2
     version: 5.6.2
@@ -5263,8 +5263,8 @@ packages:
       is-number: 7.0.0
     dev: false
 
-  /tocbot@4.29.0:
-    resolution: {integrity: sha512-E+8+lceJpWHJYKq+qFHbi+gmFdXZeOAliHFdgiIAUo68cr8ClReXAx7h9e3TcDM0kw9PSnBn3GAZEpRmRLZ93g==}
+  /tocbot@4.32.2:
+    resolution: {integrity: sha512-UbVZNXX79LUqMzsnSTwE/YF/PYc2pg3G77D/jcolHd6lmw+oklzfcLtHSsmWBhOf1wfWD1HfYzdjGQef1VcQgg==}
     dev: false
 
   /trim-lines@3.0.1:
