@@ -87,10 +87,10 @@ function Model(props: {
         {active || hovered ? (
           <meshLambertMaterial color="#dfdfdf" flatShading={true} />
         ) : (
-          <meshBasicMaterial color="#090a0c" />
+          <meshBasicMaterial color="white" />
         )}
         {active || hovered ? undefined : (
-          <Edges lineWidth={1} threshold={15} color="white" />
+          <Edges lineWidth={1} threshold={15} color="black" />
         )}
       </mesh>
     </>
