@@ -85,8 +85,88 @@ const navItems: NavItem[] = [
         )}
       </div>
     </footer>
+    <canvas id='snow'></canvas>
 	</body>
 </html>
+
+<script is:inline>
+  const count = Math.max(10, Math.floor(window.innerWidth * window.innerHeight / 20000));
+  const wind_x = 0.0;
+  const period = 30;
+  const canvas = document.getElementById('snow');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  function on_canvas_resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', on_canvas_resize);
+
+  function rand(min, max) {
+    return Math.random() * (max - min + 1) + min;
+  }
+
+  function genSnow() {
+    return {
+      x: rand(0, canvas.width),
+      y: rand(0, canvas.height),
+      size: rand(2, 5),
+      d: rand(0, Math.PI),
+    };
+  }
+
+  const path = new Path2D();
+  path.arc(0, 0, 1, 0, Math.PI * 2);
+
+  const grad = ctx.createRadialGradient(0, 0, 0.5, 0, 0, 1.0);
+  grad.addColorStop(0.0, '#DDF6FFCC');
+  grad.addColorStop(0.5, '#DDF6FF33');
+  grad.addColorStop(1.0, '#DDF6FF11');
+
+  function drawSnow(snow) {
+    ctx.fillStyle = grad;
+    ctx.translate(snow.x, snow.y);
+    ctx.scale(snow.size, snow.size);
+    ctx.fill(path);
+    ctx.resetTransform();
+  }
+
+  function moveSnow(snow, deltaTime) {
+    snow.x +=
+      wind_x * snow.size * 0.5 +
+      Math.sin(snow.y / period + snow.d) / snow.size;
+    snow.y += snow.size * deltaTime * 0.01;
+
+    if (snow.y > canvas.height) {
+      snow.x = rand(0, canvas.width);
+      snow.y = 0;
+    }
+  }
+
+  const snows = [];
+  for (let i = 0; i < count; i++) {
+    snows.push(genSnow());
+  }
+
+  let prevTime = window.performance.now();
+  function frame() {
+    const currentTime = window.performance.now();
+    const deltaTime = currentTime - prevTime;
+    prevTime = currentTime;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < count; i++) {
+      drawSnow(snows[i]);
+    }
+    for (let i = 0; i < count; i++) {
+      moveSnow(snows[i], deltaTime);
+    }
+    window.requestAnimationFrame(frame);
+  }
+  window.requestAnimationFrame(frame);
+</script>
 
 <style>
 main {
@@ -127,11 +207,10 @@ header {
   height: var(--header-height);
 }
 body.newyear header {
-  border-bottom: solid 1px #ef454a;
-  background-color: #ef454a;
-}
-body.newyear header a.active {
-  color: white;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: solid 1px #000000;
+  background-color: #00000080;
 }
 .narrow-menu {
   display: none;
@@ -168,6 +247,16 @@ footer {
   right: 0;
   bottom: 0;
 }
+
+#snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 </style>
 
 <style is:global>
@@ -194,7 +283,17 @@ q {
 }
 
 body.newyear {
-  --color-primary: #ef454a;
-  --color-lightGrey: #ef454a;
+  --bg-color: #090a0c;
+  --bg-secondary-color: #0c0c09;
+  --color-primary: #1CB86D;
+  --color-lightGrey: #2d2922;
+  --accent-color--color-grey: #8B897E;
+  --color-darkGrey: #C0BEBB;
+  --color-error: #d43939;
+  --color-success: #28bd14;
+  --grid-maxWidth: 120rem;
+  --grid-gutter: 2rem;
+  --font-size: 1.6rem;
+  --font-color: #ccc;
 }
 </style>
