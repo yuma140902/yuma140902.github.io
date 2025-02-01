@@ -23,7 +23,7 @@
     "@iconify-json/carbon": "^1.2.5",
     "@iconify-json/simple-icons": "^1.2.21",
     "@react-three/drei": "^9.121.3",
-    "@react-three/fiber": "^8.17.12",
+    "@react-three/fiber": "^8.17.14",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@types/three": "^0.168.0",
