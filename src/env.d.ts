@@ -1,6 +1,6 @@
 /// <reference path="../.astro/types.d.ts" />
 interface ImportMetaEnv {
-  readonly GITHUB_PAT: string;
+  readonly PAT: string;
 }
 
 interface ImportMeta {

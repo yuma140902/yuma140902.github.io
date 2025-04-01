@@ -6,10 +6,10 @@ export type Repo = {
   description: string | null;
 };
 
-if (!import.meta.env.GITHUB_PAT) {
-  throw new Error('GITHUB_PAT is not set');
+if (!import.meta.env.PAT) {
+  throw new Error('PAT is not set');
 }
-const octokit = new Octokit({ auth: import.meta.env.GITHUB_PAT });
+const octokit = new Octokit({ auth: import.meta.env.PAT });
 
 async function getRecentRepos(
   username: string,
