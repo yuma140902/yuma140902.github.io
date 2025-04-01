@@ -2,9 +2,10 @@
   "type": "module",
   "scripts": {
     "front": "pnpm -C front",
+    "polyhedron": "pnpm -C polyhedron",
     "env:dev": "dotenv -e .env.dev -e .env",
     "env:prd": "dotenv -e .env.prd -e .env",
-    "build:noenv": "pnpm front build",
+    "build:noenv": "pnpm front build && pnpm polyhedron build",
     "lint:noenv": "biome check . && pnpm front lint",
     "fix:noenv": "biome check . --write",
     "test:noenv": "vitest run",
