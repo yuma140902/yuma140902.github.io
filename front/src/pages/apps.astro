@@ -2,6 +2,7 @@
 import App from '../components/features/App.astro';
 import { main_apps } from '../data/apps';
 import MdLayout from '../layouts/MdLayout.astro';
+import { MyComponent } from 'polyhedron';
 ---
 
 <MdLayout frontmatter={{
@@ -11,6 +12,7 @@ import MdLayout from '../layouts/MdLayout.astro';
   og_description: "公開しているウェブアプリの一覧",
   no_toc: true
 }}>
+  <MyComponent a={1} b={1}/>
   <p>公開しているウェブアプリの一覧です。</p>
   <div class="row">
     {main_apps.map(app => <App app={app} />)}
