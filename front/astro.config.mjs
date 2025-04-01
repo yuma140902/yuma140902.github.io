@@ -14,6 +14,7 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://yuma14.net',
+  outDir: '../dist',
   integrations: [icon(), sitemap(), react(), mdx()],
   redirects: {
     '/deploys/': '/monitor/',
