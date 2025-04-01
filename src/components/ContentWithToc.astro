@@ -16,11 +16,11 @@
 </div>
 
 <script>
-  import { init } from 'tocbot'
+  import tocbot from 'tocbot'
 
   let generated_ids = 0;
  
-  init({
+  tocbot.init({
     tocSelector: '.toc-body',
     contentSelector: '#content',
     activeLinkClass: 'toc-link-active',
@@ -36,7 +36,8 @@
         elm.id = id;
       }
       return o;
-    }
+    },
+    tocScrollingWrapper: null,
   })
 </script>
 
