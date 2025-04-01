@@ -1,4 +1,5 @@
 import * as child from 'node:child_process';
+
 export const gitBranch = child
   .execSync('git branch --show-current')
   .toString()
