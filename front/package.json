@@ -23,7 +23,7 @@
     "@iconify-json/simple-icons": "^1.2.30",
     "@react-three/drei": "^10.0.5",
     "@react-three/fiber": "^9.1.1",
-    "@types/react": "^19.0.12",
+    "@types/react": "^19.1.2",
     "@types/react-dom": "^19.0.4",
     "@types/three": "^0.175.0",
     "@uidotdev/usehooks": "^2.4.1",
