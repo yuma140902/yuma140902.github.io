@@ -5,6 +5,7 @@ import '@fontsource/ibm-plex-sans-jp/400.css';
 import '@fontsource/ibm-plex-sans-jp/700.css';
 import '@fontsource/ibm-plex-mono';
 import '@fontsource-variable/noto-sans-jp';
+import logo from '../images/logo-animation.gif?url';
 
 interface Props {
   title: string;
@@ -85,6 +86,9 @@ const navItems: NavItem[] = [
           <div class="item"><a href={item.url} class={item.active ? "active" : ""}>{item.text}</a></div>
         )}
       </div>
+      <div class="footer-logo">
+        <img src={logo} alt="" width="100px"/>
+      </div>
     </footer>
 	</body>
 </html>
@@ -161,6 +165,10 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.footer-logo {
+  padding-top: 100px;
 }
 </style>
 
