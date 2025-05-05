@@ -5,7 +5,6 @@ import '@fontsource/ibm-plex-sans-jp/400.css';
 import '@fontsource/ibm-plex-sans-jp/700.css';
 import '@fontsource/ibm-plex-mono';
 import '@fontsource-variable/noto-sans-jp';
-import logo from '../images/logo-animation.gif?url';
 
 interface Props {
   title: string;
@@ -13,6 +12,7 @@ interface Props {
   og_image?: string;
   og_title?: string;
   og_locale?: string;
+  crustacean_auto_play?: boolean;
 }
 
 const { title } = Astro.props;
@@ -20,6 +20,7 @@ const og_description = Astro.props.og_description;
 const og_image = Astro.props.og_image ?? '/ogp.png';
 const og_title = Astro.props.og_title ?? title;
 const og_locale = Astro.props.og_locale ?? 'ja_JP';
+const crustacean_auto_play = Astro.props.crustacean_auto_play;
 
 type NavItem = {
   url: string;
@@ -86,12 +87,28 @@ const navItems: NavItem[] = [
           <div class="item"><a href={item.url} class={item.active ? "active" : ""}>{item.text}</a></div>
         )}
       </div>
-      <div class="footer-logo">
-        <img src={logo} alt="" width="100px"/>
-      </div>
+      <div class="footer-padding"></div>
     </footer>
 	</body>
 </html>
+
+{
+  /* https://github.com/withastro/astro/issues/13550 */
+  /* 条件付きで script を読み込もうとしたとき、逆の条件で読み込まれる */
+  (crustacean_auto_play !== true) ? (
+  <script>
+    import {crustacean} from '../components/crustacean';
+    crustacean({
+      autoPlay: true,
+    });
+  </script>) :
+  (<script>
+    import {crustacean} from '../components/crustacean';
+    crustacean({
+      autoPlay: false,
+    });
+  </script>)
+}
 
 <style>
 main {
@@ -167,7 +184,7 @@ footer {
   bottom: 0;
 }
 
-.footer-logo {
+.footer-padding {
   padding-top: 100px;
 }
 </style>
