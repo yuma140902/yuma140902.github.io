@@ -4,13 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "files": ["dist"],
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/polyhedron.umd.js",
+  "module": "./dist/polyhedron.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    "types": "./index.d.ts",
-    "import": "./dist/index.js",
-    "require": "./dist/index.umd.cjs"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/polyhedron.es.js",
+      "require": "./dist/polyhedron.umd.cjs"
+    }
   },
   "scripts": {
     "dev": "vite",
@@ -26,6 +28,10 @@
     "vite-plugin-dts": "^4.5.3"
   },
   "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "peerDependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   }
