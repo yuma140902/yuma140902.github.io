@@ -103,4 +103,15 @@ export const deployments: DeploymentType[] = [
       'https://img.shields.io/github/deployments/yuma140902/typing/github-pages?logo=github&label=Deployment',
     repo: 'https://github.com/yuma140902/typing',
   },
+  {
+    url: '/Reverie/',
+    badge:
+      'https://img.shields.io/github/deployments/yuma140902/reverie/github-pages?logo=github&label=Deployment',
+    repo: 'https://github.com/yuma140902/Reverie',
+  },
+  {
+    url: 'https://typing-beta.execve.me/',
+    badge:
+      'https://img.shields.io/badge/Cloudflare-Pages-blue?logo=cloudflarepages',
+  },
 ];
