@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@react-three/drei": "^10.1.2",
-    "@react-three/fiber": "^9.1.2",
+    "@react-three/fiber": "^9.1.4",
     "jeasings": "^0.0.16",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
