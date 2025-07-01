@@ -21,7 +21,7 @@
     "@iconify-json/carbon": "^1.2.8",
     "@iconify-json/simple-icons": "^1.2.36",
     "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react-dom": "^19.1.6",
     "@uidotdev/usehooks": "^2.4.1",
     "astro": "^5.8.1",
     "astro-icon": "^1.1.5",
