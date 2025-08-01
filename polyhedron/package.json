@@ -21,7 +21,7 @@
     "prepare": "pnpm run build"
   },
   "devDependencies": {
-    "@types/react": "^19.1.6",
+    "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.5",
     "@types/three": "^0.176.0",
     "@vitejs/plugin-react": "^4.5.0",
@@ -33,12 +33,12 @@
     "@react-three/drei": "^10.1.2",
     "@react-three/fiber": "^9.1.2",
     "jeasings": "^0.0.16",
-    "react": "^19.1.0",
+    "react": "^19.1.1",
     "react-dom": "^19.1.0",
     "three": "^0.177.0"
   },
   "peerDependencies": {
-    "react": "^19.1.0",
+    "react": "^19.1.1",
     "react-dom": "^19.1.0"
   }
 }
