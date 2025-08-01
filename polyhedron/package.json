@@ -30,7 +30,7 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "@react-three/drei": "^10.1.2",
+    "@react-three/drei": "^10.6.1",
     "@react-three/fiber": "^9.1.2",
     "jeasings": "^0.0.16",
     "react": "^19.1.0",
