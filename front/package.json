@@ -23,7 +23,7 @@
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@uidotdev/usehooks": "^2.4.1",
-    "astro": "^5.8.1",
+    "astro": "^5.12.8",
     "astro-icon": "^1.1.5",
     "chota": "^0.9.2",
     "katex": "^0.16.22",
