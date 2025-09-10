@@ -26,7 +26,7 @@
     "@types/three": "^0.176.0",
     "@vitejs/plugin-react": "^4.5.0",
     "typescript": "~5.8.3",
-    "vite": "^6.3.5",
+    "vite": "^6.3.6",
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
