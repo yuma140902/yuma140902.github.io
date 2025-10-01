@@ -21,7 +21,7 @@
     "prepare": "pnpm run build"
   },
   "devDependencies": {
-    "@types/react": "^19.1.13",
+    "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@types/three": "^0.180.0",
     "@vitejs/plugin-react": "^5.0.3",
