@@ -33,8 +33,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       '@fontsource-variable/noto-sans-jp':
-        specifier: ^5.2.8
-        version: 5.2.8
+        specifier: ^5.2.9
+        version: 5.2.9
       '@fontsource/ibm-plex-mono':
         specifier: ^5.2.7
         version: 5.2.7
@@ -858,8 +858,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@fontsource-variable/noto-sans-jp@5.2.8:
-    resolution: {integrity: sha512-oGjExI1HZqwXlGU9Xf8EacsF5F4H7Lq9ZKGgoem3dvA+Jt3dloHHHVzPGSxRzbkmu0bZEJRDGyadgW7Rkaremg==}
+  /@fontsource-variable/noto-sans-jp@5.2.9:
+    resolution: {integrity: sha512-osPL5f7dvGDjuMuFwDTGPLG37030D8X5zk+3BWea6txAVDFeE/ZIrKW0DY0uSDfRn9+NiKbiFn/2QvZveKXTog==}
     dev: false
 
   /@fontsource/ibm-plex-mono@5.2.7:
