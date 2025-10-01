@@ -25,7 +25,7 @@ importers:
         version: 0.9.4(typescript@5.9.2)
       '@astrojs/mdx':
         specifier: ^4.3.6
-        version: 4.3.6(astro@5.13.10)
+        version: 4.3.6(astro@5.14.1)
       '@astrojs/react':
         specifier: ^4.3.1
         version: 4.3.1(@types/react-dom@19.1.9)(@types/react@19.1.13)(react-dom@19.1.1)(react@19.1.1)
@@ -57,8 +57,8 @@ importers:
         specifier: ^2.4.1
         version: 2.4.1(react-dom@19.1.1)(react@19.1.1)
       astro:
-        specifier: ^5.13.10
-        version: 5.13.10(typescript@5.9.2)
+        specifier: ^5.14.1
+        version: 5.14.1(typescript@5.9.2)
       astro-icon:
         specifier: ^1.1.5
         version: 1.1.5
@@ -251,7 +251,7 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@4.3.6(astro@5.13.10):
+  /@astrojs/mdx@4.3.6(astro@5.14.1):
     resolution: {integrity: sha512-jH04tYgaqLfq3To42+z1oEcXrXUzo3BxZ4fTkb+7BEmOJkQ9/c3iIixFEC+x0GgE8lJb4SuEDGldpAv7+1yY8A==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
     peerDependencies:
@@ -260,7 +260,7 @@ packages:
       '@astrojs/markdown-remark': 6.3.7
       '@mdx-js/mdx': 3.1.1
       acorn: 8.15.0
-      astro: 5.13.10(typescript@5.9.2)
+      astro: 5.14.1(typescript@5.9.2)
       es-module-lexer: 1.7.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -1959,7 +1959,7 @@ packages:
   /@types/fontkit@2.0.8:
     resolution: {integrity: sha512-wN+8bYxIpJf+5oZdrdtaX04qUuWHcKxcDEgRS9Qm9ZClSHjzEn13SxUC+5eRM+4yXIeTYk8mTzLAWGF64847ew==}
     dependencies:
-      '@types/node': 24.5.2
+      '@types/node': 24.6.1
     dev: false
 
   /@types/hast@3.0.4:
@@ -1999,6 +1999,12 @@ packages:
     resolution: {integrity: sha512-FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==}
     dependencies:
       undici-types: 7.12.0
+    dev: false
+
+  /@types/node@24.6.1:
+    resolution: {integrity: sha512-ljvjjs3DNXummeIaooB4cLBKg2U6SPI6Hjra/9rRIy7CpM0HpLtG9HptkMKAb4HYWy5S7HUvJEuWgr/y0U8SHw==}
+    dependencies:
+      undici-types: 7.13.0
     dev: false
 
   /@types/offscreencanvas@2019.7.3:
@@ -2074,7 +2080,7 @@ packages:
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
     requiresBuild: true
     dependencies:
-      '@types/node': 24.5.2
+      '@types/node': 24.6.1
     dev: false
     optional: true
 
@@ -2464,8 +2470,8 @@ packages:
       - supports-color
     dev: false
 
-  /astro@5.13.10(typescript@5.9.2):
-    resolution: {integrity: sha512-PgIrIYvrR7fCoSPPt1sGlpoYK/FNil1BwKazND1DyaZC7SbWLi9hdIHM3ApdrL2SWK7oiADRPw7cTn80UyDWqA==}
+  /astro@5.14.1(typescript@5.9.2):
+    resolution: {integrity: sha512-gPa8NY7/lP8j8g81iy8UwANF3+aukKRWS68IlthZQNgykpg80ne6lbHOp6FErYycxQ1TUhgEfkXVDQZAoJx8Bg==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
     dependencies:
@@ -5862,6 +5868,10 @@ packages:
 
   /undici-types@7.12.0:
     resolution: {integrity: sha512-goOacqME2GYyOZZfb5Lgtu+1IDmAlAEu5xnD3+xTzS10hT0vzpf0SPjkXwAw9Jm+4n/mQGDP3LO8CPbYROeBfQ==}
+    dev: false
+
+  /undici-types@7.13.0:
+    resolution: {integrity: sha512-Ov2Rr9Sx+fRgagJ5AX0qvItZG/JKKoBRAVITs1zk7IqZGTJUwgUr7qoYBpWwakpWilTZFM98rG/AFRocu10iIQ==}
     dev: false
 
   /undici@6.21.3:
