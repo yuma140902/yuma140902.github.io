@@ -46,3 +46,36 @@ layout: ../layouts/MainLayout.astro
 	- Rust 製のパイプラインベースの静的サイトジェネレータ
 - UpToDateMod
 	- Minecraft の MOD
+- Web Image Editor
+	- ブラウザ上で動作する画像エディタ
+- LMML Music Macro Language
+	- MML (Music Macro Language) の方言である独自言語 LMML の仕様と、パーサーやプレイヤーなどの実装
+- rehype-text-autospace
+	- 日本語と英語の間に間隔を開ける rehype プラグイン
+- LibJsonModel
+	- Minecraft の MOD 開発のためのライブラリ
+- LaTeX のテンプレート集
+	- 9 種類のテンプレート
+- auto-split-direction.nvim
+	- ウィンドウの分割方向を自動的に決定する Neovim プラグイン。 ウィンドウが縦長なら水平に、横長なら垂直に分割する。 
+- random-output
+	- 標準出力・標準エラー出力にランダムな文字列を出力する CLI ツール。タイムスタンプをつけたり色をつけたりもできる。シェルスクリプトの動作確認に便利。
+- dotfiles
+	- Neovim 等の設定ファイルとそのインストーラー 
+- regend
+	- 正規表現を ε-NFA および DFA に変換する 
+- Regend WebUI
+	- regend のフロントエンド。 DFA をマウスで掴んでグリグリ動かして遊べる。 
+- [その他](/todo/)
+
+## ウェブアプリ
+
+このサイトでホストしているウェブアプリの一覧です。
+
+TODO
+
+## 定点観測
+
+いろいろなものの状態を1ヶ所からまとめて確認するためのページです。
+
+TODO
