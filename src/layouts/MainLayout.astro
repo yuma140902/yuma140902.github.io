@@ -1,5 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import "astro-breadcrumbs/breadcrumbs.css";
 ---
 
 <html lang="ja">
@@ -9,13 +12,11 @@ import { ClientRouter } from "astro:transitions";
   <meta name="generator" content={Astro.generator} />
   <ClientRouter />
   <body>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-      </ul>
-    </nav>
     <main>
       <slot />
     </main>
+    <Breadcrumbs linkTextFormat='sentence'>
+      <div slot='separator'>»</div>
+    </Breadcrumbs>
   </body>
 </html>
