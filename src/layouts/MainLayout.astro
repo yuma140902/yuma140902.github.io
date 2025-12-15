@@ -3,6 +3,8 @@ import { ClientRouter } from "astro:transitions";
 
 import { Breadcrumbs } from "astro-breadcrumbs";
 import "astro-breadcrumbs/breadcrumbs.css";
+
+const props = Astro.props;
 ---
 
 <html lang="ja">
@@ -10,13 +12,34 @@ import "astro-breadcrumbs/breadcrumbs.css";
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width" />
   <meta name="generator" content={Astro.generator} />
+  <title>{props.frontmatter.title ?? "yuma14.net"}</title>
   <ClientRouter />
   <body>
-    <main>
-      <slot />
-    </main>
+    <h1>{props.frontmatter.title ?? "yuma14.net"}</h1>
+    <div class="breadcrumbs-wrapper">
     <Breadcrumbs linkTextFormat='sentence'>
       <div slot='separator'>»</div>
     </Breadcrumbs>
+    </div>
+    <main>
+      <slot />
+    </main>
   </body>
 </html>
+
+<style is:global>
+  .toc {
+    border: 1px solid #111;
+    margin-top: 8px;
+    ol {
+        list-style:none;
+    }
+  }
+  .breadcrumbs-wrapper {
+    background-color: #ccc;
+    padding-bottom: 8px;
+  }
+  .autolink-headings {
+    font-size: 0.8rem;
+  }
+</style>

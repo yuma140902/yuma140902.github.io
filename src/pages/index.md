@@ -1,9 +1,7 @@
 ---
 layout: ../layouts/MainLayout.astro
 ---
-# yuma14.net
-
-このサイトは CSS が当たっていないように見えますが、意図通りです。シンプルが一番です。
+yuma14 の個人サイトです。
 
 ## Profile
 
