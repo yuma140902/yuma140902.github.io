@@ -1,5 +1,6 @@
 ---
 layout: ../layouts/MainLayout.astro
+disable_breadcrumbs: true
 ---
 yuma14 の個人サイトです。
 

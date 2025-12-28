@@ -16,11 +16,13 @@ const props = Astro.props;
   <ClientRouter />
   <body>
     <h1>{props.frontmatter.title ?? "yuma14.net"}</h1>
-    <div class="breadcrumbs-wrapper">
-    <Breadcrumbs linkTextFormat='sentence'>
-      <div slot='separator'>»</div>
-    </Breadcrumbs>
-    </div>
+    {props.frontmatter.disable_breadcrumbs ? null : 
+      <div class="breadcrumbs-wrapper">
+      <Breadcrumbs linkTextFormat='sentence'>
+        <div slot='separator'>»</div>
+      </Breadcrumbs>
+      </div>
+    }
     <main>
       <slot />
     </main>
