@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import mdx from '@astrojs/mdx';
+import rehypeSlug from 'rehype-slug';
 
 import sitemap from '@astrojs/sitemap';
 
@@ -10,7 +11,7 @@ export default defineConfig({
   site: 'https://yuma14.net',
   markdown: {
     rehypePlugins: [
-      'rehype-slug',
+      rehypeSlug,
     ],
   },
 
