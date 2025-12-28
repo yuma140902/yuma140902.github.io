@@ -4,7 +4,14 @@ import { ClientRouter } from "astro:transitions";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import "astro-breadcrumbs/breadcrumbs.css";
 
-const props = Astro.props;
+const { frontmatter: { 
+  title, 
+  disable_breadcrumbs,
+  description,
+  image,
+  date_created,
+  date_modified,
+} } = Astro.props;
 ---
 
 <html lang="ja">
@@ -18,14 +25,24 @@ const props = Astro.props;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    {description ? <meta name="description" content={description} /> : null}
+    {description ? <meta property="og:description" content={description} /> : null}
+    <meta property="og:image" content={image ?? "https://yuma14.net/ogp.png"} />
+    <meta property="og:title" content={title ?? "yuma14.net"} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="yuma14.net" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="creation date" content={date_created ?? ""} />
+    <meta name="date" content={date_modified ?? ""} />
+
     <meta name="generator" content={Astro.generator} />
 
-    <title>{props.frontmatter.title ?? "yuma14.net"}</title>
+    <title>{title ?? "yuma14.net"}</title>
   </head>
   <ClientRouter />
   <body>
-    <h1>{props.frontmatter.title ?? "yuma14.net"}</h1>
-    {props.frontmatter.disable_breadcrumbs ? null : 
+    <h1>{title ?? "yuma14.net"}</h1>
+    {disable_breadcrumbs ? null : 
       <div class="breadcrumbs-wrapper">
       <Breadcrumbs linkTextFormat='sentence'>
         <div slot='separator'>»</div>
