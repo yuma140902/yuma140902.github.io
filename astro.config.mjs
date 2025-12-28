@@ -8,7 +8,6 @@ export default defineConfig({
   markdown: {
     rehypePlugins: [
       'rehype-slug',
-      ['rehype-toc', { headings: ['h2', 'h3'] }],
     ],
   },
 
