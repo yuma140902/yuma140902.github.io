@@ -19,7 +19,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "dotenv-cli": "^11.0.0",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.0"
   },
   "packageManager": "pnpm@10.27.0+sha1.7220f3ec270b9e3b3b56cd149ad8d88bdf1b8823"
 }
