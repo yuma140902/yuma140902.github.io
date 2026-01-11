@@ -43,7 +43,7 @@ importers:
         version: 5.2.8
       '@iconify-json/carbon':
         specifier: ^1.2.15
-        version: 1.2.15
+        version: 1.2.16
       '@iconify-json/simple-icons':
         specifier: ^1.2.63
         version: 1.2.64
@@ -708,8 +708,8 @@ packages:
   '@fontsource/ibm-plex-sans-jp@5.2.8':
     resolution: {integrity: sha512-ULgJLBVJEBIKBddVFla4PiOCHM4a7wjThS9FtMbmc9YehcYmnuMtF8/mi9ItZobHpQGwChzF/7ujoUTs+cYbZw==}
 
-  '@iconify-json/carbon@1.2.15':
-    resolution: {integrity: sha512-9tW0nZY5QtKkMhuYzW09BM1345SyXNuA+gx2ub0j/fnfHOD5XVimMJ/D76H3tTez25NJbPYCLIQoFhvJc1HVBQ==}
+  '@iconify-json/carbon@1.2.16':
+    resolution: {integrity: sha512-R50UiC4NgPdnoSI3OzaZ/PzKYFVHAsAi3tENWgxvTxjYND3WHiUiG0qfJ0dPuaxwIW/l/2TnZwMPbbedd/+qIQ==}
 
   '@iconify-json/simple-icons@1.2.64':
     resolution: {integrity: sha512-SMmm//tjZBvHnT0EAzZLnBTL6bukSkncM0pwkOXjr0FsAeCqjQtqoxBR0Mp+PazIJjXJKHm1Ju0YgnCIPOodJg==}
@@ -4138,7 +4138,7 @@ snapshots:
 
   '@fontsource/ibm-plex-sans-jp@5.2.8': {}
 
-  '@iconify-json/carbon@1.2.15':
+  '@iconify-json/carbon@1.2.16':
     dependencies:
       '@iconify/types': 2.0.0
 
