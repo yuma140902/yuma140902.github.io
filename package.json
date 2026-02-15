@@ -17,7 +17,7 @@
     "front-dev": "pnpm run env:dev -- pnpm front dev"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.4.0",
     "dotenv-cli": "^11.0.0",
     "vitest": "^4.0.16"
   },
