@@ -20,6 +20,9 @@ export default defineConfig({
         },
       ],
     ],
+    shikiConfig: {
+      theme: 'one-light'
+    }
   },
 
   integrations: [mdx(), sitemap({

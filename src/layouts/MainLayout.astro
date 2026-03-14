@@ -39,11 +39,10 @@ const { frontmatter: {
 
     <meta name="generator" content={Astro.generator} />
 
-    <title>{title ?? "yuma14.net"}</title>
+    <title>{(title || title != "yuma14.net") ? title + " - yuma14.net" : "yuma14.net"}</title>
   </head>
   <ClientRouter />
   <body>
-    <h1>{title ?? "yuma14.net"}</h1>
     {disable_breadcrumbs ? null : 
       <div class="breadcrumbs-wrapper">
         <Breadcrumbs linkTextFormat='sentence'>
@@ -52,6 +51,7 @@ const { frontmatter: {
       </div>
     }
     <main>
+      <h1>{title ?? "yuma14.net"}</h1>
       <slot />
     </main>
   </body>
@@ -84,8 +84,28 @@ const { frontmatter: {
       content: " #";
     }
   }
+  main img {
+    height: auto;
+    display: inline;
+  }
+  main {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  body {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+  }
+  code {
+    font-family: monospace;
+  }
+  pre {
+    padding: 9px;
+  }
   h1 {
-    border-bottom: 2px solid var(--color-primary);
+    /* border-bottom: 2px solid var(--color-primary); */
   }
   h2 {
     /*border-bottom: 1px solid var(--color-primary);*/
