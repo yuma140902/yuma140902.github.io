@@ -1,12 +1,16 @@
 ---
 import 'chota';
 import 'katex/dist/katex.min.css';
+import { Breadcrumbs } from "astro-breadcrumbs";
+import "astro-breadcrumbs/breadcrumbs.css";
+
 interface Props {
   title: string;
   og_description?: string;
   og_image?: string;
   og_title?: string;
   og_locale?: string;
+  disable_breadcrumbs?: boolean;
 }
 
 const { title } = Astro.props;
@@ -14,6 +18,7 @@ const og_description = Astro.props.og_description;
 const og_image = Astro.props.og_image ?? '/ogp.png';
 const og_title = Astro.props.og_title ?? title;
 const og_locale = Astro.props.og_locale ?? 'ja_JP';
+const disable_breadcrumbs = Astro.props.disable_breadcrumbs ?? false;
 ---
 
 <!doctype html>
@@ -37,6 +42,15 @@ const og_locale = Astro.props.og_locale ?? 'ja_JP';
 		<title>{title} - yuma14.net</title>
 	</head>
 	<body>
+    <header>
+      {disable_breadcrumbs ? null : 
+        <div class="breadcrumbs-wrapper">
+          <Breadcrumbs linkTextFormat='sentence'>
+            <div slot='separator'>»</div>
+          </Breadcrumbs>
+        </div>
+      }
+    </header>
     <main>
       <slot />
     </main>
@@ -115,5 +129,12 @@ main a:not(main h2 a) {
 }
 q {
   quotes: "“" "”" "‘" "’";
+}
+.breadcrumbs-wrapper {
+  background-color: #ccc;
+  padding: 3px;
+  a {
+    text-decoration: underline;
+  }
 }
 </style>
