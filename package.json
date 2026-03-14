@@ -5,11 +5,10 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && tsc && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "biome check . && astro check",
-    "fix": "biome check . --write",
+    "lint": "astro check && tsc",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -39,7 +38,6 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
     "@types/hast": "^3.0.4",
     "vitest": "^4.1.0"
   },
