@@ -6,7 +6,6 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
-import rehypeTextAutospace from 'rehype-text-autospace';
 import remarkMath from 'remark-math';
 
 import mdx from '@astrojs/mdx';
@@ -34,6 +33,6 @@ export default defineConfig({
     },
     syntaxHighlight: 'shiki',
     remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeTextAutospace, rehypeKatex, rehypeSlug],
+    rehypePlugins: [rehypeKatex, rehypeSlug],
   },
 });

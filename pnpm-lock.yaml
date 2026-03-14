@@ -59,9 +59,6 @@ importers:
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
-      rehype-text-autospace:
-        specifier: ^1.0.2
-        version: 1.0.2
       remark-math:
         specifier: ^6.0.0
         version: 6.0.0
@@ -2118,9 +2115,6 @@ packages:
 
   rehype-stringify@10.0.1:
     resolution: {integrity: sha512-k9ecfXHmIPuFVI61B9DeLPN0qFHfawM6RsuX48hoqlaKSF61RskNjSm1lI8PhBEM0MRdLxVVm4WmTqJQccH9mA==}
-
-  rehype-text-autospace@1.0.2:
-    resolution: {integrity: sha512-iI/tyLEFO1JjAOJNd/nUvB5MJ52Or8bSiiAjq7Ebu7Mex41BSYGLYnUZIE/1vgygGWfN5qmBd2Sd4rFcWAG0+g==}
 
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
@@ -5240,10 +5234,6 @@ snapshots:
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.5
       unified: 11.0.5
-
-  rehype-text-autospace@1.0.2:
-    dependencies:
-      unist-util-visit: 5.1.0
 
   rehype@13.0.2:
     dependencies:
