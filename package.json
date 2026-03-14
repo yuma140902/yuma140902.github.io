@@ -13,6 +13,7 @@
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.5",
     "astro-breadcrumbs": "^3.3.3",
+    "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "uaplus": "^0.3.1"
   },
