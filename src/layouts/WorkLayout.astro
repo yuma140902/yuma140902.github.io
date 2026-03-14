@@ -38,27 +38,20 @@ const pj = findProject(frontmatter.name);
 ---
 
 <Layout title={frontmatter.name}>
-  <div>
-    <h1>{frontmatter.name}</h1>
-    <span>
-      {pj?.technologies?.map(t => 
-        <Badge t={t} />
-      )}
-    </span>
-  </div>
-  <div>
-  {pj?.repo && <Link url={pj.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</Link>}
-    {(pj?.since || pj?.until) && <><Icon name="carbon:calendar" />{getSinceUntilText(pj?.since, pj?.until)}</>}
-  </div>
-  {pj?.releases && <details>
-    <summary>更新履歴</summary>
-    <ul>
-      {pj.releases.map(r =>
-      <li>{r.date} - {r.version}</li>
-      )}
-    </ul>
-  </details>}
-  <hr/>
+  <hgroup slot="title">
+    <div>
+      <h1>{frontmatter.name}</h1>
+      <span>
+        {pj?.technologies?.map(t => 
+          <Badge t={t} />
+        )}
+      </span>
+    </div>
+    <div>
+    {pj?.repo && <Link url={pj.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</Link>}
+      {(pj?.since || pj?.until) && <><Icon name="carbon:calendar" />{getSinceUntilText(pj?.since, pj?.until)}</>}
+    </div>
+  </hgroup>
   {
   frontmatter.no_toc ? 
   <slot /> :

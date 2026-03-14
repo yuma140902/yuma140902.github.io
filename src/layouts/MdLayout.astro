@@ -23,16 +23,17 @@ function formatDate(date: string) {
 
 <Layout title={frontmatter.title}
   og_description={frontmatter.og_description} og_image={frontmatter.og_image}>
-  <h1>{frontmatter.title}</h1>
-  <p>
-    {frontmatter.create_date && 
-    <>追加日時: 
-      <time datetime={frontmatter.create_date}>{formatDate(frontmatter.create_date)}</time>&nbsp;&nbsp;</> }
-    {frontmatter.update_date && 
-    <>更新日時: 
-      <time datetime={frontmatter.update_date}>{formatDate(frontmatter.update_date)}</time>&nbsp;&nbsp;</> }
-  </p>
-  <hr />
+  <hgroup slot="title">
+    <h1>{frontmatter.title}</h1>
+    <p>
+      {frontmatter.create_date && 
+      <>追加日時: 
+        <time datetime={frontmatter.create_date}>{formatDate(frontmatter.create_date)}</time>&nbsp;&nbsp;</> }
+      {frontmatter.update_date && 
+      <>更新日時: 
+        <time datetime={frontmatter.update_date}>{formatDate(frontmatter.update_date)}</time>&nbsp;&nbsp;</> }
+    </p>
+  </hgroup>
   {
   frontmatter.no_toc ? 
   <slot /> :

@@ -39,7 +39,7 @@ const disable_breadcrumbs = Astro.props.disable_breadcrumbs ?? false;
     <meta property="og:title" content={og_title}>
     <meta property="og:locale" content={og_locale}>
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} - yuma14.net</title>
+    <title>{title === "yuma14.net"  ? "yuma14.net" : `${title} - yuma14.net`}</title>
 	</head>
 	<body>
     <header>
@@ -52,6 +52,14 @@ const disable_breadcrumbs = Astro.props.disable_breadcrumbs ?? false;
       }
     </header>
     <main>
+      {
+        Astro.slots.has('title') ? (
+          <slot name="title" />
+        ) : (
+          <h1>{title}</h1>
+        )
+      }
+      <hr/>
       <slot />
     </main>
     <footer>

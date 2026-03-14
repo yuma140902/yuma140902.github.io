@@ -21,10 +21,6 @@ export type Project = {
   until?: string;
   url?: string;
   technologies?: Technology[];
-  releases?: {
-    date: string;
-    version: string;
-  }[];
 };
 
 export const projects: Project[] = [
@@ -35,48 +31,6 @@ export const projects: Project[] = [
     since: '2021年8月',
     url: '/works/reverie/',
     technologies: ['rust', 'opengl'],
-    releases: [
-      {
-        date: '2024/09/19',
-        version: 'v0.1.0',
-      },
-      {
-        date: '2024/09/17',
-        version: 'v0.0.8',
-      },
-      {
-        date: '2024/06/04',
-        version: 'v0.0.7',
-      },
-      {
-        date: '2022/10/01',
-        version: 'v0.0.6',
-      },
-      {
-        date: '2022/08/26',
-        version: 'v0.0.5',
-      },
-      {
-        date: '2021/11/07',
-        version: 'v0.0.4',
-      },
-      {
-        date: '2021/10/12',
-        version: 'v0.0.3',
-      },
-      {
-        date: '2021/10/09',
-        version: 'v0.0.2',
-      },
-      {
-        date: '2021/10/04',
-        version: 'v0.0.1',
-      },
-      {
-        date: '2021/10/04',
-        version: 'v0.0.0',
-      },
-    ],
   },
   {
     name: 'xanadu',
@@ -85,32 +39,6 @@ export const projects: Project[] = [
     repo: 'https://github.com/yuma140902/Xanadu',
     url: '/works/xanadu/',
     technologies: ['rust'],
-    releases: [
-      {
-        date: '2021/10/09',
-        version: 'v0.0.0',
-      },
-      {
-        date: '2024/04/22',
-        version: 'v0.0.1',
-      },
-      {
-        date: '2024/04/23',
-        version: 'v0.0.2',
-      },
-      {
-        date: '2024/04/24',
-        version: 'v0.0.3',
-      },
-      {
-        date: '2024/05/09',
-        version: 'v0.0.4',
-      },
-      {
-        date: '2024/05/11',
-        version: 'v0.0.5',
-      },
-    ],
   },
   {
     name: 'Tempura SSG',
@@ -119,72 +47,6 @@ export const projects: Project[] = [
     url: '/works/tempura/',
     since: '2022年8月',
     technologies: ['rust'],
-    releases: [
-      {
-        date: '2024/09/04',
-        version: 'v0.5.2',
-      },
-      {
-        date: '2024/09/04',
-        version: 'v0.5.1',
-      },
-      {
-        date: '2023/12/18',
-        version: 'v0.5.0',
-      },
-      {
-        date: '2023/11/10',
-        version: 'v0.4.3',
-      },
-      {
-        date: '2023/11/10',
-        version: 'v0.4.2',
-      },
-      {
-        date: '2023/11/10',
-        version: 'v0.4.1',
-      },
-      {
-        date: '2023/11/10',
-        version: 'v0.4.0',
-      },
-      {
-        date: '2023/10/15',
-        version: 'v0.3.3',
-      },
-      {
-        date: '2023/10/15',
-        version: 'v0.3.2',
-      },
-      {
-        date: '2023/10/15',
-        version: 'v0.3.1',
-      },
-      {
-        date: '2023/10/15',
-        version: 'v0.3.0',
-      },
-      {
-        date: '2023/10/14',
-        version: 'v0.2.3',
-      },
-      {
-        date: '2023/07/12',
-        version: 'v0.2.2',
-      },
-      {
-        date: '2023/02/14',
-        version: 'v0.2.1',
-      },
-      {
-        date: '2022/11/01',
-        version: 'v0.2.0',
-      },
-      {
-        date: '2022/10/31',
-        version: 'v0.1.0',
-      },
-    ],
   },
   {
     name: 'UpToDateMod',
@@ -193,196 +55,6 @@ export const projects: Project[] = [
     url: '/works/uptodatemod/',
     since: '2018年8月',
     technologies: ['java', 'scala', 'minecraft'],
-    releases: [
-      {
-        date: '2023/02/22',
-        version: 'v2.4.1',
-      },
-      {
-        date: '2023/02/19',
-        version: 'v2.4.0',
-      },
-      {
-        date: '2023/01/20',
-        version: 'v2.3.12',
-      },
-      {
-        date: '2021/07/04',
-        version: 'v2.3.11',
-      },
-      {
-        date: '2021/12/19',
-        version: 'v2.3.10',
-      },
-      {
-        date: '2020/12/19',
-        version: 'v2.3.9',
-      },
-      {
-        date: '2020/11/06',
-        version: 'v2.3.8',
-      },
-      {
-        date: '2020/11/02',
-        version: 'v2.3.7',
-      },
-      {
-        date: '2020/11/01',
-        version: 'v2.3.6',
-      },
-      {
-        date: '2020/09/13',
-        version: 'v2.3.5',
-      },
-      {
-        date: '2020/08/19',
-        version: 'v2.3.4',
-      },
-      {
-        date: '2020/07/11',
-        version: 'v2.3.3',
-      },
-      {
-        date: '2020/06/27',
-        version: 'v2.3.2',
-      },
-      {
-        date: '2020/05/16',
-        version: 'v2.3.1',
-      },
-      {
-        date: '2020/05/13',
-        version: 'v2.3.0',
-      },
-      {
-        date: '2020/04/19',
-        version: 'v2.2.2',
-      },
-      {
-        date: '2020/04/15',
-        version: 'v2.2.1',
-      },
-      {
-        date: '2020/04/15',
-        version: 'v2.2.0',
-      },
-      {
-        date: '2020/03/21',
-        version: 'v2.1.1',
-      },
-      {
-        date: '2020/03/21',
-        version: 'v2.1.0',
-      },
-      {
-        date: '2020/03/06',
-        version: 'v2.0.1',
-      },
-      {
-        date: '2020/03/01',
-        version: 'v2.0.0',
-      },
-      {
-        date: '2019/07/09',
-        version: 'v1.6.1',
-      },
-      {
-        date: '2019/07/05',
-        version: 'v1.6.0',
-      },
-      {
-        date: '2019/05/14',
-        version: 'v1.5.0',
-      },
-      {
-        date: '2019/04/01',
-        version: 'v1.4.2',
-      },
-      {
-        date: '2019/02/22',
-        version: 'v1.4.1',
-      },
-      {
-        date: '2019/02/22',
-        version: 'v1.4.0',
-      },
-      {
-        date: '2019/02/09',
-        version: 'v1.3.0',
-      },
-      {
-        date: '2019/01/14',
-        version: 'v1.2.1',
-      },
-      {
-        date: '2019/01/09',
-        version: 'v1.2.0',
-      },
-      {
-        date: '2018/12/27',
-        version: 'v1.1.0',
-      },
-      {
-        date: '2018/12/16',
-        version: 'v1.0.2',
-      },
-      {
-        date: '2018/12/16',
-        version: 'v1.0.1',
-      },
-      {
-        date: '2018/12/09',
-        version: 'v1.0.0',
-      },
-      {
-        date: '2018/11/24',
-        version: 'v0.5.1',
-      },
-      {
-        date: '2018/11/20',
-        version: 'v0.5.0',
-      },
-      {
-        date: '2018/11/14',
-        version: 'v0.4.0',
-      },
-      {
-        date: '2018/11/11',
-        version: 'v0.3.1',
-      },
-      {
-        date: '2018/11/11',
-        version: 'v0.3.0',
-      },
-      {
-        date: '2018/11/06',
-        version: 'v0.2.1',
-      },
-      {
-        date: '2018/11/03',
-        version: 'v0.2.0',
-      },
-      {
-        date: '2018/09/08',
-        version: 'v0.1.1',
-      },
-      {
-        date: '2018/09/08',
-        version: 'v0.1.0',
-      },
-      {
-        date: '2018/09/08',
-        version: 'v0.0.2',
-      },
-      {
-        date: '2018/08/27',
-        version: 'v0.0.1',
-      },
-      {
-        date: '2018/08/26',
-        version: 'v0.0.0',
-      },
-    ],
   },
   {
     name: 'Web Image Editor',
@@ -400,40 +72,6 @@ export const projects: Project[] = [
     since: '2023年11月',
     url: '/works/lmml/',
     technologies: ['rust'],
-    releases: [
-      {
-        date: '2024/11/14',
-        version: 'v0.5.4',
-      },
-      {
-        date: '2024/09/04',
-        version: 'v0.5.2',
-      },
-      {
-        date: '2024/05/12',
-        version: 'v0.5.1',
-      },
-      {
-        date: '2023/11/17',
-        version: 'v0.5.0',
-      },
-      {
-        date: '2023/11/17',
-        version: 'v0.4.0',
-      },
-      {
-        date: '2023/11/17',
-        version: 'v0.3.0',
-      },
-      {
-        date: '2023/11/16',
-        version: 'v0.2.0',
-      },
-      {
-        date: '2023/11/16',
-        version: 'v0.1.0',
-      },
-    ],
   },
   {
     name: 'rehype-text-autospace',
@@ -442,16 +80,6 @@ export const projects: Project[] = [
     since: '2024年9月',
     url: '/works/rehype-text-autospace/',
     technologies: ['ts'],
-    releases: [
-      {
-        date: '2024/11/14',
-        version: 'v1.0.1',
-      },
-      {
-        date: '2024/09/15',
-        version: 'v1.0.0',
-      },
-    ],
   },
   {
     name: 'LibJsonModel',
@@ -475,12 +103,6 @@ export const projects: Project[] = [
     repo: 'https://github.com/yuma140902/auto-split-direction.nvim',
     since: '2023年6月',
     technologies: ['lua'],
-    releases: [
-      {
-        date: '2023/07/22',
-        version: 'v0.1.0',
-      },
-    ],
   },
   {
     name: 'random-output',
@@ -489,20 +111,6 @@ export const projects: Project[] = [
     repo: 'https://github.com/yuma140902/random-output',
     since: '2022年7月',
     technologies: ['rust'],
-    releases: [
-      {
-        date: '2024/11/14',
-        version: 'v0.3.1',
-      },
-      {
-        date: '2023/02/14',
-        version: 'v0.3.0',
-      },
-      {
-        date: '2023/02/14',
-        version: 'v0.2.0',
-      },
-    ],
   },
   {
     name: 'dotfiles',
@@ -568,16 +176,6 @@ export const old_projects: Project[] = [
     repo: 'https://github.com/yuma140902/CompareCost',
     since: '2022年3月',
     technologies: ['kotlin', 'android'],
-    releases: [
-      {
-        date: '2022/03/30',
-        version: 'v2',
-      },
-      {
-        date: '2022/03/30',
-        version: 'v1',
-      },
-    ],
   },
   {
     name: 'AIC-Unity',
@@ -608,16 +206,6 @@ export const old_projects: Project[] = [
     since: '2021年10月',
     until: '2021年12月',
     technologies: ['rust', 'socketio'],
-    releases: [
-      {
-        date: '2021/11/18',
-        version: 'v0.2.0',
-      },
-      {
-        date: '2021/11/12',
-        version: 'v0.1.1',
-      },
-    ],
   },
   {
     name: 'RustyCraft',
@@ -627,20 +215,6 @@ export const old_projects: Project[] = [
     until: '2021年10月',
     url: '/works/rustycraft',
     technologies: ['rust', 'opengl', 'minecraft'],
-    releases: [
-      {
-        date: '2021/10/03',
-        version: 'ss2021-10-03',
-      },
-      {
-        date: '2021/09/24',
-        version: 'yagami-rc-1.1',
-      },
-      {
-        date: '2021/09/15',
-        version: 'yagami-rc-1',
-      },
-    ],
   },
   {
     name: 'line-echo',
@@ -648,20 +222,6 @@ export const old_projects: Project[] = [
     repo: 'https://github.com/yuma140902/line-echo',
     since: '2021年7月',
     technologies: ['line', 'ts', 'postgresql'],
-    releases: [
-      {
-        date: '2021/09/21',
-        version: 'yagami-rc2.1',
-      },
-      {
-        date: '2021/09/21',
-        version: 'yagami-rc2',
-      },
-      {
-        date: '2021/09/21',
-        version: 'yagami-rc1',
-      },
-    ],
   },
   {
     name: 'gomoku-elm',
@@ -678,16 +238,6 @@ export const old_projects: Project[] = [
     since: '2020年2月',
     until: '2022年12月',
     technologies: ['csharp', 'winforms'],
-    releases: [
-      {
-        date: '2022/12/10',
-        version: 'v1.1.0',
-      },
-      {
-        date: '2020/03/26',
-        version: 'v0.0.0-alpha1',
-      },
-    ],
   },
   {
     name: 'MCResourcePackUtil',
@@ -697,12 +247,6 @@ export const old_projects: Project[] = [
     since: '2020年9月',
     until: '2023年6月',
     technologies: ['csharp', 'winforms', 'opencv'],
-    releases: [
-      {
-        date: '2023/06/15',
-        version: 'v0.1.0',
-      },
-    ],
   },
   {
     name: 'ProconHelper',
@@ -712,20 +256,6 @@ export const old_projects: Project[] = [
     since: '2020年3月',
     until: '2021年4月',
     technologies: ['csharp', 'winforms'],
-    releases: [
-      {
-        date: '2020/06/01',
-        version: 'v1.5.1-alpha',
-      },
-      {
-        date: '2020/03/26',
-        version: 'v1.5.0-alpha',
-      },
-      {
-        date: '2020/03/25',
-        version: 'v1.4.0',
-      },
-    ],
   },
   {
     name: 'MuteClassi',
@@ -733,16 +263,6 @@ export const old_projects: Project[] = [
     since: '2020年3月',
     until: '2020年10月',
     technologies: ['fxaddon'],
-    releases: [
-      {
-        date: '2020/10/21',
-        version: 'Version 0.0.1',
-      },
-      {
-        date: '2020/03/07',
-        version: 'Version 0.0.0',
-      },
-    ],
   },
   {
     name: 'yuma140902.github.io',
@@ -772,20 +292,6 @@ export const old_projects: Project[] = [
     since: '2019年7月',
     until: '2019年11月',
     technologies: ['fxaddon'],
-    releases: [
-      {
-        date: '2019/11/16',
-        version: 'Version 2.1',
-      },
-      {
-        date: '2019/07/19',
-        version: 'Version 2.0',
-      },
-      {
-        date: '2019/07/09',
-        version: 'Version 1.0',
-      },
-    ],
   },
   {
     name: 'Japan Power Outage Viewer',
@@ -809,12 +315,6 @@ export const old_projects: Project[] = [
     repo: 'https://github.com/yuma140902/YumaLib',
     since: '2019年7月',
     technologies: ['java', 'minecraft'],
-    releases: [
-      {
-        date: '2019/07/28',
-        version: 'v0.0.1',
-      },
-    ],
   },
   {
     name: 'Polyhedron',
@@ -852,16 +352,6 @@ export const old_projects: Project[] = [
     description: 'Pixivのスタンプを非表示にするFirefox機能拡張',
     since: '2019年2月',
     technologies: ['fxaddon'],
-    releases: [
-      {
-        date: '2019/02/08',
-        version: 'Version 1.0',
-      },
-      {
-        date: '2019/02/08',
-        version: 'Version 0.1',
-      },
-    ],
   },
   {
     name: 'AAMakeHelper',
@@ -884,48 +374,6 @@ export const old_projects: Project[] = [
     until: '2018年10月',
     repo: 'https://github.com/yuma140902/MiningMod',
     technologies: ['java', 'minecraft'],
-    releases: [
-      {
-        date: '2018/10/07',
-        version: 'v1.1.4',
-      },
-      {
-        date: '2018/09/29',
-        version: 'v1.1.3',
-      },
-      {
-        date: '2018/09/16',
-        version: 'v1.1.2',
-      },
-      {
-        date: '2018/08/21',
-        version: 'v1.2.1',
-      },
-      {
-        date: '2018/08/20',
-        version: 'v1.2.0',
-      },
-      {
-        date: '2018/08/18',
-        version: 'v1.1.1',
-      },
-      {
-        date: '2018/08/18',
-        version: 'v1.1.0',
-      },
-      {
-        date: '2018/08/17',
-        version: 'v1.0.2',
-      },
-      {
-        date: '2018/08/17',
-        version: 'v1.0.1',
-      },
-      {
-        date: '2018/08/17',
-        version: 'v1.0.0',
-      },
-    ],
   },
   {
     name: 'CaeserCipher',
