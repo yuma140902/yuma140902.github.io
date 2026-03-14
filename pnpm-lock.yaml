@@ -23,6 +23,9 @@ importers:
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
+      uaplus:
+        specifier: ^0.3.1
+        version: 0.3.1
 
 packages:
 
@@ -1476,6 +1479,9 @@ packages:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  uaplus@0.3.1:
+    resolution: {integrity: sha512-XAr1lmDcN7MTnqMFE1cmyEIBRUT6fbU4WARwmSwUVIU4ekH4ZO/LtT+hbPufPU/WBndmRJwsAfGYC33YmmxZMw==}
 
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
@@ -3634,6 +3640,8 @@ snapshots:
   type-fest@4.41.0: {}
 
   typescript@5.9.3: {}
+
+  uaplus@0.3.1: {}
 
   ufo@1.6.1: {}
 

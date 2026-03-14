@@ -13,7 +13,8 @@
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.5",
     "astro-breadcrumbs": "^3.3.3",
-    "rehype-slug": "^6.0.0"
+    "rehype-slug": "^6.0.0",
+    "uaplus": "^0.3.1"
   },
   "packageManager": "pnpm@10.27.0+sha1.7220f3ec270b9e3b3b56cd149ad8d88bdf1b8823"
 }

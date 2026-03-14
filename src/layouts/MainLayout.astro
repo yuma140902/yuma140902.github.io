@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 
 import { Breadcrumbs } from "astro-breadcrumbs";
+import "uaplus/uaplus.css";
 import "astro-breadcrumbs/breadcrumbs.css";
 
 const { frontmatter: { 
@@ -44,9 +45,9 @@ const { frontmatter: {
     <h1>{title ?? "yuma14.net"}</h1>
     {disable_breadcrumbs ? null : 
       <div class="breadcrumbs-wrapper">
-      <Breadcrumbs linkTextFormat='sentence'>
-        <div slot='separator'>»</div>
-      </Breadcrumbs>
+        <Breadcrumbs linkTextFormat='sentence'>
+          <div slot='separator'>»</div>
+        </Breadcrumbs>
       </div>
     }
     <main>
@@ -65,7 +66,10 @@ const { frontmatter: {
   }
   .breadcrumbs-wrapper {
     background-color: #ccc;
-    padding-bottom: 8px;
+    padding: 3px;
+  }
+  .breadcrumbs-wrapper a {
+    text-decoration: underline;
   }
   .autolink-headings {
     font-size: 0.8rem;
