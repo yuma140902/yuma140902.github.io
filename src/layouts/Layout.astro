@@ -1,11 +1,6 @@
 ---
 import 'chota';
 import 'katex/dist/katex.min.css';
-import '@fontsource/ibm-plex-sans-jp/400.css';
-import '@fontsource/ibm-plex-sans-jp/700.css';
-import '@fontsource/ibm-plex-mono';
-import '@fontsource-variable/noto-sans-jp';
-
 interface Props {
   title: string;
   og_description?: string;
@@ -152,7 +147,7 @@ header {
   }
 }
 .brand {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: monospace;
 }
 
 footer {
@@ -187,11 +182,11 @@ img:not(.manual) {
   max-width: min(700px, 100%);
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'IBM Plex Sans JP', sans-serif;
+  font-family: sans-serif;
 }
 :root {
-  --font-family-sans: 'Noto Sans JP Variable', sans-serif;
-  --font-family-mono: 'IBM Plex Mono', monospace;
+  --font-family-sans: sans-serif;
+  --font-family-mono: monospace;
   --header-height: 5rem;
 }
 pre {
