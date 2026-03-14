@@ -14,27 +14,6 @@ const og_description = Astro.props.og_description;
 const og_image = Astro.props.og_image ?? '/ogp.png';
 const og_title = Astro.props.og_title ?? title;
 const og_locale = Astro.props.og_locale ?? 'ja_JP';
-
-type NavItem = {
-  url: string;
-  text: string;
-  active: boolean;
-};
-
-const currentPath = Astro.url.pathname;
-const navItems: NavItem[] = [
-  ['/', 'Home'],
-  ['/profile/', 'Profile'],
-  ['/works/', 'Works'],
-  ['/apps/', 'ウェブアプリ'],
-  ['/monitor/', '定点観測'],
-].map(([url, text]) => ({
-  url,
-  text,
-  active:
-    (url.length === 1 && currentPath === url) ||
-    (url.length > 1 && currentPath.startsWith(url)),
-}));
 ---
 
 <!doctype html>
