@@ -57,6 +57,10 @@ const { frontmatter: {
 </html>
 
 <style is:global>
+  :root {
+    --color-primary: #14854f;
+    --header-decoration-color: #eee;
+  }
   .toc {
     border: 1px solid #111;
     margin-top: 8px;
@@ -74,4 +78,34 @@ const { frontmatter: {
   .autolink-headings {
     font-size: 0.8rem;
   }
+  h1 {
+    border-bottom: 2px solid var(--color-primary);
+  }
+  h2 {
+    /*border-bottom: 1px solid var(--color-primary);*/
+  }
+  /*h1::before {
+    content: "# ";
+    color: var(--header-decoration-color);
+  }
+  h2::before {
+    content: "## ";
+    color: var(--header-decoration-color);
+  }
+  h3::before {
+    content: "### ";
+    color: var(--header-decoration-color);
+  }
+  h4::before {
+    content: "#### ";
+    color: var(--header-decoration-color);
+  }
+  h5::before {
+    content: "##### ";
+    color: var(--header-decoration-color);
+  }
+  h6::before {
+    content: "###### ";
+    color: var(--header-decoration-color);
+  }*/
 </style>
