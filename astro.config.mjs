@@ -24,7 +24,6 @@ export default defineConfig({
     '/webtools/diff.html': 'https://old.yuma14.net/webtools/diff.html',
     '/webtools/csv2tex.html': '/apps/table/',
     '/reverie/': 'https://yuma14.net/Reverie/',
-    '/reverie': 'https://yuma14.net/Reverie/',
   },
   markdown: {
     shikiConfig: {
