@@ -12,7 +12,6 @@ interface Props {
   og_image?: string;
   og_title?: string;
   og_locale?: string;
-  crustacean_auto_play?: boolean;
 }
 
 const { title } = Astro.props;
@@ -20,7 +19,6 @@ const og_description = Astro.props.og_description;
 const og_image = Astro.props.og_image ?? '/ogp.png';
 const og_title = Astro.props.og_title ?? title;
 const og_locale = Astro.props.og_locale ?? 'ja_JP';
-const crustacean_auto_play = Astro.props.crustacean_auto_play;
 
 type NavItem = {
   url: string;
@@ -91,24 +89,18 @@ const navItems: NavItem[] = [
     </footer>
 	</body>
 </html>
-
-{
-  /* https://github.com/withastro/astro/issues/13550 */
-  /* 条件付きで script を読み込もうとしたとき、逆の条件で読み込まれる */
-  (crustacean_auto_play !== true) ? (
-  <script>
-    import {crustacean} from '../components/crustacean';
+<script>
+  import {crustacean} from '../components/crustacean';
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
     crustacean({
       autoPlay: true,
     });
-  </script>) :
-  (<script>
-    import {crustacean} from '../components/crustacean';
+  } else {
     crustacean({
       autoPlay: false,
     });
-  </script>)
-}
+  }
+</script>
 
 <style>
 main {
