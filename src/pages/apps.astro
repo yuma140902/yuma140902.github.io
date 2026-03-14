@@ -1,5 +1,5 @@
 ---
-import App from '../components/features/App.astro';
+import Apps from '../components/features/Apps.astro';
 import { main_apps } from '../data/apps';
 import MdLayout from '../layouts/MdLayout.astro';
 ---
@@ -12,7 +12,5 @@ import MdLayout from '../layouts/MdLayout.astro';
   no_toc: true
 }}>
   <p>公開しているウェブアプリの一覧です。</p>
-  <div class="row">
-    {main_apps.map(app => <App app={app} />)}
-  </div>
+  <Apps apps={main_apps} />
 </MdLayout>

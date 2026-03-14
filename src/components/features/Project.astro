@@ -13,7 +13,7 @@ const dateText = showDate ? getSinceUntilText(pj.since, pj.until) : undefined;
 ---
 
 <div class="pj-root">
-  <div class="pj-title-wrapper">
+  <hgroup class="pj-title-wrapper">
     {pj.repo && <a href={pj.repo} class="repo"><Icon name="simple-icons:github" title="GitHub" size="1.25em"/></a>}
     <h3>{pj.name}</h3>
     <br class="narrow-br"/>
@@ -27,7 +27,7 @@ const dateText = showDate ? getSinceUntilText(pj.since, pj.until) : undefined;
       {dateText}
     </span>
     }
-  </div>
+  </hgroup>
   <p>
     {pj.description}
     {pj.url && <><br /><a href={pj.url} class="details-link">詳細...</a></>}
