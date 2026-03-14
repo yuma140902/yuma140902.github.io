@@ -1,5 +1,4 @@
 ---
-import { Polyhedron } from 'polyhedron';
 import Layout from '../layouts/Layout.astro';
 
 import Content from './_index.mdx';
@@ -11,34 +10,6 @@ import Content from './_index.mdx';
   crustacean_auto_play
 >
   <Content />
-  <div id="polyhedron">
-    <Polyhedron client:only="react" />
-  </div>
 </Layout>
 
-<script>
-document.getElementById("polyhedron")?.addEventListener("wheel", e => e.preventDefault(), {passive: false});
-</script>
 
-<style>
-#polyhedron {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  display: none;
-}
-@media (min-width: 300px) {
-  #polyhedron {
-    width: 300px;
-    height: 75px;
-    display: block;
-  }
-}
-@media (min-width: 400px) {
-  #polyhedron {
-    width: 400px;
-    height: 100px;
-    display: block;
-  }
-}
-</style>
