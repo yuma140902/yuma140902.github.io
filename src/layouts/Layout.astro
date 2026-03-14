@@ -1,5 +1,5 @@
 ---
-import 'chota';
+import 'uaplus/uaplus.css';
 import 'katex/dist/katex.min.css';
 import { Breadcrumbs } from "astro-breadcrumbs";
 import "astro-breadcrumbs/breadcrumbs.css";
@@ -103,26 +103,36 @@ main {
 footer {
   min-height: 50px;
   text-align: center;
+  .footer-padding {
+    padding-top: 100px;
+  }
 }
-.footer-padding {
-  padding-top: 100px;
+
+body {
+  padding: 0;
+  margin: 0;
 }
 </style>
 
 <style is:global>
+:root {
+  --color-grey: #888888;
+}
+html {
+  font-family: sans-serif;
+}
 img:not(.manual) {
   height: auto;
   max-width: min(700px, 100%);
 }
-h1, h2, h3, h4, h5, h6 {
-  font-family: sans-serif;
+img {
+  display: inline;
 }
-:root {
-  --font-family-sans: sans-serif;
-  --font-family-mono: monospace;
-}
-pre {
-  line-height: 1.2;
+hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--color-grey);
+  margin: 10px 0 10px 0;
 }
 main a:not(main h2 a) {
   text-decoration: underline;

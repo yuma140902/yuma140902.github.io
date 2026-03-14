@@ -44,9 +44,6 @@ importers:
       astro-icon:
         specifier: ^1.1.5
         version: 1.1.5
-      chota:
-        specifier: ^0.9.2
-        version: 0.9.2
       katex:
         specifier: ^0.16.38
         version: 0.16.38
@@ -74,6 +71,9 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+      uaplus:
+        specifier: ^0.3.1
+        version: 0.3.1
     devDependencies:
       vitest:
         specifier: ^4.1.0
@@ -1065,9 +1065,6 @@ packages:
   chokidar@5.0.0:
     resolution: {integrity: sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==}
     engines: {node: '>= 20.19.0'}
-
-  chota@0.9.2:
-    resolution: {integrity: sha512-DmCHT/R+yMr/aYQuokkJeNIjknSgpMpM9mR0tDlqPu8A+lGo9TS/KFPpze5Q9PPrCWenp/VG7Y10usyNDoIygQ==}
 
   chownr@3.0.0:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
@@ -2120,6 +2117,9 @@ packages:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  uaplus@0.3.1:
+    resolution: {integrity: sha512-XAr1lmDcN7MTnqMFE1cmyEIBRUT6fbU4WARwmSwUVIU4ekH4ZO/LtT+hbPufPU/WBndmRJwsAfGYC33YmmxZMw==}
 
   ufo@1.6.3:
     resolution: {integrity: sha512-yDJTmhydvl5lJzBmy/hyOAA0d+aqCBuwl818haVdYCRrWV84o7YyeVm4QlVHStqNrrJSTb6jKuFAVqAFsr+K3Q==}
@@ -3607,8 +3607,6 @@ snapshots:
   chokidar@5.0.0:
     dependencies:
       readdirp: 5.0.0
-
-  chota@0.9.2: {}
 
   chownr@3.0.0: {}
 
@@ -5156,6 +5154,8 @@ snapshots:
       semver: 7.7.4
 
   typescript@5.9.3: {}
+
+  uaplus@0.3.1: {}
 
   ufo@1.6.3: {}
 
