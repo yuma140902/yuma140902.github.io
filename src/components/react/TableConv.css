@@ -1,0 +1,14 @@
+.tc-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tc-item {
+  flex-grow: 1;
+  flex-basis: max(300px, 50%);
+}
+
+textarea {
+  width: 100%;
+}

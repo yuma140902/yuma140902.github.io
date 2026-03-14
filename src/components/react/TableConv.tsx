@@ -2,6 +2,7 @@
 
 import { useDebounce, useLocalStorage } from '@uidotdev/usehooks';
 import { useState } from 'react';
+import "./TableConv.css";
 
 type InputType = 'csv' | 'json';
 
@@ -219,10 +220,11 @@ export const TableConv: React.FC = () => {
   }
 
   return (
-    <form className="row">
-      <div className="col-12 col-6-md">
+    <form className="tc-container">
+      <div className="tc-item">
         <h2>入力</h2>
         {inputTypeSelector(inputType, setInputType)}
+        <br />
         <textarea
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -234,9 +236,10 @@ export const TableConv: React.FC = () => {
           style={{ resize: 'vertical' }}
         />
       </div>
-      <div className="col-12 col-6-md">
+      <div className="tc-item">
         <h2>出力</h2>
         {outputTypeSelector(outputType, setOutputType)}
+        <br />
         <textarea
           value={outputText}
           rows={10}
