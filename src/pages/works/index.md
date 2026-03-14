@@ -32,4 +32,4 @@ title: Works
 	- 正規表現を ε-NFA および DFA に変換する 
 - Regend WebUI
 	- regend のフロントエンド。 DFA をマウスで掴んでグリグリ動かして遊べる。 
-- [その他](/todo/)
+- [その他](/works/archives/)
