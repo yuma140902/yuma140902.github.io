@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 
 # このジョブがリポジトリをクローンし、ページデプロイメントを作成することを許可します。
@@ -12,8 +12,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PAT: ${{ secrets.PAT }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
