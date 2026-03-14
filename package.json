@@ -17,5 +17,8 @@
     "rehype-slug": "^6.0.0",
     "uaplus": "^0.3.1"
   },
-  "packageManager": "pnpm@10.27.0+sha1.7220f3ec270b9e3b3b56cd149ad8d88bdf1b8823"
+  "packageManager": "pnpm@10.27.0+sha1.7220f3ec270b9e3b3b56cd149ad8d88bdf1b8823",
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
 }
