@@ -27,8 +27,8 @@
     listClass: 'toc-list',
     linkClass: 'toc-link',
     headingSelector: 'h2, h3, h4, h5, h6',
-    scrollSmoothOffset: -50,
-    headingsOffset: 50,
+    scrollSmoothOffset: 0,
+    headingsOffset: 0,
     headingObjectCallback: (o, elm) => {
       if (!elm.id) {
         const id =  `toc-generated-${generated_ids++}`;
@@ -83,7 +83,7 @@
   }
   #toc > :global(nav) {
     position: sticky;
-    top: var(--header-height);
+    top: 0;
   }
 }
 </style>
