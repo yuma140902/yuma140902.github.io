@@ -25,7 +25,7 @@ importers:
         version: 1.2.20
       '@iconify-json/simple-icons':
         specifier: ^1.2.75
-        version: 1.2.75
+        version: 1.2.76
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -422,8 +422,8 @@ packages:
   '@iconify-json/carbon@1.2.20':
     resolution: {integrity: sha512-wqyxKEbIRdzGdfCAwQqn8iSfO6jx0m1toZAAQdx1NFjxd6iFl1YY4eKI1woWt7XOxs7s7phMW530kDD867JZGw==}
 
-  '@iconify-json/simple-icons@1.2.75':
-    resolution: {integrity: sha512-KvcCUbvcBWb0sbqLIxHoY8z5/piXY08wcY9gfMhF+ph3AfzGMaSmZFkUY71HSXAljQngXkgs4bdKdekO0HQWvg==}
+  '@iconify-json/simple-icons@1.2.76':
+    resolution: {integrity: sha512-lLRlA8yaf+1L5VCPRvR9lynoSklsddKHEylchmZJKdj/q2xVQ1ZAEJ8SCQlv9cbgtMefnlyM98U+8Si2aoFZPA==}
 
   '@iconify/tools@4.2.0':
     resolution: {integrity: sha512-WRxPva/ipxYkqZd1+CkEAQmd86dQmrwH0vwK89gmp2Kh2WyyVw57XbPng0NehP3x4V1LzLsXUneP1uMfTMZmUA==}
@@ -2890,7 +2890,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.75':
+  '@iconify-json/simple-icons@1.2.76':
     dependencies:
       '@iconify/types': 2.0.0
 
