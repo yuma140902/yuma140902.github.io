@@ -13,7 +13,7 @@ importers:
         version: 0.9.8(prettier@3.8.2)(typescript@5.9.3)
       '@astrojs/mdx':
         specifier: ^5.0.3
-        version: 5.0.3(astro@6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))
+        version: 5.0.3(astro@6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))
       '@astrojs/react':
         specifier: ^5.0.2
         version: 5.0.3(@types/node@25.6.0)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(yaml@2.8.3)
@@ -37,10 +37,10 @@ importers:
         version: 2.4.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       astro:
         specifier: ^6.1.1
-        version: 6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+        version: 6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       astro-breadcrumbs:
         specifier: ^3.4.0
-        version: 3.4.0(astro@6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))
+        version: 3.4.0(astro@6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))
       astro-icon:
         specifier: ^1.1.5
         version: 1.1.5
@@ -1001,8 +1001,8 @@ packages:
   astro-icon@1.1.5:
     resolution: {integrity: sha512-CJYS5nWOw9jz4RpGWmzNQY7D0y2ZZacH7atL2K9DeJXJVaz7/5WrxeyIxO8KASk1jCM96Q4LjRx/F3R+InjJrw==}
 
-  astro@6.1.6:
-    resolution: {integrity: sha512-pRsz+kYriwCV/AUcY/I9OVKtVHuYFs2DtCszAxprXded/kTE53nMwxfnK0Nf6FPfaX9vcUiLnigcSIhuFoKntA==}
+  astro@6.1.7:
+    resolution: {integrity: sha512-pvZysIUV2C2nRv8N7cXAkCLcfDQz/axAxF09SqiTz1B+xnvbhy6KzL2I6J15ZBXk8k0TfMD75dJ151QyQmAqZA==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -1833,8 +1833,8 @@ packages:
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
 
-  postcss@8.5.9:
-    resolution: {integrity: sha512-7a70Nsot+EMX9fFU3064K/kdHWZqGVY+BADLyXc8Dfv+mTLLVl6JzJpPaCZ2kQL9gIJvKXSLMHhqdRRjwQeFtw==}
+  postcss@8.5.10:
+    resolution: {integrity: sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   prettier@3.8.2:
@@ -2600,12 +2600,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@5.0.3(astro@6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))':
+  '@astrojs/mdx@5.0.3(astro@6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))':
     dependencies:
       '@astrojs/markdown-remark': 7.1.0
       '@mdx-js/mdx': 3.1.1
       acorn: 8.16.0
-      astro: 6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+      astro: 6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       es-module-lexer: 2.0.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -3455,9 +3455,9 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-breadcrumbs@3.4.0(astro@6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)):
+  astro-breadcrumbs@3.4.0(astro@6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)):
     dependencies:
-      astro: 6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+      astro: 6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
 
   astro-icon@1.1.5:
     dependencies:
@@ -3467,7 +3467,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@6.1.6(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3):
+  astro@6.1.7(@types/node@25.6.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3):
     dependencies:
       '@astrojs/compiler': 3.0.1
       '@astrojs/internal-helpers': 0.8.0
@@ -4769,7 +4769,7 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  postcss@8.5.9:
+  postcss@8.5.10:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
@@ -5292,7 +5292,7 @@ snapshots:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
-      postcss: 8.5.9
+      postcss: 8.5.10
       rollup: 4.60.1
       tinyglobby: 0.2.16
     optionalDependencies:
