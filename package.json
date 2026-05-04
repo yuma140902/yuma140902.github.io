@@ -33,7 +33,7 @@
     "remark-math": "^6.0.0",
     "sharp": "^0.34.5",
     "tocbot": "^4.36.4",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "uaplus": "^0.3.1"
   },
   "devDependencies": {
