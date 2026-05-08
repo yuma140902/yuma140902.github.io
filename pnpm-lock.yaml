@@ -67,7 +67,7 @@ importers:
         version: 0.34.5
       tocbot:
         specifier: ^4.36.4
-        version: 4.36.4
+        version: 4.36.6
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -2103,8 +2103,8 @@ packages:
     resolution: {integrity: sha512-Bf+ILmBgretUrdJxzXM0SgXLZ3XfiaUuOj/IKQHuTXip+05Xn+uyEYdVg0kYDipTBcLrCVyUzAPz7QmArb0mmw==}
     engines: {node: '>=14.0.0'}
 
-  tocbot@4.36.4:
-    resolution: {integrity: sha512-ffznkKnZ1NdghwR1y8hN6W7kjn4FwcXq32Z1mn35gA7jd8dt2cTVAwL3d0BXXZGPu0Hd0evverUvcYAb/7vn0g==}
+  tocbot@4.36.6:
+    resolution: {integrity: sha512-iIRRfzdHey2nyUpo8nq2OuNHI+83COxGMFOZjKHhmLut6W6T1WhAsJb1EiIa7X3PJyOdwZXuZX4d7jp+gkxh7A==}
 
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
@@ -5176,7 +5176,7 @@ snapshots:
 
   tinyrainbow@3.1.0: {}
 
-  tocbot@4.36.4: {}
+  tocbot@4.36.6: {}
 
   trim-lines@3.0.1: {}
 
