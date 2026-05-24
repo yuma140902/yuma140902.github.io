@@ -72,8 +72,8 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       uaplus:
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: ^0.4.0
+        version: 0.4.0
     devDependencies:
       vitest:
         specifier: 4.1.6
@@ -2132,8 +2132,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  uaplus@0.3.1:
-    resolution: {integrity: sha512-XAr1lmDcN7MTnqMFE1cmyEIBRUT6fbU4WARwmSwUVIU4ekH4ZO/LtT+hbPufPU/WBndmRJwsAfGYC33YmmxZMw==}
+  uaplus@0.4.0:
+    resolution: {integrity: sha512-vceXT1Fn55F/FgzEjpiRUN6HXQhN20U03Fx+2fCNPWnlrKLAiV4SPAd8OOc+l4FZc255/UK/xP3ci9SRB7/roA==}
 
   ufo@1.6.4:
     resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
@@ -5185,7 +5185,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  uaplus@0.3.1: {}
+  uaplus@0.4.0: {}
 
   ufo@1.6.4: {}
 
