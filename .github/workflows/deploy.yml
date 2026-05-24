@@ -21,6 +21,7 @@ jobs:
         uses: withastro/action@b7d53628f8b666036b0238aadb0b984a2a489f26 # v6.1.1
         with:
           node-version: 24
+          build-cmd: exit 1
 
   deploy:
     needs: build
