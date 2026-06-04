@@ -13,7 +13,7 @@ importers:
         version: 0.9.9(prettier@3.8.3)(typescript@6.0.3)
       '@astrojs/mdx':
         specifier: ^5.0.3
-        version: 5.0.6(astro@6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0))
+        version: 5.0.6(astro@6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0))
       '@astrojs/react':
         specifier: ^5.0.2
         version: 5.0.6(@types/node@25.9.1)(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(yaml@2.9.0)
@@ -37,10 +37,10 @@ importers:
         version: 2.4.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       astro:
         specifier: ^6.1.1
-        version: 6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)
+        version: 6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)
       astro-breadcrumbs:
         specifier: ^3.4.0
-        version: 3.4.0(astro@6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0))
+        version: 3.4.0(astro@6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0))
       astro-icon:
         specifier: ^1.1.5
         version: 1.1.5
@@ -1012,8 +1012,8 @@ packages:
   astro-icon@1.1.5:
     resolution: {integrity: sha512-CJYS5nWOw9jz4RpGWmzNQY7D0y2ZZacH7atL2K9DeJXJVaz7/5WrxeyIxO8KASk1jCM96Q4LjRx/F3R+InjJrw==}
 
-  astro@6.4.1:
-    resolution: {integrity: sha512-QoNBrt6XRa4t4vPMv11BB05BekZH0NNiYzJr66+I5wGN/X2UJ4K0G1UL2oN0Ojow4mvoSdtyk8qqzmiZER1CmQ==}
+  astro@6.4.2:
+    resolution: {integrity: sha512-8H89CH2dKL5SCU99OCqdU9BGjmPkSJqaPurywj5XMo7eMFGUFD3vsNhdEKnEh4mK4LgGje3/QDTTSIIGst0G0Q==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2648,12 +2648,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@5.0.6(astro@6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0))':
+  '@astrojs/mdx@5.0.6(astro@6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0))':
     dependencies:
       '@astrojs/markdown-remark': 7.1.2
       '@mdx-js/mdx': 3.1.1
       acorn: 8.16.0
-      astro: 6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)
+      astro: 6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)
       es-module-lexer: 2.1.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -3501,9 +3501,9 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-breadcrumbs@3.4.0(astro@6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)):
+  astro-breadcrumbs@3.4.0(astro@6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)):
     dependencies:
-      astro: 6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)
+      astro: 6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0)
 
   astro-icon@1.1.5:
     dependencies:
@@ -3513,7 +3513,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@6.4.1(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0):
+  astro@6.4.2(@types/node@25.9.1)(rollup@4.60.4)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler': 4.0.0
       '@astrojs/internal-helpers': 0.10.0
