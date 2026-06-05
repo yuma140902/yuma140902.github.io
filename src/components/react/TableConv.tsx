@@ -87,7 +87,7 @@ function convert(inputType: InputType, outputType: OutputType, text: string) {
   }
 }
 
-function csvToTable(csv: string): Table {
+export function csvToTable(csv: string): Table {
   const lines = csv.split('\n', -1);
   const delimiter = csv.includes('\t') ? '\t' : ',';
 
