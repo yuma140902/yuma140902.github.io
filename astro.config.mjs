@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+import { unified } from '@astrojs/markdown-remark';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
@@ -51,7 +52,9 @@ export default defineConfig({
       wrap: true,
     },
     syntaxHighlight: 'shiki',
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex, rehypeSlug],
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex, rehypeSlug],
+    }),
   },
 });
