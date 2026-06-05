@@ -133,7 +133,7 @@ export function csvToTable(csv: string): Table {
   return table;
 }
 
-function jsonToTable(json: string): Table {
+export function jsonToTable(json: string): Table {
   const obj = JSON.parse(json);
   const table: Table = [];
 
