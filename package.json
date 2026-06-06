@@ -8,7 +8,8 @@
     "build": "astro check && tsc && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "astro check && tsc",
+    "lint": "biome ci --error-on-warnings && astro check && tsc",
+    "fix": "biome check --write",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -39,6 +40,7 @@
     "uaplus": "^0.4.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
     "@types/papaparse": "^5.5.2",
     "vitest": "4.1.7"
   },

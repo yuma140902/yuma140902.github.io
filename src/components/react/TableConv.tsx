@@ -2,8 +2,13 @@
 
 import { useDebounce, useLocalStorage } from '@uidotdev/usehooks';
 import { useState } from 'react';
-import "./TableConv.css";
-import { convert, type InputOption, type CsvInputOption, type OutputOption } from './table_conv_logic';
+import './TableConv.css';
+import {
+  type CsvInputOption,
+  convert,
+  type InputOption,
+  type OutputOption,
+} from './table_conv_logic';
 
 const LOCAL_STORAGE_PREFIX = 'apps-table-';
 
@@ -16,7 +21,10 @@ const defaultInputOption: InputOption = {
 
 const defaultOutputOption: OutputOption = 'tsv-no-quote';
 
-function inputOptionForm(option: InputOption, setOption: (option: InputOption) => void) {
+function inputOptionForm(
+  option: InputOption,
+  setOption: (option: InputOption) => void,
+) {
   const selectInputType = (type: InputOption['type']) => {
     switch (type) {
       case 'csv':
@@ -34,20 +42,24 @@ function inputOptionForm(option: InputOption, setOption: (option: InputOption) =
         入力形式
         <select
           value={option.type}
-          onChange={(e) => selectInputType(e.target.value as InputOption['type'])}
+          onChange={(e) =>
+            selectInputType(e.target.value as InputOption['type'])
+          }
         >
           <option value="csv">CSV</option>
           <option value="json">JSON</option>
         </select>
       </label>
-      {option.type === 'csv' && <CsvInputOptionForm option={option} setOption={setOption} />}
+      {option.type === 'csv' && (
+        <CsvInputOptionForm option={option} setOption={setOption} />
+      )}
     </div>
   );
 }
 
 function CsvInputOptionForm({
   option,
-  setOption: setOption,
+  setOption,
 }: {
   option: CsvInputOption;
   setOption: (option: CsvInputOption) => void;
@@ -69,12 +81,12 @@ function CsvInputOptionForm({
                 type === 'auto'
                   ? { type: 'auto' }
                   : {
-                    type: 'literal',
-                    literal:
-                      option.delimiter.type === 'literal'
-                        ? option.delimiter.literal
-                        : ',',
-                  },
+                      type: 'literal',
+                      literal:
+                        option.delimiter.type === 'literal'
+                          ? option.delimiter.literal
+                          : ',',
+                    },
             });
           }}
         >
@@ -101,7 +113,9 @@ function CsvInputOptionForm({
         <input
           type="checkbox"
           checked={option.quoted}
-          onChange={(e) => setCsvOption({ ...option, quoted: e.target.checked })}
+          onChange={(e) =>
+            setCsvOption({ ...option, quoted: e.target.checked })
+          }
         />
         一部または全部のフィールドが「"」で囲まれている
       </label>
@@ -119,9 +133,15 @@ function CsvInputOptionForm({
   );
 }
 
-function outputOptionForm(option: OutputOption, setOption: (option: OutputOption) => void) {
+function outputOptionForm(
+  option: OutputOption,
+  setOption: (option: OutputOption) => void,
+) {
   return (
-    <select value={option} onChange={(e) => setOption(e.target.value as OutputOption)}>
+    <select
+      value={option}
+      onChange={(e) => setOption(e.target.value as OutputOption)}
+    >
       <option value="tsv-no-quote">CSV (タブ区切り、クォート無)</option>
       <option value="tsv-quote">CSV (タブ区切り、クォート有)</option>
       <option value="csv-no-quote">CSV (カンマ区切り、クォート無)</option>
@@ -140,11 +160,11 @@ function outputOptionForm(option: OutputOption, setOption: (option: OutputOption
 
 export const TableConv: React.FC = () => {
   const [inputOption, setInputOption] = useLocalStorage<InputOption>(
-    LOCAL_STORAGE_PREFIX + 'input-option',
+    `${LOCAL_STORAGE_PREFIX}input-option`,
     defaultInputOption,
   );
   const [outputOption, setOutputOption] = useLocalStorage<OutputOption>(
-    LOCAL_STORAGE_PREFIX + 'output-option',
+    `${LOCAL_STORAGE_PREFIX}output-option`,
     defaultOutputOption,
   );
   const [inputText, setInputText] = useState('');
@@ -175,7 +195,7 @@ export const TableConv: React.FC = () => {
         onChange={(e) => setInputText(e.target.value)}
         rows={10}
         autoComplete="on"
-        // biome-ignore lint/a11y/noAutofocus:
+        // biome-ignore lint/a11y/noAutofocus: This conversion tool should be ready for immediate typing.
         autoFocus
         spellCheck="false"
         style={{ resize: 'vertical' }}
