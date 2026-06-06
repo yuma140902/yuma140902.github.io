@@ -1,9 +1,9 @@
-import Papa from "papaparse";
+import Papa from 'papaparse';
 
 export type InputOption = CsvInputOption | JsonInputOption;
 export type CsvInputOption = {
   type: 'csv';
-  delimiter: { type: 'literal', literal: string } | { type: 'auto' };
+  delimiter: { type: 'literal'; literal: string } | { type: 'auto' };
   quoted: boolean;
   escapedDoubleQuote: boolean;
 };
@@ -25,7 +25,11 @@ export type OutputOption =
 
 export type Table = string[][];
 
-export function convert(inputOption: InputOption, outputOption: OutputOption, text: string) {
+export function convert(
+  inputOption: InputOption,
+  outputOption: OutputOption,
+  text: string,
+) {
   let table: Table;
   switch (inputOption.type) {
     case 'csv':
@@ -67,7 +71,9 @@ export function convert(inputOption: InputOption, outputOption: OutputOption, te
 export function csvToTable(csv: string, option: CsvInputOption): Table {
   const result = Papa.parse<string[]>(csv, {
     delimiter:
-      option.delimiter.type === 'literal' ? option.delimiter.literal : undefined,
+      option.delimiter.type === 'literal'
+        ? option.delimiter.literal
+        : undefined,
     quoteChar: option.quoted ? '"' : '\0',
     escapeChar: option.escapedDoubleQuote ? '"' : '\0',
     skipEmptyLines: false,
@@ -138,7 +144,7 @@ function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
   }
 
   output += table
-    // biome-ignore lint/style/useTemplate:
+    // biome-ignore lint/style/useTemplate: String concatenation keeps LaTeX escaping readable here.
     .map((row) => row.join(' & ') + ' \\\\' + (hline ? ' \\hline' : ''))
     .join('\n');
 
@@ -152,4 +158,3 @@ function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
 function tableToJson(table: Table, minify: boolean): string {
   return minify ? JSON.stringify(table) : JSON.stringify(table, undefined, 2);
 }
-

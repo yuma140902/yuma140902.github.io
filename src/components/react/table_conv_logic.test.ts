@@ -1,16 +1,21 @@
 import { describe, expect, it } from 'vitest';
-import { csvToTable, jsonToTable, type CsvInputOption, type JsonInputOption } from './table_conv_logic';
+import {
+  type CsvInputOption,
+  csvToTable,
+  type JsonInputOption,
+  jsonToTable,
+} from './table_conv_logic';
 
 const defaultCsvInputOption: CsvInputOption = {
   type: 'csv',
   delimiter: { type: 'auto' },
   quoted: true,
   escapedDoubleQuote: true,
-}
+};
 
 const defaultJsonInputOption: JsonInputOption = {
   type: 'json',
-}
+};
 
 describe('csvToTable', () => {
   it('parses comma separated rows', () => {
@@ -43,13 +48,17 @@ describe('csvToTable', () => {
   });
 
   it('handles surrogate pairs without splitting characters', () => {
-    expect(csvToTable('🍣,"🍺,🍵"', defaultCsvInputOption)).toEqual([['🍣', '🍺,🍵']]);
+    expect(csvToTable('🍣,"🍺,🍵"', defaultCsvInputOption)).toEqual([
+      ['🍣', '🍺,🍵'],
+    ]);
   });
 });
 
 describe('jsonToTable', () => {
   it('parses a two-dimensional string array', () => {
-    expect(jsonToTable('[["a","b","c"],["1","2","3"]]', defaultJsonInputOption)).toEqual([
+    expect(
+      jsonToTable('[["a","b","c"],["1","2","3"]]', defaultJsonInputOption),
+    ).toEqual([
       ['a', 'b', 'c'],
       ['1', '2', '3'],
     ]);
@@ -58,7 +67,8 @@ describe('jsonToTable', () => {
   it('stringifies non-string cells', () => {
     expect(
       jsonToTable(
-        '[[1,true,null,{"key":"value"},["nested","array"]],["text"]]', defaultJsonInputOption,
+        '[[1,true,null,{"key":"value"},["nested","array"]],["text"]]',
+        defaultJsonInputOption,
       ),
     ).toEqual([
       ['1', 'true', 'null', '{"key":"value"}', '["nested","array"]'],
@@ -67,13 +77,16 @@ describe('jsonToTable', () => {
   });
 
   it('parses empty rows', () => {
-    expect(jsonToTable('[[],["a"]]', defaultJsonInputOption)).toEqual([[], ['a']]);
+    expect(jsonToTable('[[],["a"]]', defaultJsonInputOption)).toEqual([
+      [],
+      ['a'],
+    ]);
   });
 
   it('throws when the top-level JSON value is not an array', () => {
-    expect(() => jsonToTable('{"rows":[["a"]]}', defaultJsonInputOption)).toThrow(
-      'JSON が配列でありません',
-    );
+    expect(() =>
+      jsonToTable('{"rows":[["a"]]}', defaultJsonInputOption),
+    ).toThrow('JSON が配列でありません');
   });
 
   it('throws when a row is not an array', () => {

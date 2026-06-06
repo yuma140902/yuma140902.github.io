@@ -31,10 +31,10 @@ export default defineConfig({
         'https://yuma14.net/simple-canvas-game/',
         'https://yuma14.net/typing/',
         'https://yuma14.net/Reverie/',
-      ]
+      ],
     }),
     react(),
-    mdx()
+    mdx(),
   ],
   redirects: {
     '/deploys/': '/monitor/',
