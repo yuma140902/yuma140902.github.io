@@ -1,17 +1,128 @@
 /* 表形式のデータの相互変換を行うウェブアプリ */
 
 import { useDebounce, useLocalStorage } from '@uidotdev/usehooks';
+import * as Papa from 'papaparse';
 import { useState } from 'react';
 import "./TableConv.css";
 
-type InputType = 'csv' | 'json';
+export type InputType = InputTypeCsv | InputTypeJson;
+export type InputTypeCsv = {
+  type: 'csv';
+  delimiter: { type: 'literal', literal: string } | { type: 'auto' };
+  quoted: boolean;
+  escapedDoubleQuote: boolean;
+};
+export type InputTypeJson = {
+  type: 'json';
+};
+
+const defaultInputType: InputType = {
+  type: 'csv',
+  delimiter: { type: 'auto' },
+  quoted: true,
+  escapedDoubleQuote: true,
+};
 
 function inputTypeSelector(ty: InputType, setTy: (ty: InputType) => void) {
+  const selectInputType = (type: InputType['type']) => {
+    switch (type) {
+      case 'csv':
+        setTy(ty.type === 'csv' ? ty : defaultInputType);
+        break;
+      case 'json':
+        setTy({ type: 'json' });
+        break;
+    }
+  };
+
   return (
-    <select value={ty} onChange={(e) => setTy(e.target.value as InputType)}>
-      <option value="csv">CSV</option>
-      <option value="json">JSON</option>
-    </select>
+    <div className="tc-options">
+      <label>
+        入力形式
+        <select
+          value={ty.type}
+          onChange={(e) => selectInputType(e.target.value as InputType['type'])}
+        >
+          <option value="csv">CSV</option>
+          <option value="json">JSON</option>
+        </select>
+      </label>
+      {ty.type === 'csv' && <CsvInputOptions ty={ty} setTy={setTy} />}
+    </div>
+  );
+}
+
+function CsvInputOptions({
+  ty,
+  setTy,
+}: {
+  ty: InputTypeCsv;
+  setTy: (ty: InputType) => void;
+}) {
+  const setCsvTy = (nextTy: InputTypeCsv) => setTy(nextTy);
+
+  return (
+    <fieldset className="tc-fieldset">
+      <legend>CSV オプション</legend>
+      <label>
+        区切り文字
+        <select
+          value={ty.delimiter.type}
+          onChange={(e) => {
+            const type = e.target.value as InputTypeCsv['delimiter']['type'];
+            setCsvTy({
+              ...ty,
+              delimiter:
+                type === 'auto'
+                  ? { type: 'auto' }
+                  : {
+                    type: 'literal',
+                    literal:
+                      ty.delimiter.type === 'literal'
+                        ? ty.delimiter.literal
+                        : ',',
+                  },
+            });
+          }}
+        >
+          <option value="auto">自動判定</option>
+          <option value="literal">指定する</option>
+        </select>
+      </label>
+      {ty.delimiter.type === 'literal' && (
+        <label>
+          文字
+          <input
+            type="text"
+            value={ty.delimiter.literal}
+            onChange={(e) =>
+              setCsvTy({
+                ...ty,
+                delimiter: { type: 'literal', literal: e.target.value },
+              })
+            }
+          />
+        </label>
+      )}
+      <label>
+        <input
+          type="checkbox"
+          checked={ty.quoted}
+          onChange={(e) => setCsvTy({ ...ty, quoted: e.target.checked })}
+        />
+        一部または全部のフィールドが「"」で囲まれている
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={ty.escapedDoubleQuote}
+          onChange={(e) =>
+            setCsvTy({ ...ty, escapedDoubleQuote: e.target.checked })
+          }
+        />
+        フィールド中の「""」を「"」として扱う
+      </label>
+    </fieldset>
   );
 }
 
@@ -50,12 +161,12 @@ type Table = string[][];
 
 function convert(inputType: InputType, outputType: OutputType, text: string) {
   let table: Table;
-  switch (inputType) {
+  switch (inputType.type) {
     case 'csv':
-      table = csvToTable(text);
+      table = csvToTable(text, inputType);
       break;
     case 'json':
-      table = jsonToTable(text);
+      table = jsonToTable(text, inputType);
       break;
     default:
       throw new Error(`不明な入力タイプです: ${inputType}`);
@@ -87,53 +198,31 @@ function convert(inputType: InputType, outputType: OutputType, text: string) {
   }
 }
 
-export function csvToTable(csv: string): Table {
-  const lines = csv.split('\n', -1);
-  const delimiter = csv.includes('\t') ? '\t' : ',';
+export function csvToTable(csv: string, option: InputTypeCsv): Table {
+  const result = Papa.parse<string[]>(csv, {
+    delimiter:
+      option.delimiter.type === 'literal' ? option.delimiter.literal : undefined,
+    quoteChar: option.quoted ? '"' : '\0',
+    escapeChar: option.escapedDoubleQuote ? '"' : '\0',
+    skipEmptyLines: false,
+  });
+  const errors = result.errors.filter(
+    (error) => error.code !== 'UndetectableDelimiter',
+  );
 
-  let state: 'inside-quote' | 'outside-quote' = 'outside-quote';
-
-  const table: Table = [];
-  for (const line of lines) {
-    state = 'outside-quote';
-    const row = [];
-    let startIdx = 0;
-
-    // サロゲートペアを考慮して1文字ずつ分割
-    const chars = Array.from(line);
-
-    for (let i = 0; i < chars.length; ++i) {
-      if (chars[i] === '"' && chars[i - 1] !== '\\') {
-        if (state === 'inside-quote') {
-          state = 'outside-quote';
-        } else {
-          state = 'inside-quote';
-          // 開始の " をスキップ
-          ++startIdx;
-        }
-      } else if (chars[i] === delimiter && state === 'outside-quote') {
-        // 終了の " をスキップ
-        const end = chars[i - 1] === '"' ? i - 1 : i;
-        row.push(chars.slice(startIdx, end).join(''));
-        startIdx = i + 1;
-      }
-    }
-
-    // 終了の " をスキップ
-    const end =
-      chars[chars.length - 1] === '"' ? chars.length - 1 : chars.length;
-    row.push(chars.slice(startIdx, end).join(''));
-
-    if (row.length === 1 && row[0].length === 0) {
-      table.push([]);
-    } else {
-      table.push(row);
-    }
+  if (errors.length > 0) {
+    const error = errors[0];
+    throw new Error(
+      error.row == null
+        ? error.message
+        : `${error.message} (${error.row + 1}行目)`,
+    );
   }
-  return table;
+
+  return result.data;
 }
 
-export function jsonToTable(json: string): Table {
+export function jsonToTable(json: string, _option: InputTypeJson): Table {
   const obj = JSON.parse(json);
   const table: Table = [];
 
@@ -201,7 +290,7 @@ function tableToJson(table: Table, minify: boolean): string {
 export const TableConv: React.FC = () => {
   const [inputType, setInputType] = useLocalStorage<InputType>(
     'apps-table-input-type',
-    'csv',
+    defaultInputType,
   );
   const [outputType, setOutputType] = useLocalStorage<OutputType>(
     'apps-table-output-type',
@@ -221,34 +310,33 @@ export const TableConv: React.FC = () => {
 
   return (
     <form className="tc-container">
-      <div className="tc-item">
+      <div className="tc-controls tc-input-controls">
         <h2>入力</h2>
         {inputTypeSelector(inputType, setInputType)}
-        <br />
-        <textarea
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          rows={10}
-          autoComplete="on"
-          // biome-ignore lint/a11y/noAutofocus:
-          autoFocus
-          spellCheck="false"
-          style={{ resize: 'vertical' }}
-        />
       </div>
-      <div className="tc-item">
+      <div className="tc-controls tc-output-controls">
         <h2>出力</h2>
         {outputTypeSelector(outputType, setOutputType)}
-        <br />
-        <textarea
-          value={outputText}
-          rows={10}
-          readOnly
-          style={{ resize: 'vertical' }}
-          className={error ? 'bd-error text-error' : ''}
-          onFocus={(e) => e.currentTarget.select()}
-        />
       </div>
+      <textarea
+        className="tc-input-text"
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)}
+        rows={10}
+        autoComplete="on"
+        // biome-ignore lint/a11y/noAutofocus:
+        autoFocus
+        spellCheck="false"
+        style={{ resize: 'vertical' }}
+      />
+      <textarea
+        className={`tc-output-text ${error ? 'bd-error text-error' : ''}`}
+        value={outputText}
+        rows={10}
+        readOnly
+        style={{ resize: 'vertical' }}
+        onFocus={(e) => e.currentTarget.select()}
+      />
     </form>
   );
 };

@@ -1,14 +1,64 @@
 .tc-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  grid-template-areas:
+    "input-controls output-controls"
+    "input-text output-text";
+  align-items: start;
+  column-gap: 1rem;
+}
+
+.tc-input-controls {
+  grid-area: input-controls;
+}
+
+.tc-output-controls {
+  grid-area: output-controls;
+}
+
+.tc-input-text {
+  grid-area: input-text;
+}
+
+.tc-output-text {
+  grid-area: output-text;
+}
+
+.tc-options,
+.tc-fieldset {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.tc-options label,
+.tc-fieldset label {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.tc-item {
-  flex-grow: 1;
-  flex-basis: max(300px, 50%);
+.tc-fieldset {
+  margin: 0.5rem 0 0;
+  padding: 0.75rem;
+  border: 1px solid currentColor;
+}
+
+.tc-fieldset input[type="text"] {
+  max-width: 6rem;
 }
 
 textarea {
   width: 100%;
+}
+
+@media (max-width: 640px) {
+  .tc-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "input-controls"
+      "input-text"
+      "output-controls"
+      "output-text";
+  }
 }
