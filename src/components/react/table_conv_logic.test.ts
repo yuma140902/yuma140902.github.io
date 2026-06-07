@@ -1,9 +1,10 @@
-import { type Table, Type } from 'apache-arrow';
+import { Type } from 'apache-arrow';
 import { describe, expect, it } from 'vitest';
 import {
   type CsvInputOption,
   columnToAlignedStringArray,
   csvToTable,
+  type IrTable,
 } from './table_conv_logic';
 
 describe('csvToTable', () => {
@@ -20,7 +21,7 @@ describe('csvToTable', () => {
     return { ...dflt, ...partial };
   };
 
-  function tableToRows(table: Table): unknown[][] {
+  function tableToRows({ table }: IrTable): unknown[][] {
     const rows: unknown[][] = Array.from({ length: table.numRows }, () => []);
 
     for (let col = 0; col < table.numCols; ++col) {
@@ -78,7 +79,7 @@ describe('csvToTable', () => {
       ['b', 2],
       ['c', 3],
     ]);
-    expect(table.schema.fields[1].typeId).toEqual(Type.Float);
+    expect(table.table.schema.fields[1].typeId).toEqual(Type.Float);
   });
 
   it('boolean のみのカラムは boolean としてパースされる', () => {
@@ -88,7 +89,7 @@ describe('csvToTable', () => {
       ['b', false],
       ['c', true],
     ]);
-    expect(table.schema.fields[1].typeId).toEqual(Type.Bool);
+    expect(table.table.schema.fields[1].typeId).toEqual(Type.Bool);
   });
 
   it('空のセルは null としてパースされる', () => {
@@ -107,7 +108,7 @@ describe('csvToTable', () => {
       ['b', null],
       ['c', 3.5],
     ]);
-    expect(table.schema.fields[1].typeId).toEqual(Type.Float);
+    expect(table.table.schema.fields[1].typeId).toEqual(Type.Float);
   });
 
   it('parseAsString オプションが true のときはすべてのセルが string としてパースされる', () => {
@@ -132,7 +133,7 @@ describe('csvToTable', () => {
       ['Alice', 20, true],
       ['Bob', 30, false],
     ]);
-    expect(table.schema.fields.map((field) => field.name)).toEqual([
+    expect(table.table.schema.fields.map((field) => field.name)).toEqual([
       'name',
       'age',
       'active',
@@ -146,7 +147,7 @@ describe('csvToTable', () => {
     );
 
     expect(tableToRows(table)).toEqual([[1, 2, 3]]);
-    expect(table.schema.fields.map((field) => field.name)).toEqual([
+    expect(table.table.schema.fields.map((field) => field.name)).toEqual([
       'zeta',
       'alpha',
       'middle',

@@ -30,12 +30,21 @@ type DebugOutputOption = {
   type: 'debug';
 };
 
+export type IrTable = {
+  hasHeaders: boolean;
+  table: Table;
+};
+
+function getHeaders(table: Table): string[] {
+  return table.schema.fields.map((field) => field.name);
+}
+
 export function convert(
   inputOption: InputOption,
   outputOption: OutputOption,
   text: string,
 ) {
-  let table: Table;
+  let table: IrTable;
   switch (inputOption.type) {
     case 'csv':
       table = csvToTable(text, inputOption);
@@ -100,7 +109,7 @@ function ppWithHeaderToArrowTable(
   return new Table(obj).select(columnNames); // keep the column order
 }
 
-export function csvToTable(csv: string, option: CsvInputOption): Table {
+export function csvToTable(csv: string, option: CsvInputOption): IrTable {
   const result = Papa.parse<(string | number | boolean)[]>(csv, {
     delimiter:
       option.delimiter.type === 'literal'
@@ -126,35 +135,43 @@ export function csvToTable(csv: string, option: CsvInputOption): Table {
   }
 
   if (result.data.length === 0) {
-    return new Table({});
+    return { table: new Table({}), hasHeaders: false };
   } else if (Array.isArray(result.data[0])) {
-    return ppWithoutHeaderToArrowTable(result.data);
+    return {
+      table: ppWithoutHeaderToArrowTable(result.data),
+      hasHeaders: false,
+    };
   } else {
-    return ppWithHeaderToArrowTable(
-      result.data as unknown as Record<string, unknown[]>[],
-      result.meta.fields ?? [],
-    );
+    return {
+      table: ppWithHeaderToArrowTable(
+        result.data as unknown as Record<string, unknown[]>[],
+        result.meta.fields ?? [],
+      ),
+      hasHeaders: true,
+    };
   }
 }
 
 export function columnToAlignedStringArray(
   column: Iterable<unknown>,
   alignment: 'left' | 'center' | 'dotted',
+  header?: string | undefined,
 ): string[] {
-  const widths = Iterator.from(column)
+  const column_ = header != null ? [header, ...column] : column;
+  const widths = Iterator.from(column_)
     .map(String)
     .map((cell) => stringWidth(cell))
     .toArray();
   const columnWidth = Iterator.from(widths).reduce((a, b) => Math.max(a, b), 0);
 
   if (alignment === 'left') {
-    return Iterator.from(column)
+    return Iterator.from(column_)
       .map((cell, i) => {
         return cell + ' '.repeat(columnWidth - widths[i]);
       })
       .toArray();
   } else if (alignment === 'center') {
-    return Iterator.from(column)
+    return Iterator.from(column_)
       .map((cell, i) => {
         const cellWidth = widths[i];
         const paddingLeft = Math.floor((columnWidth - cellWidth) / 2);
@@ -167,13 +184,13 @@ export function columnToAlignedStringArray(
     // _0.1
     // _1__
     // 10__
-    const [columnLeft, columnRight] = Iterator.from(column)
+    const [columnLeft, columnRight] = Iterator.from(column_)
       .map((cell) => {
         const [left, right = ''] = String(cell).split('.');
         return [stringWidth(left), stringWidth(right)] as const;
       })
       .reduce((a, b) => [Math.max(a[0], b[0]), Math.max(a[1], b[1])], [0, 0]);
-    return Iterator.from(column)
+    return Iterator.from(column_)
       .map((cell) => {
         const [left, right] = String(cell).split('.');
         return (
@@ -187,7 +204,10 @@ export function columnToAlignedStringArray(
   }
 }
 
-function tableToCsv(table: Table, option: CsvOutputOption): string {
+function tableToCsv(
+  { table, hasHeaders }: IrTable,
+  option: CsvOutputOption,
+): string {
   const delimiter = option.delimiter === 'comma' ? ',' : '\t';
   const cellStr = (cell: unknown): string => {
     const q = option.quote ? '"' : '';
@@ -223,10 +243,18 @@ function tableToCsv(table: Table, option: CsvOutputOption): string {
     rowStrs.push(rows[i].join(delimiter));
   }
 
-  return rowStrs.join('\n');
+  const headerStr = hasHeaders
+    ? // biome-ignore lint/style/useTemplate: テンプレートを使わないほうが可読性が高い
+      getHeaders(table).map(cellStr).join(delimiter) + '\n'
+    : '';
+
+  return headerStr + rowStrs.join('\n');
 }
 
-function tableToLatex(table: Table, option: LatexOutputOption): string {
+function tableToLatex(
+  { table, hasHeaders }: IrTable,
+  option: LatexOutputOption,
+): string {
   const alignments = Array.from({ length: table.numCols }).map((_, col) => {
     const typeId = table.schema.fields[col].typeId;
     if (typeId === Type.Int || typeId === Type.Float) {
@@ -248,10 +276,11 @@ function tableToLatex(table: Table, option: LatexOutputOption): string {
   }
 
   const rows: string[][] = [];
-  for (let i = 0; i < table.numRows; ++i) {
+  for (let i = 0; i < table.numRows + (hasHeaders ? 1 : 0); ++i) {
     rows.push([]);
   }
 
+  const headers = getHeaders(table);
   for (let col = 0; col < table.numCols; ++col) {
     const column = table.getChildAt(col);
     if (column == null) {
@@ -260,8 +289,9 @@ function tableToLatex(table: Table, option: LatexOutputOption): string {
     const alignedColumn = columnToAlignedStringArray(
       column,
       alignments[col] === 'r' ? 'dotted' : 'center',
+      hasHeaders ? headers[col] : undefined,
     );
-    for (let row = 0; row < table.numRows; ++row) {
+    for (let row = 0; row < alignedColumn.length; ++row) {
       const cell = alignedColumn[row];
       rows[row].push(cell);
     }
@@ -284,6 +314,6 @@ function tableToLatex(table: Table, option: LatexOutputOption): string {
   return output;
 }
 
-function tableToJson(table: Table): string {
+function tableToJson(table: IrTable): string {
   return JSON.stringify(table, undefined, 2);
 }
