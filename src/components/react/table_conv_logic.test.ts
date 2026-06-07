@@ -4,6 +4,7 @@ import {
   type CsvInputOption,
   columnToAlignedStringArray,
   csvToTable,
+  getColumnAlignment,
   type IrTable,
   tableToCsv,
   tableToLatex,
@@ -231,9 +232,9 @@ describe('tableToLatex', () => {
       }),
     ).toEqual(
       [
-        ' item  & count  \\\\',
-        'Apple  &     3  \\\\',
-        'Orange &    12  \\\\',
+        ' item  & count \\\\',
+        'Apple  &    3  \\\\',
+        'Orange &   12  \\\\',
       ].join('\n'),
     );
   });
@@ -267,9 +268,9 @@ describe('tableToLatex', () => {
     ).toEqual(
       [
         '\\begin{tabular}{cr} \\hline',
-        'name  & score   \\\\ \\hline',
-        'Alice &     1.5 \\\\ \\hline',
-        ' Bob  &    20   \\\\ \\hline',
+        'name  & score \\\\ \\hline',
+        'Alice &   1.5 \\\\ \\hline',
+        ' Bob  &  20   \\\\ \\hline',
         '\\end{tabular}',
       ].join('\n'),
     );
@@ -287,10 +288,10 @@ describe('tableToMarkdown', () => {
 
     expect(tableToMarkdown(table)).toEqual(
       [
-        '| item   | count  |',
-        '| ------ | -----: |',
-        '| Apple  |     3  |',
-        '| Orange |    12  |',
+        '| item   | count |',
+        '| ------ | ----: |',
+        '| Apple  |    3  |',
+        '| Orange |   12  |',
       ].join('\n'),
     );
   });
@@ -322,6 +323,47 @@ describe('tableToMarkdown', () => {
         '| Bob   | hello<br>world |',
       ].join('\n'),
     );
+  });
+});
+
+describe('getColumnAlignment', () => {
+  it('全角文字', () => {
+    expect(getColumnAlignment(['abcde', 'あい', 'あいう'], 'left')).toEqual({
+      type: 'left',
+      columnWidth: 6,
+    });
+  });
+
+  it('left のときセルとヘッダーの最大表示幅を返す', () => {
+    expect(getColumnAlignment(['ab', 'あい', 123], 'left', 'longer')).toEqual({
+      type: 'left',
+      columnWidth: 6,
+    });
+  });
+
+  it('center のときセルの最大表示幅を返す', () => {
+    expect(getColumnAlignment([1, 20, 300], 'center')).toEqual({
+      type: 'center',
+      columnWidth: 3,
+    });
+  });
+
+  it('dotted のとき小数点の左右それぞれの最大表示幅を返す', () => {
+    expect(getColumnAlignment([1, 20.5, '300.75'], 'dotted')).toEqual({
+      type: 'dotted',
+      leftWidth: 3,
+      rightWidth: 2,
+      columnWidth: 6,
+    });
+  });
+
+  it('dotted のときヘッダーが長ければ leftWidth と columnWidth に反映する', () => {
+    expect(getColumnAlignment(['1.2'], 'dotted', 'very wide')).toEqual({
+      type: 'dotted',
+      leftWidth: 7,
+      rightWidth: 1,
+      columnWidth: 9,
+    });
   });
 });
 
@@ -375,6 +417,26 @@ describe('columnToAlignedStringArray', () => {
       'あいうえおABC', //
       '   ABC漢字   ', //
       '    1234     ',
+    ]);
+  });
+
+  it('header に全角文字が含まれる場合の dotted (header が短い)', () => {
+    expect(columnToAlignedStringArray([0.1, 2, 30], 'dotted', 'あ')).toEqual([
+      'あ  ', //
+      ' 0.1', //
+      ' 2  ',
+      '30  ',
+    ]);
+  });
+
+  it('header に全角文字が含まれる場合の dotted (header が長い)', () => {
+    expect(
+      columnToAlignedStringArray([0.1, 2, 30], 'dotted', 'あいうえお'),
+    ).toEqual([
+      'あいうえお', //
+      '       0.1', //
+      '       2  ',
+      '      30  ',
     ]);
   });
 });
