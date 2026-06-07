@@ -12,15 +12,22 @@ export type CsvInputOption = {
 };
 
 export type OutputOption =
-  | 'csv-no-quote'
-  | 'csv-quote'
-  | 'tsv-no-quote'
-  | 'tsv-quote'
-  | 'latex'
-  | 'latex-hline'
-  | 'latex-tabular'
-  | 'latex-tabular-hline'
-  | 'debug';
+  | CsvOutputOption
+  | LatexOutputOption
+  | DebugOutputOption;
+type CsvOutputOption = {
+  type: 'csv';
+  delimiter: 'comma' | 'tab';
+  quote: boolean;
+};
+type LatexOutputOption = {
+  type: 'latex';
+  hline: boolean;
+  tabular: boolean;
+};
+type DebugOutputOption = {
+  type: 'debug';
+};
 
 export function convert(
   inputOption: InputOption,
@@ -36,23 +43,11 @@ export function convert(
       throw new Error(`不明な入力タイプです: ${inputOption}`);
   }
 
-  switch (outputOption) {
-    case 'csv-no-quote':
-      return tableToCsv(table, ',', false);
-    case 'csv-quote':
-      return tableToCsv(table, ',', true);
-    case 'tsv-no-quote':
-      return tableToCsv(table, '\t', false);
-    case 'tsv-quote':
-      return tableToCsv(table, '\t', true);
+  switch (outputOption.type) {
+    case 'csv':
+      return tableToCsv(table, outputOption);
     case 'latex':
-      return tableToLatex(table, false, false);
-    case 'latex-hline':
-      return tableToLatex(table, true, false);
-    case 'latex-tabular':
-      return tableToLatex(table, false, true);
-    case 'latex-tabular-hline':
-      return tableToLatex(table, true, true);
+      return tableToLatex(table, outputOption);
     case 'debug':
       return tableToJson(table);
     default:
@@ -141,14 +136,15 @@ export function csvToTable(csv: string, option: CsvInputOption): Table {
   }
 }
 
-function tableToCsv(table: Table, delimiter: string, quote: boolean): string {
+function tableToCsv(table: Table, option: CsvOutputOption): string {
+  const delimiter = option.delimiter === 'comma' ? ',' : '\t';
   const cellStr = (cell: unknown): string => {
-    const q = quote ? '"' : '';
+    const q = option.quote ? '"' : '';
     if (cell == null) {
       return q + q;
     } else {
       let s = String(cell);
-      if (quote) {
+      if (option.quote) {
         s = s.replaceAll('"', '""');
       }
       return q + s + q;
@@ -179,9 +175,9 @@ function tableToCsv(table: Table, delimiter: string, quote: boolean): string {
   return rowStrs.join('\n');
 }
 
-function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
+function tableToLatex(table: Table, option: LatexOutputOption): string {
   let output = '';
-  if (tabular) {
+  if (option.tabular) {
     const alignments = Array.from({ length: table.numCols }).map((_, col) => {
       const typeId = table.schema.fields[col].typeId;
       if (typeId === Type.Int || typeId === Type.Float) {
@@ -194,7 +190,7 @@ function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
     output += '\\begin{tabular}{';
     output += alignments.join('');
     output += '}';
-    if (hline) {
+    if (option.hline) {
       output += ' \\hline';
     }
     output += '\n';
@@ -218,13 +214,15 @@ function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
 
   const rowStrs: string[] = [];
   for (let i = 0; i < rows.length; ++i) {
-    // biome-ignore lint/style/useTemplate: テンプレートリテラルを使用しないほうが可読性が高い
-    rowStrs.push(rows[i].join(' & ') + ' \\\\' + (hline ? ' \\hline' : ''));
+    rowStrs.push(
+      // biome-ignore lint/style/useTemplate: テンプレートリテラルを使用しないほうが可読性が高い
+      rows[i].join(' & ') + ' \\\\' + (option.hline ? ' \\hline' : ''),
+    );
   }
 
   output += rowStrs.join('\n');
 
-  if (tabular) {
+  if (option.tabular) {
     output += '\n\\end{tabular}';
   }
 
