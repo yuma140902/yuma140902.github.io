@@ -24,6 +24,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@uidotdev/usehooks": "^2.4.1",
+    "apache-arrow": "^21.1.0",
     "astro": "^6.1.1",
     "astro-breadcrumbs": "^3.4.0",
     "astro-icon": "^1.1.5",
