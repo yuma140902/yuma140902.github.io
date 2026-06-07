@@ -104,7 +104,6 @@ function ppWithHeaderToArrowTable(
   table: Record<string, unknown[]>[],
   columnNames: string[],
 ): Table {
-  console.log('from', table, columnNames);
   // biome-ignore lint/suspicious/noExplicitAny: 変換の過程で型が不明なため
   const obj: Record<string, any> = {};
   for (let colIndex = 0; colIndex < columnNames.length; ++colIndex) {
@@ -182,30 +181,80 @@ export function csvToTable(csv: string, option: CsvInputOption): IrTable {
   }
 }
 
+export type ColumnAlignment =
+  | {
+      type: 'left';
+      columnWidth: number;
+    }
+  | {
+      type: 'center';
+      columnWidth: number;
+    }
+  | {
+      type: 'dotted';
+      leftWidth: number;
+      rightWidth: number;
+      columnWidth: number;
+    };
+
+export function getColumnAlignment(
+  column: Iterable<unknown>,
+  alignment: 'left' | 'center' | 'dotted',
+  header?: string | undefined,
+): ColumnAlignment {
+  if (alignment === 'left' || alignment === 'center') {
+    const widths = Iterator.from(column)
+      .map(String)
+      .map((cell) => stringWidth(cell))
+      .reduce((a, b) => Math.max(a, b), 0);
+    const headerWidth = header ? stringWidth(header) : 0;
+    return {
+      type: alignment,
+      columnWidth: Math.max(widths, headerWidth),
+    };
+  } else {
+    const [leftWidth, rightWidth] = Iterator.from(column)
+      .map((cell) => {
+        const [left, right = ''] = String(cell).split('.');
+        return [stringWidth(left), stringWidth(right)] as const;
+      })
+      .reduce((a, b) => [Math.max(a[0], b[0]), Math.max(a[1], b[1])], [0, 0]);
+    const columnWidth = Math.max(
+      leftWidth + rightWidth + 1 /* 1 for the dot*/,
+      header != null ? stringWidth(header) : 0,
+    );
+    return {
+      type: 'dotted',
+      leftWidth: columnWidth - rightWidth - 1,
+      rightWidth,
+      columnWidth,
+    };
+  }
+}
+
 export function columnToAlignedStringArray(
   column: Iterable<unknown>,
   alignment: 'left' | 'center' | 'dotted',
   header?: string | undefined,
 ): string[] {
-  const column_ = header != null ? [header, ...column] : column;
-  const widths = Iterator.from(column_)
-    .map(String)
-    .map((cell) => stringWidth(cell))
-    .toArray();
-  const columnWidth = Iterator.from(widths).reduce((a, b) => Math.max(a, b), 0);
+  const column_ = Iterator.from(column).map(String).toArray();
+  const ca = getColumnAlignment(column_, alignment, header);
 
-  if (alignment === 'left') {
-    return Iterator.from(column_)
-      .map((cell, i) => {
-        return cell + ' '.repeat(columnWidth - widths[i]);
+  if (ca.type === 'left') {
+    const columnWithHeader = header != null ? [header, ...column_] : column_;
+    return Iterator.from(columnWithHeader)
+      .map((cell) => {
+        return cell + ' '.repeat(ca.columnWidth - stringWidth(cell));
       })
       .toArray();
-  } else if (alignment === 'center') {
-    return Iterator.from(column_)
-      .map((cell, i) => {
-        const cellWidth = widths[i];
-        const paddingLeft = Math.floor((columnWidth - cellWidth) / 2);
-        const paddingRight = columnWidth - cellWidth - paddingLeft;
+  } else if (ca.type === 'center') {
+    const columnWithHeader = header != null ? [header, ...column_] : column_;
+    return Iterator.from(columnWithHeader)
+      .map(String)
+      .map((cell) => {
+        const cellWidth = stringWidth(cell);
+        const paddingLeft = Math.floor((ca.columnWidth - cellWidth) / 2);
+        const paddingRight = ca.columnWidth - cellWidth - paddingLeft;
         return ' '.repeat(paddingLeft) + cell + ' '.repeat(paddingRight);
       })
       .toArray();
@@ -214,23 +263,23 @@ export function columnToAlignedStringArray(
     // _0.1
     // _1__
     // 10__
-    const [columnLeft, columnRight] = Iterator.from(column_)
-      .map((cell) => {
-        const [left, right = ''] = String(cell).split('.');
-        return [stringWidth(left), stringWidth(right)] as const;
-      })
-      .reduce((a, b) => [Math.max(a[0], b[0]), Math.max(a[1], b[1])], [0, 0]);
-    return Iterator.from(column_)
+    const alignedHeader =
+      header != null
+        ? header + ' '.repeat(ca.columnWidth - stringWidth(header))
+        : undefined;
+
+    const aligned = Iterator.from(column_)
       .map((cell) => {
         const [left, right] = String(cell).split('.');
         return (
-          left.padStart(columnLeft) +
+          left.padStart(ca.leftWidth) +
           (right
-            ? `.${right.padEnd(columnRight)}`
-            : ` ${''.padEnd(columnRight)}`)
+            ? `.${right.padEnd(ca.rightWidth)}`
+            : ` ${''.padEnd(ca.rightWidth)}`)
         );
       })
       .toArray();
+    return alignedHeader != null ? [alignedHeader, ...aligned] : aligned;
   }
 }
 
