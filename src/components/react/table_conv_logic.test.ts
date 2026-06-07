@@ -2,67 +2,59 @@ import { type Table, Type } from 'apache-arrow';
 import { describe, expect, it } from 'vitest';
 import { type CsvInputOption, csvToTable } from './table_conv_logic';
 
-const defaultCsvInputOption: CsvInputOption = {
-  type: 'csv',
-  delimiter: { type: 'auto' },
-  quoted: true,
-  escapedDoubleQuote: true,
-  parseAsString: false,
-  header: false,
-};
+describe('csvToTable', () => {
+  const option = (partial?: Partial<CsvInputOption>): CsvInputOption => {
+    const dflt: CsvInputOption = {
+      type: 'csv',
+      delimiter: { type: 'auto' },
+      quoted: true,
+      escapedDoubleQuote: true,
+      parseAsString: false,
+      header: false,
+    };
 
-const getCsvInputOption = (
-  partial?: Partial<CsvInputOption>,
-): CsvInputOption => {
-  return { ...defaultCsvInputOption, ...partial };
-};
+    return { ...dflt, ...partial };
+  };
 
-function tableToRows(table: Table): unknown[][] {
-  const rows: unknown[][] = Array.from({ length: table.numRows }, () => []);
+  function tableToRows(table: Table): unknown[][] {
+    const rows: unknown[][] = Array.from({ length: table.numRows }, () => []);
 
-  for (let col = 0; col < table.numCols; ++col) {
-    const column = table.getChildAt(col);
-    if (column == null) {
-      continue;
+    for (let col = 0; col < table.numCols; ++col) {
+      const column = table.getChildAt(col);
+      if (column == null) {
+        continue;
+      }
+      for (let row = 0; row < table.numRows; ++row) {
+        rows[row].push(column.get(row));
+      }
     }
-    for (let row = 0; row < table.numRows; ++row) {
-      rows[row].push(column.get(row));
-    }
+
+    return rows;
   }
 
-  return rows;
-}
-
-describe('csvToTable', () => {
   it('parses comma separated rows', () => {
-    expect(
-      tableToRows(csvToTable('a,b,c\n1,2,3', getCsvInputOption())),
-    ).toEqual([
+    expect(tableToRows(csvToTable('a,b,c\n1,2,3', option()))).toEqual([
       ['a', 'b', 'c'],
       ['1', '2', '3'],
     ]);
   });
 
   it('uses tab delimiter when the input contains tabs', () => {
-    expect(
-      tableToRows(csvToTable('a\tb\tc\n1\t2\t3', getCsvInputOption())),
-    ).toEqual([
+    expect(tableToRows(csvToTable('a\tb\tc\n1\t2\t3', option()))).toEqual([
       ['a', 'b', 'c'],
       ['1', '2', '3'],
     ]);
   });
 
   it('keeps delimiters inside quoted cells', () => {
-    expect(
-      tableToRows(csvToTable('"a,b",c\n"1,2",3', getCsvInputOption())),
-    ).toEqual([
+    expect(tableToRows(csvToTable('"a,b",c\n"1,2",3', option()))).toEqual([
       ['a,b', 'c'],
       ['1,2', '3'],
     ]);
   });
 
   it('parses empty lines as empty cells', () => {
-    expect(tableToRows(csvToTable('a,b\n\nc,d', getCsvInputOption()))).toEqual([
+    expect(tableToRows(csvToTable('a,b\n\nc,d', option()))).toEqual([
       ['a', 'b'],
       [null, null],
       ['c', 'd'],
@@ -70,13 +62,13 @@ describe('csvToTable', () => {
   });
 
   it('handles surrogate pairs without splitting characters', () => {
-    expect(tableToRows(csvToTable('🍣,"🍺,🍵"', getCsvInputOption()))).toEqual([
+    expect(tableToRows(csvToTable('🍣,"🍺,🍵"', option()))).toEqual([
       ['🍣', '🍺,🍵'],
     ]);
   });
 
   it('数値のみのカラムは float としてパースされる', () => {
-    const table = csvToTable('a,1\nb,2\nc,3', getCsvInputOption());
+    const table = csvToTable('a,1\nb,2\nc,3', option());
     expect(tableToRows(table)).toEqual([
       ['a', 1],
       ['b', 2],
@@ -86,7 +78,7 @@ describe('csvToTable', () => {
   });
 
   it('boolean のみのカラムは boolean としてパースされる', () => {
-    const table = csvToTable('a,true\nb,false\nc,true', getCsvInputOption());
+    const table = csvToTable('a,true\nb,false\nc,true', option());
     expect(tableToRows(table)).toEqual([
       ['a', true],
       ['b', false],
@@ -96,7 +88,7 @@ describe('csvToTable', () => {
   });
 
   it('空のセルは null としてパースされる', () => {
-    const table = csvToTable('a,\n,b\n,', getCsvInputOption());
+    const table = csvToTable('a,\n,b\n,', option());
     expect(tableToRows(table)).toEqual([
       ['a', null],
       [null, 'b'],
@@ -105,7 +97,7 @@ describe('csvToTable', () => {
   });
 
   it('欠損値つきの float カラムは float としてパースされる', () => {
-    const table = csvToTable('a,1.5\nb,\nc,3.5', getCsvInputOption());
+    const table = csvToTable('a,1.5\nb,\nc,3.5', option());
     expect(tableToRows(table)).toEqual([
       ['a', 1.5],
       ['b', null],
@@ -114,7 +106,46 @@ describe('csvToTable', () => {
     expect(table.schema.fields[1].typeId).toEqual(Type.Float);
   });
 
-  it('parseAsString オプションが true のときはすべてのセルが string としてパースされる', () => {});
+  it('parseAsString オプションが true のときはすべてのセルが string としてパースされる', () => {
+    const table = csvToTable(
+      '1,true\n2,false',
+      option({ parseAsString: true }),
+    );
 
-  it('header オプションが true のときは最初の行がヘッダーとして扱われる', () => {});
+    expect(tableToRows(table)).toEqual([
+      ['1', 'true'],
+      ['2', 'false'],
+    ]);
+  });
+
+  it('header オプションが true のときは最初の行がヘッダーとして扱われる', () => {
+    const table = csvToTable(
+      'name,age,active\nAlice,20,true\nBob,30,false',
+      option({ header: true }),
+    );
+
+    expect(tableToRows(table)).toEqual([
+      ['Alice', 20, true],
+      ['Bob', 30, false],
+    ]);
+    expect(table.schema.fields.map((field) => field.name)).toEqual([
+      'name',
+      'age',
+      'active',
+    ]);
+  });
+
+  it('header オプションが true のとき、ヘッダーの順番が維持される', () => {
+    const table = csvToTable(
+      'zeta,alpha,middle\n1,2,3',
+      option({ header: true }),
+    );
+
+    expect(tableToRows(table)).toEqual([[1, 2, 3]]);
+    expect(table.schema.fields.map((field) => field.name)).toEqual([
+      'zeta',
+      'alpha',
+      'middle',
+    ]);
+  });
 });
