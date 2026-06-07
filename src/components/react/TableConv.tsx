@@ -170,8 +170,7 @@ function outputOptionForm(
       <option value="latex-tabular-hline">
         LaTeX (tabular 環境、罫線あり)
       </option>
-      <option value="json">JSON</option>
-      <option value="json-minify">JSON (Minify)</option>
+      <option value="debug">[デバッグ用] 中間形式</option>
     </select>
   );
 }
