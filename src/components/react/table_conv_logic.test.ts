@@ -1,11 +1,6 @@
 import { type Table, Type } from 'apache-arrow';
 import { describe, expect, it } from 'vitest';
-import {
-  type CsvInputOption,
-  csvToTable,
-  type JsonInputOption,
-  jsonToTable,
-} from './table_conv_logic';
+import { type CsvInputOption, csvToTable } from './table_conv_logic';
 
 const defaultCsvInputOption: CsvInputOption = {
   type: 'csv',
@@ -14,10 +9,6 @@ const defaultCsvInputOption: CsvInputOption = {
   escapedDoubleQuote: true,
   parseAsString: false,
   header: false,
-};
-
-const defaultJsonInputOption: JsonInputOption = {
-  type: 'json',
 };
 
 function tableToRows(table: Table): unknown[][] {
@@ -117,13 +108,5 @@ describe('csvToTable', () => {
       ['c', 3.5],
     ]);
     expect(table.getChildAt(1)?.type.typeId).toEqual(Type.Float);
-  });
-});
-
-describe('jsonToTable', () => {
-  it('throws because JSON input is not implemented yet', () => {
-    expect(() =>
-      jsonToTable('[["a","b","c"],["1","2","3"]]', defaultJsonInputOption),
-    ).toThrow('not yet implemented');
   });
 });
