@@ -1,3 +1,4 @@
+import { Table, Type, Utf8, type Vector, vectorFromArray } from 'apache-arrow';
 import Papa from 'papaparse';
 
 export type InputOption = CsvInputOption | JsonInputOption;
@@ -22,8 +23,6 @@ export type OutputOption =
   | 'latex-tabular-hline'
   | 'json'
   | 'json-minify';
-
-export type Table = string[][];
 
 export function convert(
   inputOption: InputOption,
@@ -68,8 +67,52 @@ export function convert(
   }
 }
 
+function ppWithoutHeaderToArrowTable(table: unknown[][]): Table {
+  const columns = Iterator.from(table)
+    .map((row) => row.length)
+    .reduce((a, b) => Math.max(a, b), 0);
+
+  // biome-ignore lint/suspicious/noExplicitAny: 変換の過程で型が不明なため
+  const obj: Record<number, any> = {};
+  for (let colIndex = 0; colIndex < columns; ++colIndex) {
+    const col = table.map((row) => row[colIndex] ?? null);
+    // biome-ignore lint/suspicious/noExplicitAny: 変換の過程で型が不明なため
+    let v: Vector<any> | undefined;
+    try {
+      // infer type
+      v = vectorFromArray(col);
+    } catch (e) {
+      if (e instanceof TypeError) v = vectorFromArray(col, new Utf8());
+    }
+    obj[colIndex] = v;
+  }
+  return new Table(obj);
+}
+
+function ppWithHeaderToArrowTable(
+  table: Record<string, unknown[]>[],
+  columnNames: string[],
+): Table {
+  console.log('from', table, columnNames);
+  // biome-ignore lint/suspicious/noExplicitAny: 変換の過程で型が不明なため
+  const obj: Record<string, any> = {};
+  for (let colIndex = 0; colIndex < columnNames.length; ++colIndex) {
+    const col = table.map((row) => row[columnNames[colIndex]] ?? null);
+    // biome-ignore lint/suspicious/noExplicitAny: 変換の過程で型が不明なため
+    let v: Vector<any> | undefined;
+    try {
+      // infer type
+      v = vectorFromArray(col);
+    } catch (e) {
+      if (e instanceof TypeError) v = vectorFromArray(col, new Utf8());
+    }
+    obj[columnNames[colIndex]] = v;
+  }
+  return new Table(obj);
+}
+
 export function csvToTable(csv: string, option: CsvInputOption): Table {
-  const result = Papa.parse<string[]>(csv, {
+  const result = Papa.parse<(string | number | boolean)[]>(csv, {
     delimiter:
       option.delimiter.type === 'literal'
         ? option.delimiter.literal
@@ -77,6 +120,8 @@ export function csvToTable(csv: string, option: CsvInputOption): Table {
     quoteChar: option.quoted ? '"' : '\0',
     escapeChar: option.escapedDoubleQuote ? '"' : '\0',
     skipEmptyLines: false,
+    dynamicTyping: true,
+    header: false,
   });
   const errors = result.errors.filter(
     (error) => error.code !== 'UndetectableDelimiter',
@@ -91,51 +136,81 @@ export function csvToTable(csv: string, option: CsvInputOption): Table {
     );
   }
 
-  return result.data;
+  if (result.data.length === 0) {
+    return new Table({});
+  } else if (Array.isArray(result.data[0])) {
+    return ppWithoutHeaderToArrowTable(result.data);
+  } else {
+    return ppWithHeaderToArrowTable(
+      result.data as unknown as Record<string, unknown[]>[],
+      result.meta.fields ?? [],
+    );
+  }
 }
 
-export function jsonToTable(json: string, _option: JsonInputOption): Table {
-  const obj = JSON.parse(json);
-  const table: Table = [];
-
-  if (!Array.isArray(obj)) {
-    throw new Error('JSON が配列でありません');
-  }
-  for (const row of obj) {
-    if (!Array.isArray(row)) {
-      throw new Error('JSON が2次元配列でありません');
-    }
-    const stringRow: string[] = [];
-    for (const cell of row) {
-      if (typeof cell === 'string') {
-        stringRow.push(cell);
-      } else {
-        stringRow.push(JSON.stringify(cell));
-      }
-    }
-    table.push(stringRow);
-  }
-  return table;
+export function jsonToTable(_json: string, _option: JsonInputOption): Table {
+  throw new Error('not yet implemented');
 }
 
 function tableToCsv(table: Table, delimiter: string, quote: boolean): string {
-  const q = quote ? '"' : '';
-  return table
-    .map((row) => row.map((cell) => q + cell + q).join(delimiter))
-    .join('\n');
+  const cellStr = (cell: unknown): string => {
+    const q = quote ? '"' : '';
+    if (cell == null) {
+      return q + q;
+    } else {
+      let s = String(cell);
+      if (quote) {
+        s = s.replaceAll('"', '""');
+      }
+      return q + s + q;
+    }
+  };
+
+  const rows: string[][] = [];
+  for (let i = 0; i < table.numRows; ++i) {
+    rows.push([]);
+  }
+
+  for (let col = 0; col < table.numCols; ++col) {
+    const column = table.getChildAt(col);
+    if (column == null) {
+      continue;
+    }
+    for (let row = 0; row < table.numRows; ++row) {
+      const cell = column.get(row);
+      rows[row].push(cellStr(cell));
+    }
+  }
+
+  const rowStrs: string[] = [];
+  for (let i = 0; i < rows.length; ++i) {
+    rowStrs.push(rows[i].join(delimiter));
+  }
+
+  return rowStrs.join('\n');
 }
 
 function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
-  const maxCols = table
-    .map((row) => row.length)
-    .reduce((a, b) => Math.max(a, b), 0);
-
   let output = '';
   if (tabular) {
+    const alignments = Array.from({ length: table.numCols }).map((_, col) => {
+      const column = table.getChildAt(col);
+      console.log('column', column);
+      console.log('type', column?.type);
+      if (column == null) {
+        return 'c';
+      } else if (
+        column.type.typeId === Type.Int ||
+        column.type.typeId === Type.Float
+      ) {
+        return 'r';
+      } else {
+        return 'c';
+      }
+    });
+
     output += '\\begin{tabular}{';
-    for (let i = 0; i < maxCols; ++i) {
-      output += 'c';
-    }
+    output += alignments.join('');
     output += '}';
     if (hline) {
       output += ' \\hline';
@@ -143,10 +218,29 @@ function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
     output += '\n';
   }
 
-  output += table
-    // biome-ignore lint/style/useTemplate: String concatenation keeps LaTeX escaping readable here.
-    .map((row) => row.join(' & ') + ' \\\\' + (hline ? ' \\hline' : ''))
-    .join('\n');
+  const rows: string[][] = [];
+  for (let i = 0; i < table.numRows; ++i) {
+    rows.push([]);
+  }
+
+  for (let col = 0; col < table.numCols; ++col) {
+    const column = table.getChildAt(col);
+    if (column == null) {
+      continue;
+    }
+    for (let row = 0; row < table.numRows; ++row) {
+      const cell = column.get(row);
+      rows[row].push(cell);
+    }
+  }
+
+  const rowStrs: string[] = [];
+  for (let i = 0; i < rows.length; ++i) {
+    // biome-ignore lint/style/useTemplate: テンプレートリテラルを使用しないほうが可読性が高い
+    rowStrs.push(rows[i].join(' & ') + ' \\\\' + (hline ? ' \\hline' : ''));
+  }
+
+  output += rowStrs.join('\n');
 
   if (tabular) {
     output += '\n\\end{tabular}';

@@ -1,3 +1,4 @@
+import { type Table, Type } from 'apache-arrow';
 import { describe, expect, it } from 'vitest';
 import {
   type CsvInputOption,
@@ -17,81 +18,110 @@ const defaultJsonInputOption: JsonInputOption = {
   type: 'json',
 };
 
+function tableToRows(table: Table): unknown[][] {
+  const rows: unknown[][] = Array.from({ length: table.numRows }, () => []);
+
+  for (let col = 0; col < table.numCols; ++col) {
+    const column = table.getChildAt(col);
+    if (column == null) {
+      continue;
+    }
+    for (let row = 0; row < table.numRows; ++row) {
+      rows[row].push(column.get(row));
+    }
+  }
+
+  return rows;
+}
+
 describe('csvToTable', () => {
   it('parses comma separated rows', () => {
-    expect(csvToTable('a,b,c\n1,2,3', defaultCsvInputOption)).toEqual([
+    expect(
+      tableToRows(csvToTable('a,b,c\n1,2,3', defaultCsvInputOption)),
+    ).toEqual([
       ['a', 'b', 'c'],
       ['1', '2', '3'],
     ]);
   });
 
   it('uses tab delimiter when the input contains tabs', () => {
-    expect(csvToTable('a\tb\tc\n1\t2\t3', defaultCsvInputOption)).toEqual([
+    expect(
+      tableToRows(csvToTable('a\tb\tc\n1\t2\t3', defaultCsvInputOption)),
+    ).toEqual([
       ['a', 'b', 'c'],
       ['1', '2', '3'],
     ]);
   });
 
   it('keeps delimiters inside quoted cells', () => {
-    expect(csvToTable('"a,b",c\n"1,2",3', defaultCsvInputOption)).toEqual([
+    expect(
+      tableToRows(csvToTable('"a,b",c\n"1,2",3', defaultCsvInputOption)),
+    ).toEqual([
       ['a,b', 'c'],
       ['1,2', '3'],
     ]);
   });
 
   it('parses empty lines as empty cells', () => {
-    expect(csvToTable('a,b\n\nc,d', defaultCsvInputOption)).toEqual([
+    expect(
+      tableToRows(csvToTable('a,b\n\nc,d', defaultCsvInputOption)),
+    ).toEqual([
       ['a', 'b'],
-      [''],
+      [null, null],
       ['c', 'd'],
     ]);
   });
 
   it('handles surrogate pairs without splitting characters', () => {
-    expect(csvToTable('🍣,"🍺,🍵"', defaultCsvInputOption)).toEqual([
-      ['🍣', '🍺,🍵'],
+    expect(
+      tableToRows(csvToTable('🍣,"🍺,🍵"', defaultCsvInputOption)),
+    ).toEqual([['🍣', '🍺,🍵']]);
+  });
+
+  it('数値のみのカラムは float としてパースされる', () => {
+    const table = csvToTable('a,1\nb,2\nc,3', defaultCsvInputOption);
+    expect(tableToRows(table)).toEqual([
+      ['a', 1],
+      ['b', 2],
+      ['c', 3],
     ]);
+    expect(table.getChildAt(1)?.type.typeId).toEqual(Type.Float);
+  });
+
+  it('boolean のみのカラムは boolean としてパースされる', () => {
+    const table = csvToTable('a,true\nb,false\nc,true', defaultCsvInputOption);
+    expect(tableToRows(table)).toEqual([
+      ['a', true],
+      ['b', false],
+      ['c', true],
+    ]);
+    expect(table.getChildAt(1)?.type.typeId).toEqual(Type.Bool);
+  });
+
+  it('空のセルは null としてパースされる', () => {
+    const table = csvToTable('a,\n,b\n,', defaultCsvInputOption);
+    expect(tableToRows(table)).toEqual([
+      ['a', null],
+      [null, 'b'],
+      [null, null],
+    ]);
+  });
+
+  it('欠損値つきの float カラムは float としてパースされる', () => {
+    const table = csvToTable('a,1.5\nb,\nc,3.5', defaultCsvInputOption);
+    expect(tableToRows(table)).toEqual([
+      ['a', 1.5],
+      ['b', null],
+      ['c', 3.5],
+    ]);
+    expect(table.getChildAt(1)?.type.typeId).toEqual(Type.Float);
   });
 });
 
 describe('jsonToTable', () => {
-  it('parses a two-dimensional string array', () => {
-    expect(
-      jsonToTable('[["a","b","c"],["1","2","3"]]', defaultJsonInputOption),
-    ).toEqual([
-      ['a', 'b', 'c'],
-      ['1', '2', '3'],
-    ]);
-  });
-
-  it('stringifies non-string cells', () => {
-    expect(
-      jsonToTable(
-        '[[1,true,null,{"key":"value"},["nested","array"]],["text"]]',
-        defaultJsonInputOption,
-      ),
-    ).toEqual([
-      ['1', 'true', 'null', '{"key":"value"}', '["nested","array"]'],
-      ['text'],
-    ]);
-  });
-
-  it('parses empty rows', () => {
-    expect(jsonToTable('[[],["a"]]', defaultJsonInputOption)).toEqual([
-      [],
-      ['a'],
-    ]);
-  });
-
-  it('throws when the top-level JSON value is not an array', () => {
+  it('throws because JSON input is not implemented yet', () => {
     expect(() =>
-      jsonToTable('{"rows":[["a"]]}', defaultJsonInputOption),
-    ).toThrow('JSON が配列でありません');
-  });
-
-  it('throws when a row is not an array', () => {
-    expect(() => jsonToTable('[["a"],"b"]', defaultJsonInputOption)).toThrow(
-      'JSON が2次元配列でありません',
-    );
+      jsonToTable('[["a","b","c"],["1","2","3"]]', defaultJsonInputOption),
+    ).toThrow('not yet implemented');
   });
 });
