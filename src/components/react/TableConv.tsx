@@ -344,6 +344,7 @@ export const TableConv: React.FC = () => {
         readOnly
         style={{ resize: 'vertical' }}
         onFocus={(e) => e.currentTarget.select()}
+        wrap="off"
       />
     </form>
   );
