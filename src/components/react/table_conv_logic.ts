@@ -20,8 +20,7 @@ export type OutputOption =
   | 'latex-hline'
   | 'latex-tabular'
   | 'latex-tabular-hline'
-  | 'json'
-  | 'json-minify';
+  | 'debug';
 
 export function convert(
   inputOption: InputOption,
@@ -54,10 +53,8 @@ export function convert(
       return tableToLatex(table, false, true);
     case 'latex-tabular-hline':
       return tableToLatex(table, true, true);
-    case 'json':
-      return tableToJson(table, false);
-    case 'json-minify':
-      return tableToJson(table, true);
+    case 'debug':
+      return tableToJson(table);
     default:
       throw new Error(`不明な出力タイプです: ${outputOption}`);
   }
@@ -241,6 +238,6 @@ function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
   return output;
 }
 
-function tableToJson(table: Table, minify: boolean): string {
-  return minify ? JSON.stringify(table) : JSON.stringify(table, undefined, 2);
+function tableToJson(table: Table): string {
+  return JSON.stringify(table, undefined, 2);
 }
