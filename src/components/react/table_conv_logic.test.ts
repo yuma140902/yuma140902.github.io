@@ -1,4 +1,4 @@
-import { type Table, Type } from 'apache-arrow';
+import { Type } from 'apache-arrow';
 import { describe, expect, it } from 'vitest';
 import {
   type CsvInputOption,
