@@ -183,15 +183,8 @@ function tableToLatex(table: Table, hline: boolean, tabular: boolean): string {
   let output = '';
   if (tabular) {
     const alignments = Array.from({ length: table.numCols }).map((_, col) => {
-      const column = table.getChildAt(col);
-      console.log('column', column);
-      console.log('type', column?.type);
-      if (column == null) {
-        return 'c';
-      } else if (
-        column.type.typeId === Type.Int ||
-        column.type.typeId === Type.Float
-      ) {
+      const typeId = table.schema.fields[col].typeId;
+      if (typeId === Type.Int || typeId === Type.Float) {
         return 'r';
       } else {
         return 'c';

@@ -82,7 +82,7 @@ describe('csvToTable', () => {
       ['b', 2],
       ['c', 3],
     ]);
-    expect(table.getChildAt(1)?.type.typeId).toEqual(Type.Float);
+    expect(table.schema.fields[1].typeId).toEqual(Type.Float);
   });
 
   it('boolean のみのカラムは boolean としてパースされる', () => {
@@ -92,7 +92,7 @@ describe('csvToTable', () => {
       ['b', false],
       ['c', true],
     ]);
-    expect(table.getChildAt(1)?.type.typeId).toEqual(Type.Bool);
+    expect(table.schema.fields[1].typeId).toEqual(Type.Bool);
   });
 
   it('空のセルは null としてパースされる', () => {
@@ -111,6 +111,10 @@ describe('csvToTable', () => {
       ['b', null],
       ['c', 3.5],
     ]);
-    expect(table.getChildAt(1)?.type.typeId).toEqual(Type.Float);
+    expect(table.schema.fields[1].typeId).toEqual(Type.Float);
   });
+
+  it('parseAsString オプションが true のときはすべてのセルが string としてパースされる', () => {});
+
+  it('header オプションが true のときは最初の行がヘッダーとして扱われる', () => {});
 });
