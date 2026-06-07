@@ -339,7 +339,7 @@ export function tableToLatex(
     if (typeId === Type.Int || typeId === Type.Float) {
       return 'r';
     } else {
-      return 'c';
+      return 'l';
     }
   });
 
@@ -367,7 +367,7 @@ export function tableToLatex(
     }
     const alignedColumn = columnToAlignedStringArray(
       column,
-      alignments[col] === 'r' ? 'dotted' : 'center',
+      alignments[col] === 'r' ? 'dotted' : 'left',
       hasHeaders ? headers[col] : undefined,
     );
     for (let row = 0; row < alignedColumn.length; ++row) {
