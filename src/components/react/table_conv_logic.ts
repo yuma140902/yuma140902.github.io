@@ -204,7 +204,7 @@ export function columnToAlignedStringArray(
   }
 }
 
-function tableToCsv(
+export function tableToCsv(
   { table, hasHeaders }: IrTable,
   option: CsvOutputOption,
 ): string {
@@ -251,7 +251,7 @@ function tableToCsv(
   return headerStr + rowStrs.join('\n');
 }
 
-function tableToLatex(
+export function tableToLatex(
   { table, hasHeaders }: IrTable,
   option: LatexOutputOption,
 ): string {

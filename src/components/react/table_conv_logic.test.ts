@@ -5,20 +5,26 @@ import {
   columnToAlignedStringArray,
   csvToTable,
   type IrTable,
+  tableToCsv,
+  tableToLatex,
 } from './table_conv_logic';
+
+const csvInputOption = (partial?: Partial<CsvInputOption>): CsvInputOption => {
+  const dflt: CsvInputOption = {
+    type: 'csv',
+    delimiter: { type: 'auto' },
+    quoted: true,
+    escapedDoubleQuote: true,
+    parseAsString: false,
+    header: false,
+  };
+
+  return { ...dflt, ...partial };
+};
 
 describe('csvToTable', () => {
   const option = (partial?: Partial<CsvInputOption>): CsvInputOption => {
-    const dflt: CsvInputOption = {
-      type: 'csv',
-      delimiter: { type: 'auto' },
-      quoted: true,
-      escapedDoubleQuote: true,
-      parseAsString: false,
-      header: false,
-    };
-
-    return { ...dflt, ...partial };
+    return csvInputOption(partial);
   };
 
   function tableToRows({ table }: IrTable): unknown[][] {
@@ -152,6 +158,114 @@ describe('csvToTable', () => {
       'alpha',
       'middle',
     ]);
+  });
+});
+
+describe('tableToCsv', () => {
+  it('ヘッダー付きテーブルを CSV に変換する', () => {
+    const table = csvToTable(
+      'name,age\nAlice,20\nBob,30',
+      csvInputOption({
+        header: true,
+      }),
+    );
+
+    expect(
+      tableToCsv(table, {
+        type: 'csv',
+        delimiter: 'comma',
+        quote: false,
+      }),
+    ).toEqual('name,age\nAlice,20\nBob,30');
+  });
+
+  it('タブ区切りで出力する', () => {
+    const table = csvToTable('a,b\n1,2', csvInputOption());
+
+    expect(
+      tableToCsv(table, {
+        type: 'csv',
+        delimiter: 'tab',
+        quote: false,
+      }),
+    ).toEqual('a\tb\n1\t2');
+  });
+
+  it('quote オプションが true のときセルを引用し、ダブルクォートをエスケープする', () => {
+    const table = csvToTable(
+      'name,note\nAlice,"hello ""world"""\nBob,',
+      csvInputOption({ header: true, parseAsString: true }),
+    );
+
+    expect(
+      tableToCsv(table, {
+        type: 'csv',
+        delimiter: 'comma',
+        quote: true,
+      }),
+    ).toEqual('"name","note"\n"Alice","hello ""world"""\n"Bob",""');
+  });
+});
+
+describe('tableToLatex', () => {
+  it('tabular 環境なしで LaTeX の行に変換する', () => {
+    const table = csvToTable(
+      'item,count\nApple,3\nOrange,12',
+      csvInputOption({
+        header: true,
+      }),
+    );
+
+    expect(
+      tableToLatex(table, {
+        type: 'latex',
+        hline: false,
+        tabular: false,
+      }),
+    ).toEqual(
+      [
+        ' item  & count  \\\\',
+        'Apple  &     3  \\\\',
+        'Orange &    12  \\\\',
+      ].join('\n'),
+    );
+  });
+
+  it('ヘッダーなしテーブルを LaTeX の行に変換する', () => {
+    const table = csvToTable('Apple,3\nOrange,12', csvInputOption());
+
+    expect(
+      tableToLatex(table, {
+        type: 'latex',
+        hline: false,
+        tabular: false,
+      }),
+    ).toBe(['Apple  &  3  \\\\', 'Orange & 12  \\\\'].join('\n'));
+  });
+
+  it('tabular 環境と hline を出力する', () => {
+    const table = csvToTable(
+      'name,score\nAlice,1.5\nBob,20',
+      csvInputOption({
+        header: true,
+      }),
+    );
+
+    expect(
+      tableToLatex(table, {
+        type: 'latex',
+        hline: true,
+        tabular: true,
+      }),
+    ).toEqual(
+      [
+        '\\begin{tabular}{cr} \\hline',
+        'name  & score   \\\\ \\hline',
+        'Alice &     1.5 \\\\ \\hline',
+        ' Bob  &    20   \\\\ \\hline',
+        '\\end{tabular}',
+      ].join('\n'),
+    );
   });
 });
 
