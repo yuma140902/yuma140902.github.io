@@ -21,7 +21,21 @@ const defaultInputOption: InputOption = {
   header: true,
 };
 
-const defaultOutputOption: OutputOption = 'tsv-no-quote';
+const defaultOutputOption: OutputOption = {
+  type: 'csv',
+  delimiter: 'comma',
+  quote: true,
+};
+const defaultCsvOutputOption: Extract<OutputOption, { type: 'csv' }> =
+  defaultOutputOption;
+const defaultLatexOutputOption: Extract<OutputOption, { type: 'latex' }> = {
+  type: 'latex',
+  hline: false,
+  tabular: true,
+};
+const defaultDebugOutputOption: Extract<OutputOption, { type: 'debug' }> = {
+  type: 'debug',
+};
 
 function InputOptionForm({
   option,
@@ -161,23 +175,112 @@ function OutputOptionForm({
   option: OutputOption;
   setOption: (option: OutputOption) => void;
 }) {
+  const selectOutputType = (type: OutputOption['type']) => {
+    switch (type) {
+      case 'csv':
+        setOption(option.type === 'csv' ? option : defaultCsvOutputOption);
+        break;
+      case 'latex':
+        setOption(option.type === 'latex' ? option : defaultLatexOutputOption);
+        break;
+      case 'debug':
+        setOption(option.type === 'debug' ? option : defaultDebugOutputOption);
+        break;
+    }
+  };
+
   return (
-    <select
-      value={option}
-      onChange={(e) => setOption(e.target.value as OutputOption)}
-    >
-      <option value="tsv-no-quote">CSV (タブ区切り、クォート無)</option>
-      <option value="tsv-quote">CSV (タブ区切り、クォート有)</option>
-      <option value="csv-no-quote">CSV (カンマ区切り、クォート無)</option>
-      <option value="csv-quote">CSV (カンマ区切り、クォート有)</option>
-      <option value="latex">LaTeX</option>
-      <option value="latex-hline">LaTeX (罫線あり)</option>
-      <option value="latex-tabular">LaTeX (tabular 環境)</option>
-      <option value="latex-tabular-hline">
-        LaTeX (tabular 環境、罫線あり)
-      </option>
-      <option value="debug">[デバッグ用] 中間形式</option>
-    </select>
+    <div className="tc-options">
+      <label>
+        出力形式
+        <select
+          value={option.type}
+          onChange={(e) =>
+            selectOutputType(e.target.value as OutputOption['type'])
+          }
+        >
+          <option value="csv">CSV</option>
+          <option value="latex">LaTeX</option>
+          <option value="debug">[デバッグ用] 中間形式</option>
+        </select>
+      </label>
+      {option.type === 'csv' && (
+        <CsvOutputOptionForm option={option} setOption={setOption} />
+      )}
+      {option.type === 'latex' && (
+        <LatexOutputOptionForm option={option} setOption={setOption} />
+      )}
+    </div>
+  );
+}
+
+function CsvOutputOptionForm({
+  option,
+  setOption,
+}: {
+  option: Extract<OutputOption, { type: 'csv' }>;
+  setOption: (option: Extract<OutputOption, { type: 'csv' }>) => void;
+}) {
+  return (
+    <fieldset className="tc-fieldset">
+      <legend>CSV オプション</legend>
+      <label>
+        区切り文字
+        <select
+          value={option.delimiter}
+          onChange={(e) =>
+            setOption({
+              ...option,
+              delimiter: e.target.value as Extract<
+                OutputOption,
+                { type: 'csv' }
+              >['delimiter'],
+            })
+          }
+        >
+          <option value="tab">タブ</option>
+          <option value="comma">カンマ</option>
+        </select>
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={option.quote}
+          onChange={(e) => setOption({ ...option, quote: e.target.checked })}
+        />
+        すべてのフィールドを「"」で囲む
+      </label>
+    </fieldset>
+  );
+}
+
+function LatexOutputOptionForm({
+  option,
+  setOption,
+}: {
+  option: Extract<OutputOption, { type: 'latex' }>;
+  setOption: (option: Extract<OutputOption, { type: 'latex' }>) => void;
+}) {
+  return (
+    <fieldset className="tc-fieldset">
+      <legend>LaTeX オプション</legend>
+      <label>
+        <input
+          type="checkbox"
+          checked={option.hline}
+          onChange={(e) => setOption({ ...option, hline: e.target.checked })}
+        />
+        罫線を出力する
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={option.tabular}
+          onChange={(e) => setOption({ ...option, tabular: e.target.checked })}
+        />
+        tabular 環境で囲む
+      </label>
+    </fieldset>
   );
 }
 
