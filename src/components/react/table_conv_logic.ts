@@ -101,7 +101,7 @@ function ppWithHeaderToArrowTable(
     }
     obj[columnNames[colIndex]] = v;
   }
-  return new Table(obj);
+  return new Table(obj).select(columnNames); // keep the column order
 }
 
 export function csvToTable(csv: string, option: CsvInputOption): Table {
