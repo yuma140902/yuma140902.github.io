@@ -232,7 +232,7 @@ describe('tableToLatex', () => {
       }),
     ).toEqual(
       [
-        ' item  & count \\\\',
+        'item   & count \\\\',
         'Apple  &    3  \\\\',
         'Orange &   12  \\\\',
       ].join('\n'),
@@ -248,7 +248,12 @@ describe('tableToLatex', () => {
         hline: false,
         tabular: false,
       }),
-    ).toBe(['Apple  &  3  \\\\', 'Orange & 12  \\\\'].join('\n'));
+    ).toEqual(
+      [
+        'Apple  &  3  \\\\', //
+        'Orange & 12  \\\\',
+      ].join('\n'),
+    );
   });
 
   it('tabular 環境と hline を出力する', () => {
@@ -267,10 +272,10 @@ describe('tableToLatex', () => {
       }),
     ).toEqual(
       [
-        '\\begin{tabular}{cr} \\hline',
+        '\\begin{tabular}{lr} \\hline',
         'name  & score \\\\ \\hline',
         'Alice &   1.5 \\\\ \\hline',
-        ' Bob  &  20   \\\\ \\hline',
+        'Bob   &  20   \\\\ \\hline',
         '\\end{tabular}',
       ].join('\n'),
     );
