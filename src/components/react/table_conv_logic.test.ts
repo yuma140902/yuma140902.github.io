@@ -7,6 +7,7 @@ import {
   type IrTable,
   tableToCsv,
   tableToLatex,
+  tableToMarkdown,
 } from './table_conv_logic';
 
 const csvInputOption = (partial?: Partial<CsvInputOption>): CsvInputOption => {
@@ -264,6 +265,55 @@ describe('tableToLatex', () => {
         'Alice &     1.5 \\\\ \\hline',
         ' Bob  &    20   \\\\ \\hline',
         '\\end{tabular}',
+      ].join('\n'),
+    );
+  });
+});
+
+describe('tableToMarkdown', () => {
+  it('ヘッダー付きテーブルを Markdown テーブルに変換する', () => {
+    const table = csvToTable(
+      'item,count\nApple,3\nOrange,12',
+      csvInputOption({
+        header: true,
+      }),
+    );
+
+    expect(tableToMarkdown(table)).toEqual(
+      [
+        '| item   | count  |',
+        '| ------ | -----: |',
+        '| Apple  |     3  |',
+        '| Orange |    12  |',
+      ].join('\n'),
+    );
+  });
+
+  it('ヘッダーなしテーブルを空ヘッダーの Markdown テーブルに変換する', () => {
+    const table = csvToTable('Apple,3\nOrange,12', csvInputOption());
+
+    expect(tableToMarkdown(table)).toEqual(
+      [
+        '|        |     |',
+        '| ------ | ---: |',
+        '| Apple  |  3  |',
+        '| Orange | 12  |',
+      ].join('\n'),
+    );
+  });
+
+  it('Markdown テーブルの区切り文字と改行をエスケープする', () => {
+    const table = csvToTable(
+      'name,note\nAlice,"a|b"\nBob,"hello\nworld"',
+      csvInputOption({ header: true, parseAsString: true }),
+    );
+
+    expect(tableToMarkdown(table)).toEqual(
+      [
+        '| name  | note           |',
+        '| ----- | -------------- |',
+        '| Alice | a\\|b           |',
+        '| Bob   | hello<br>world |',
       ].join('\n'),
     );
   });
