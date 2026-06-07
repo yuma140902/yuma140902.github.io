@@ -50,6 +50,7 @@
 
 textarea {
   width: 100%;
+  font-family: monospace;
 }
 
 @media (max-width: 640px) {

@@ -1,5 +1,6 @@
 import { Table, Type, Utf8, type Vector, vectorFromArray } from 'apache-arrow';
 import Papa from 'papaparse';
+import stringWidth from 'string-width';
 
 export type InputOption = CsvInputOption;
 export type CsvInputOption = {
@@ -136,6 +137,56 @@ export function csvToTable(csv: string, option: CsvInputOption): Table {
   }
 }
 
+export function columnToAlignedStringArray(
+  column: Iterable<unknown>,
+  alignment: 'left' | 'center' | 'dotted',
+): string[] {
+  const widths = Iterator.from(column)
+    .map(String)
+    .map((cell) => stringWidth(cell))
+    .toArray();
+  const columnWidth = Iterator.from(widths).reduce((a, b) => Math.max(a, b), 0);
+
+  if (alignment === 'left') {
+    return Iterator.from(column)
+      .map((cell, i) => {
+        return cell + ' '.repeat(columnWidth - widths[i]);
+      })
+      .toArray();
+  } else if (alignment === 'center') {
+    return Iterator.from(column)
+      .map((cell, i) => {
+        const cellWidth = widths[i];
+        const paddingLeft = Math.floor((columnWidth - cellWidth) / 2);
+        const paddingRight = columnWidth - cellWidth - paddingLeft;
+        return ' '.repeat(paddingLeft) + cell + ' '.repeat(paddingRight);
+      })
+      .toArray();
+  } else {
+    // example:
+    // _0.1
+    // _1__
+    // 10__
+    const [columnLeft, columnRight] = Iterator.from(column)
+      .map((cell) => {
+        const [left, right = ''] = String(cell).split('.');
+        return [stringWidth(left), stringWidth(right)] as const;
+      })
+      .reduce((a, b) => [Math.max(a[0], b[0]), Math.max(a[1], b[1])], [0, 0]);
+    return Iterator.from(column)
+      .map((cell) => {
+        const [left, right] = String(cell).split('.');
+        return (
+          left.padStart(columnLeft) +
+          (right
+            ? `.${right.padEnd(columnRight)}`
+            : ` ${''.padEnd(columnRight)}`)
+        );
+      })
+      .toArray();
+  }
+}
+
 function tableToCsv(table: Table, option: CsvOutputOption): string {
   const delimiter = option.delimiter === 'comma' ? ',' : '\t';
   const cellStr = (cell: unknown): string => {
@@ -176,17 +227,17 @@ function tableToCsv(table: Table, option: CsvOutputOption): string {
 }
 
 function tableToLatex(table: Table, option: LatexOutputOption): string {
+  const alignments = Array.from({ length: table.numCols }).map((_, col) => {
+    const typeId = table.schema.fields[col].typeId;
+    if (typeId === Type.Int || typeId === Type.Float) {
+      return 'r';
+    } else {
+      return 'c';
+    }
+  });
+
   let output = '';
   if (option.tabular) {
-    const alignments = Array.from({ length: table.numCols }).map((_, col) => {
-      const typeId = table.schema.fields[col].typeId;
-      if (typeId === Type.Int || typeId === Type.Float) {
-        return 'r';
-      } else {
-        return 'c';
-      }
-    });
-
     output += '\\begin{tabular}{';
     output += alignments.join('');
     output += '}';
@@ -206,8 +257,12 @@ function tableToLatex(table: Table, option: LatexOutputOption): string {
     if (column == null) {
       continue;
     }
+    const alignedColumn = columnToAlignedStringArray(
+      column,
+      alignments[col] === 'r' ? 'dotted' : 'center',
+    );
     for (let row = 0; row < table.numRows; ++row) {
-      const cell = column.get(row);
+      const cell = alignedColumn[row];
       rows[row].push(cell);
     }
   }
