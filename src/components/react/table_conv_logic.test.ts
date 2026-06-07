@@ -65,10 +65,16 @@ describe('csvToTable', () => {
     ]);
   });
 
-  it('parses empty lines as empty cells', () => {
+  it('空の行はスキップされる', () => {
     expect(tableToRows(csvToTable('a,b\n\nc,d', option()))).toEqual([
       ['a', 'b'],
-      [null, null],
+      ['c', 'd'],
+    ]);
+  });
+
+  it('末尾の改行は無視される', () => {
+    expect(tableToRows(csvToTable('a,b\nc,d\n', option()))).toEqual([
+      ['a', 'b'],
       ['c', 'd'],
     ]);
   });

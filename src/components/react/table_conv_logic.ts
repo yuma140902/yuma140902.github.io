@@ -123,7 +123,7 @@ export function csvToTable(csv: string, option: CsvInputOption): IrTable {
         : undefined,
     quoteChar: option.quoted ? '"' : '\0',
     escapeChar: option.escapedDoubleQuote ? '"' : '\0',
-    skipEmptyLines: false,
+    skipEmptyLines: true,
     dynamicTyping: !option.parseAsString,
     header: option.header,
   });
