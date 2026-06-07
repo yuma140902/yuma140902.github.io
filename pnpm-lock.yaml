@@ -91,13 +91,13 @@ importers:
         version: 0.4.0
     devDependencies:
       '@biomejs/biome':
-        specifier: ^2.4.16
+        specifier: 2.4.16
         version: 2.4.16
       '@types/colormap':
-        specifier: ^2.3.4
+        specifier: 2.3.4
         version: 2.3.4
       '@types/papaparse':
-        specifier: ^5.5.2
+        specifier: 5.5.2
         version: 5.5.2
       '@vitest/coverage-v8':
         specifier: 4.1.7
