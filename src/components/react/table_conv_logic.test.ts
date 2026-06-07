@@ -11,6 +11,12 @@ const defaultCsvInputOption: CsvInputOption = {
   header: false,
 };
 
+const getCsvInputOption = (
+  partial?: Partial<CsvInputOption>,
+): CsvInputOption => {
+  return { ...defaultCsvInputOption, ...partial };
+};
+
 function tableToRows(table: Table): unknown[][] {
   const rows: unknown[][] = Array.from({ length: table.numRows }, () => []);
 
@@ -30,7 +36,7 @@ function tableToRows(table: Table): unknown[][] {
 describe('csvToTable', () => {
   it('parses comma separated rows', () => {
     expect(
-      tableToRows(csvToTable('a,b,c\n1,2,3', defaultCsvInputOption)),
+      tableToRows(csvToTable('a,b,c\n1,2,3', getCsvInputOption())),
     ).toEqual([
       ['a', 'b', 'c'],
       ['1', '2', '3'],
@@ -39,7 +45,7 @@ describe('csvToTable', () => {
 
   it('uses tab delimiter when the input contains tabs', () => {
     expect(
-      tableToRows(csvToTable('a\tb\tc\n1\t2\t3', defaultCsvInputOption)),
+      tableToRows(csvToTable('a\tb\tc\n1\t2\t3', getCsvInputOption())),
     ).toEqual([
       ['a', 'b', 'c'],
       ['1', '2', '3'],
@@ -48,7 +54,7 @@ describe('csvToTable', () => {
 
   it('keeps delimiters inside quoted cells', () => {
     expect(
-      tableToRows(csvToTable('"a,b",c\n"1,2",3', defaultCsvInputOption)),
+      tableToRows(csvToTable('"a,b",c\n"1,2",3', getCsvInputOption())),
     ).toEqual([
       ['a,b', 'c'],
       ['1,2', '3'],
@@ -56,9 +62,7 @@ describe('csvToTable', () => {
   });
 
   it('parses empty lines as empty cells', () => {
-    expect(
-      tableToRows(csvToTable('a,b\n\nc,d', defaultCsvInputOption)),
-    ).toEqual([
+    expect(tableToRows(csvToTable('a,b\n\nc,d', getCsvInputOption()))).toEqual([
       ['a', 'b'],
       [null, null],
       ['c', 'd'],
@@ -66,13 +70,13 @@ describe('csvToTable', () => {
   });
 
   it('handles surrogate pairs without splitting characters', () => {
-    expect(
-      tableToRows(csvToTable('🍣,"🍺,🍵"', defaultCsvInputOption)),
-    ).toEqual([['🍣', '🍺,🍵']]);
+    expect(tableToRows(csvToTable('🍣,"🍺,🍵"', getCsvInputOption()))).toEqual([
+      ['🍣', '🍺,🍵'],
+    ]);
   });
 
   it('数値のみのカラムは float としてパースされる', () => {
-    const table = csvToTable('a,1\nb,2\nc,3', defaultCsvInputOption);
+    const table = csvToTable('a,1\nb,2\nc,3', getCsvInputOption());
     expect(tableToRows(table)).toEqual([
       ['a', 1],
       ['b', 2],
@@ -82,7 +86,7 @@ describe('csvToTable', () => {
   });
 
   it('boolean のみのカラムは boolean としてパースされる', () => {
-    const table = csvToTable('a,true\nb,false\nc,true', defaultCsvInputOption);
+    const table = csvToTable('a,true\nb,false\nc,true', getCsvInputOption());
     expect(tableToRows(table)).toEqual([
       ['a', true],
       ['b', false],
@@ -92,7 +96,7 @@ describe('csvToTable', () => {
   });
 
   it('空のセルは null としてパースされる', () => {
-    const table = csvToTable('a,\n,b\n,', defaultCsvInputOption);
+    const table = csvToTable('a,\n,b\n,', getCsvInputOption());
     expect(tableToRows(table)).toEqual([
       ['a', null],
       [null, 'b'],
@@ -101,7 +105,7 @@ describe('csvToTable', () => {
   });
 
   it('欠損値つきの float カラムは float としてパースされる', () => {
-    const table = csvToTable('a,1.5\nb,\nc,3.5', defaultCsvInputOption);
+    const table = csvToTable('a,1.5\nb,\nc,3.5', getCsvInputOption());
     expect(tableToRows(table)).toEqual([
       ['a', 1.5],
       ['b', null],
