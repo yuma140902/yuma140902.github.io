@@ -23,10 +23,13 @@ const defaultInputOption: InputOption = {
 
 const defaultOutputOption: OutputOption = 'tsv-no-quote';
 
-function inputOptionForm(
-  option: InputOption,
-  setOption: (option: InputOption) => void,
-) {
+function InputOptionForm({
+  option,
+  setOption,
+}: {
+  option: InputOption;
+  setOption: (option: InputOption) => void;
+}) {
   const selectInputType = (type: InputOption['type']) => {
     switch (type) {
       case 'csv':
@@ -151,10 +154,13 @@ function CsvInputOptionForm({
   );
 }
 
-function outputOptionForm(
-  option: OutputOption,
-  setOption: (option: OutputOption) => void,
-) {
+function OutputOptionForm({
+  option,
+  setOption,
+}: {
+  option: OutputOption;
+  setOption: (option: OutputOption) => void;
+}) {
   return (
     <select
       value={option}
@@ -200,11 +206,11 @@ export const TableConv: React.FC = () => {
     <form className="tc-container">
       <div className="tc-controls tc-input-controls">
         <h2>入力</h2>
-        {inputOptionForm(inputOption, setInputOption)}
+        <InputOptionForm option={inputOption} setOption={setInputOption} />
       </div>
       <div className="tc-controls tc-output-controls">
         <h2>出力</h2>
-        {outputOptionForm(outputOption, setOutputOption)}
+        <OutputOptionForm option={outputOption} setOption={setOutputOption} />
       </div>
       <textarea
         className="tc-input-text"
