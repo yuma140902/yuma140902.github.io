@@ -17,6 +17,8 @@ const defaultInputOption: InputOption = {
   delimiter: { type: 'auto' },
   quoted: true,
   escapedDoubleQuote: true,
+  parseAsString: false,
+  header: true,
 };
 
 const defaultOutputOption: OutputOption = 'tsv-no-quote';
@@ -128,6 +130,26 @@ function CsvInputOptionForm({
           }
         />
         フィールド中の「""」を「"」として扱う
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={option.parseAsString}
+          onChange={(e) =>
+            setCsvOption({ ...option, parseAsString: e.target.checked })
+          }
+        />
+        フィールドの型をすべて文字列として扱う
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={option.header}
+          onChange={(e) =>
+            setCsvOption({ ...option, header: e.target.checked })
+          }
+        />
+        1 行目をヘッダー行として扱う
       </label>
     </fieldset>
   );

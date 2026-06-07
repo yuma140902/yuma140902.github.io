@@ -7,6 +7,8 @@ export type CsvInputOption = {
   delimiter: { type: 'literal'; literal: string } | { type: 'auto' };
   quoted: boolean;
   escapedDoubleQuote: boolean;
+  parseAsString: boolean;
+  header: boolean;
 };
 export type JsonInputOption = {
   type: 'json';
@@ -120,8 +122,8 @@ export function csvToTable(csv: string, option: CsvInputOption): Table {
     quoteChar: option.quoted ? '"' : '\0',
     escapeChar: option.escapedDoubleQuote ? '"' : '\0',
     skipEmptyLines: false,
-    dynamicTyping: true,
-    header: false,
+    dynamicTyping: !option.parseAsString,
+    header: option.header,
   });
   const errors = result.errors.filter(
     (error) => error.code !== 'UndetectableDelimiter',

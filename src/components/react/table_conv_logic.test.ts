@@ -12,6 +12,8 @@ const defaultCsvInputOption: CsvInputOption = {
   delimiter: { type: 'auto' },
   quoted: true,
   escapedDoubleQuote: true,
+  parseAsString: false,
+  header: false,
 };
 
 const defaultJsonInputOption: JsonInputOption = {
