@@ -32,9 +32,6 @@ function inputOptionForm(
       case 'csv':
         setOption(option.type === 'csv' ? option : defaultInputOption);
         break;
-      case 'json':
-        setOption({ type: 'json' });
-        break;
     }
   };
 
@@ -49,7 +46,6 @@ function inputOptionForm(
           }
         >
           <option value="csv">CSV</option>
-          <option value="json">JSON</option>
         </select>
       </label>
       {option.type === 'csv' && (

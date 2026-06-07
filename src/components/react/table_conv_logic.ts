@@ -1,7 +1,7 @@
 import { Table, Type, Utf8, type Vector, vectorFromArray } from 'apache-arrow';
 import Papa from 'papaparse';
 
-export type InputOption = CsvInputOption | JsonInputOption;
+export type InputOption = CsvInputOption;
 export type CsvInputOption = {
   type: 'csv';
   delimiter: { type: 'literal'; literal: string } | { type: 'auto' };
@@ -9,9 +9,6 @@ export type CsvInputOption = {
   escapedDoubleQuote: boolean;
   parseAsString: boolean;
   header: boolean;
-};
-export type JsonInputOption = {
-  type: 'json';
 };
 
 export type OutputOption =
@@ -35,9 +32,6 @@ export function convert(
   switch (inputOption.type) {
     case 'csv':
       table = csvToTable(text, inputOption);
-      break;
-    case 'json':
-      table = jsonToTable(text, inputOption);
       break;
     default:
       throw new Error(`不明な入力タイプです: ${inputOption}`);
@@ -148,10 +142,6 @@ export function csvToTable(csv: string, option: CsvInputOption): Table {
       result.meta.fields ?? [],
     );
   }
-}
-
-export function jsonToTable(_json: string, _option: JsonInputOption): Table {
-  throw new Error('not yet implemented');
 }
 
 function tableToCsv(table: Table, delimiter: string, quote: boolean): string {
