@@ -15,6 +15,7 @@ export type CsvInputOption = {
 export type OutputOption =
   | CsvOutputOption
   | LatexOutputOption
+  | MarkdownOutputOption
   | DebugOutputOption;
 type CsvOutputOption = {
   type: 'csv';
@@ -25,6 +26,9 @@ type LatexOutputOption = {
   type: 'latex';
   hline: boolean;
   tabular: boolean;
+};
+type MarkdownOutputOption = {
+  type: 'markdown';
 };
 type DebugOutputOption = {
   type: 'debug';
@@ -58,6 +62,8 @@ export function convert(
       return tableToCsv(table, outputOption);
     case 'latex':
       return tableToLatex(table, outputOption);
+    case 'markdown':
+      return tableToMarkdown(table);
     case 'debug':
       return tableToJson(table);
     default:
@@ -312,6 +318,68 @@ export function tableToLatex(
   }
 
   return output;
+}
+
+function markdownCell(cell: unknown): string {
+  if (cell == null) {
+    return '';
+  }
+
+  return String(cell)
+    .replaceAll('\\', '\\\\')
+    .replaceAll('|', '\\|')
+    .replaceAll(/\r\n|\r|\n/g, '<br>');
+}
+
+export function tableToMarkdown({ table, hasHeaders }: IrTable): string {
+  if (table.numCols === 0) {
+    return '';
+  }
+
+  const alignments = Array.from({ length: table.numCols }, (_, col) => {
+    const typeId = table.schema.fields[col].typeId;
+    return typeId === Type.Int || typeId === Type.Float ? 'dotted' : 'left';
+  });
+  const headers = hasHeaders
+    ? getHeaders(table).map(markdownCell)
+    : Array.from({ length: table.numCols }, () => '');
+  const rows: string[][] = Array.from({ length: table.numRows + 1 }, () => []);
+  const separator: string[] = [];
+
+  for (let col = 0; col < table.numCols; ++col) {
+    const column = table.getChildAt(col);
+    if (column == null) {
+      continue;
+    }
+
+    const alignedColumn = columnToAlignedStringArray(
+      Iterator.from(column).map(markdownCell),
+      alignments[col],
+      headers[col],
+    );
+    for (let row = 0; row < alignedColumn.length; ++row) {
+      rows[row].push(alignedColumn[row]);
+    }
+
+    const width = Math.max(
+      3,
+      ...alignedColumn.map((cell) => stringWidth(cell)),
+    );
+    if (alignments[col] === 'dotted') {
+      separator.push(`${'-'.repeat(Math.max(width - 1, 3))}:`);
+    } else {
+      separator.push('-'.repeat(width));
+    }
+  }
+
+  const renderRow = (row: string[]) =>
+    `| ${row.map((cell) => cell ?? '').join(' | ')} |`;
+
+  return [
+    renderRow(rows[0]),
+    renderRow(separator),
+    ...rows.slice(1).map(renderRow),
+  ].join('\n');
 }
 
 function tableToJson(table: IrTable): string {

@@ -22,17 +22,22 @@ const defaultInputOption: InputOption = {
 };
 
 const defaultOutputOption: OutputOption = {
+  type: 'markdown',
+};
+const defaultCsvOutputOption: Extract<OutputOption, { type: 'csv' }> = {
   type: 'csv',
   delimiter: 'comma',
   quote: true,
 };
-const defaultCsvOutputOption: Extract<OutputOption, { type: 'csv' }> =
-  defaultOutputOption;
 const defaultLatexOutputOption: Extract<OutputOption, { type: 'latex' }> = {
   type: 'latex',
   hline: false,
   tabular: true,
 };
+const defaultMarkdownOutputOption: Extract<OutputOption, { type: 'markdown' }> =
+  {
+    type: 'markdown',
+  };
 const defaultDebugOutputOption: Extract<OutputOption, { type: 'debug' }> = {
   type: 'debug',
 };
@@ -183,6 +188,11 @@ function OutputOptionForm({
       case 'latex':
         setOption(option.type === 'latex' ? option : defaultLatexOutputOption);
         break;
+      case 'markdown':
+        setOption(
+          option.type === 'markdown' ? option : defaultMarkdownOutputOption,
+        );
+        break;
       case 'debug':
         setOption(option.type === 'debug' ? option : defaultDebugOutputOption);
         break;
@@ -201,6 +211,7 @@ function OutputOptionForm({
         >
           <option value="csv">CSV</option>
           <option value="latex">LaTeX</option>
+          <option value="markdown">Markdown</option>
           <option value="debug">[デバッグ用] 中間形式</option>
         </select>
       </label>
