@@ -1,4 +1,11 @@
-import { Table, Type, Utf8, type Vector, vectorFromArray } from 'apache-arrow';
+import {
+  Bool,
+  Table,
+  Type,
+  Utf8,
+  type Vector,
+  vectorFromArray,
+} from 'apache-arrow';
 import Papa from 'papaparse';
 import stringWidth from 'string-width';
 
@@ -116,17 +123,20 @@ function ppWithHeaderToArrowTable(
 }
 
 export function csvToTable(csv: string, option: CsvInputOption): IrTable {
-  const result = Papa.parse<(string | number | boolean)[]>(csv, {
-    delimiter:
-      option.delimiter.type === 'literal'
-        ? option.delimiter.literal
-        : undefined,
-    quoteChar: option.quoted ? '"' : '\0',
-    escapeChar: option.escapedDoubleQuote ? '"' : '\0',
-    skipEmptyLines: false,
-    dynamicTyping: !option.parseAsString,
-    header: option.header,
-  });
+  const result = Papa.parse<(string | number | boolean)[]>(
+    csv.replace(/\r?\n$/, ''),
+    {
+      delimiter:
+        option.delimiter.type === 'literal'
+          ? option.delimiter.literal
+          : undefined,
+      quoteChar: option.quoted ? '"' : '\0',
+      escapeChar: option.escapedDoubleQuote ? '"' : '\0',
+      skipEmptyLines: false,
+      dynamicTyping: !option.parseAsString,
+      header: option.header,
+    },
+  );
   const errors = result.errors.filter(
     (error) => error.code !== 'UndetectableDelimiter',
   );
@@ -141,7 +151,21 @@ export function csvToTable(csv: string, option: CsvInputOption): IrTable {
   }
 
   if (result.data.length === 0) {
-    return { table: new Table({}), hasHeaders: false };
+    if (option.header && result.meta.fields) {
+      return {
+        table: new Table(
+          Object.fromEntries(
+            result.meta.fields.map((key) => [
+              key,
+              vectorFromArray([], new Bool()),
+            ]),
+          ),
+        ),
+        hasHeaders: true,
+      };
+    } else {
+      return { table: new Table({}), hasHeaders: false };
+    }
   } else if (Array.isArray(result.data[0])) {
     return {
       table: ppWithoutHeaderToArrowTable(result.data),
