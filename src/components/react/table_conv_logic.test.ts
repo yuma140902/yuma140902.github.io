@@ -1,6 +1,10 @@
 import { type Table, Type } from 'apache-arrow';
 import { describe, expect, it } from 'vitest';
-import { type CsvInputOption, csvToTable } from './table_conv_logic';
+import {
+  type CsvInputOption,
+  columnToAlignedStringArray,
+  csvToTable,
+} from './table_conv_logic';
 
 describe('csvToTable', () => {
   const option = (partial?: Partial<CsvInputOption>): CsvInputOption => {
@@ -146,6 +150,60 @@ describe('csvToTable', () => {
       'zeta',
       'alpha',
       'middle',
+    ]);
+  });
+});
+
+describe('columnToAlignedStringArray', () => {
+  it('小数点を揃える', () => {
+    expect(columnToAlignedStringArray([1, 20.5, 300], 'dotted')).toEqual([
+      '  1  ',
+      ' 20.5',
+      '300  ',
+    ]);
+  });
+
+  it('小数点が無いとき', () => {
+    expect(columnToAlignedStringArray([1, 20, 300], 'dotted')).toEqual([
+      '  1 ',
+      ' 20 ',
+      '300 ',
+    ]);
+  });
+
+  it('left', () => {
+    expect(columnToAlignedStringArray([1, 20, 300], 'left')).toEqual([
+      '1  ',
+      '20 ',
+      '300',
+    ]);
+  });
+
+  it('center', () => {
+    expect(columnToAlignedStringArray([1, 20, 300], 'center')).toEqual([
+      ' 1 ',
+      '20 ',
+      '300',
+    ]);
+  });
+
+  it('全角文字', () => {
+    expect(
+      columnToAlignedStringArray(['あいうえおABC', 'ABC漢字', 1234], 'left'),
+    ).toEqual([
+      'あいうえおABC', //
+      'ABC漢字      ', //
+      '1234         ',
+    ]);
+  });
+
+  it('全角文字の中央揃え', () => {
+    expect(
+      columnToAlignedStringArray(['あいうえおABC', 'ABC漢字', 1234], 'center'),
+    ).toEqual([
+      'あいうえおABC', //
+      '   ABC漢字   ', //
+      '    1234     ',
     ]);
   });
 });
