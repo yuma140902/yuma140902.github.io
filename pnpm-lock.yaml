@@ -88,7 +88,7 @@ importers:
         version: 6.0.3
       uaplus:
         specifier: ^0.4.0
-        version: 0.4.0
+        version: 0.4.1
     devDependencies:
       '@biomejs/biome':
         specifier: 2.4.16
@@ -2394,8 +2394,8 @@ packages:
     resolution: {integrity: sha512-ya4mg/30vm+DOWfBg4YK3j2WD6TWtRkCbasOJr40CseYENzCUby/7rIvXA99JGsQHeNxLbnXdyLLxKSv3tauFw==}
     engines: {node: '>=12.17'}
 
-  uaplus@0.4.0:
-    resolution: {integrity: sha512-vceXT1Fn55F/FgzEjpiRUN6HXQhN20U03Fx+2fCNPWnlrKLAiV4SPAd8OOc+l4FZc255/UK/xP3ci9SRB7/roA==}
+  uaplus@0.4.1:
+    resolution: {integrity: sha512-KbVvk6IqC/jhJh8JIhnZuFOV9SB8fAOC4Q8JrIiH21UjscPh+Kv9h75DK4TmAjbjt4p3wQ43tSiKKlo44dZ86g==}
 
   ufo@1.6.4:
     resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
@@ -5658,7 +5658,7 @@ snapshots:
 
   typical@7.3.0: {}
 
-  uaplus@0.4.0: {}
+  uaplus@0.4.1: {}
 
   ufo@1.6.4: {}
 
