@@ -45,7 +45,7 @@
     "uaplus": "^0.4.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.16",
+    "@biomejs/biome": "2.5.0",
     "@types/colormap": "2.3.4",
     "@types/papaparse": "5.5.2",
     "@vitest/coverage-v8": "4.1.8",
