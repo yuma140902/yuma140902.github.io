@@ -16,15 +16,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.8",
     "@astrojs/markdown-remark": "^7.2.0",
     "@astrojs/mdx": "^6.0.0",
     "@astrojs/react": "^5.0.2",
     "@astrojs/sitemap": "^3.7.2",
     "@iconify-json/carbon": "^1.2.20",
     "@iconify-json/simple-icons": "^1.2.75",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
     "@uidotdev/usehooks": "^2.4.1",
     "apache-arrow": "^21.1.0",
     "astro": "^6.1.1",
@@ -38,18 +35,21 @@
     "rehype-katex": "^7.0.1",
     "rehype-slug": "^6.0.0",
     "remark-math": "^6.0.0",
-    "sharp": "^0.35.0",
     "string-width": "^8.2.1",
     "tocbot": "^4.36.4",
     "typescript": "^6.0.3",
     "uaplus": "^0.4.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.8",
     "@biomejs/biome": "2.5.0",
     "@types/colormap": "2.3.4",
     "@types/papaparse": "5.5.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@vitest/coverage-v8": "4.1.8",
     "@vitest/ui": "4.1.8",
+    "sharp": "^0.35.0",
     "vitest": "4.1.8"
   },
   "packageManager": "pnpm@11.6.0+sha512.9a36518224080c6fe5165afdcfe79bfa118c29be703f3f462b1e32efe1e98e47e8750b148e08286250aad4113cc7993ca413c4e2cd447752708c2ee5751bc95f"

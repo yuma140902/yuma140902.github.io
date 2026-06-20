@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@astrojs/check':
-        specifier: ^0.9.8
-        version: 0.9.9(prettier@3.8.3)(typescript@6.0.3)
       '@astrojs/markdown-remark':
         specifier: ^7.2.0
         version: 7.2.0
@@ -29,12 +26,6 @@ importers:
       '@iconify-json/simple-icons':
         specifier: ^1.2.75
         version: 1.2.86
-      '@types/react':
-        specifier: ^19.2.14
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.17)
       '@uidotdev/usehooks':
         specifier: ^2.4.1
         version: 2.4.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -74,9 +65,6 @@ importers:
       remark-math:
         specifier: ^6.0.0
         version: 6.0.0
-      sharp:
-        specifier: ^0.35.0
-        version: 0.35.1
       string-width:
         specifier: ^8.2.1
         version: 8.2.1
@@ -90,6 +78,9 @@ importers:
         specifier: ^0.4.0
         version: 0.4.1
     devDependencies:
+      '@astrojs/check':
+        specifier: ^0.9.8
+        version: 0.9.9(prettier@3.8.3)(typescript@6.0.3)
       '@biomejs/biome':
         specifier: 2.5.0
         version: 2.5.0
@@ -99,12 +90,21 @@ importers:
       '@types/papaparse':
         specifier: 5.5.2
         version: 5.5.2
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.17)
       '@vitest/coverage-v8':
         specifier: 4.1.8
         version: 4.1.8(vitest@4.1.8)
       '@vitest/ui':
         specifier: 4.1.8
         version: 4.1.8(vitest@4.1.8)
+      sharp:
+        specifier: ^0.35.0
+        version: 0.35.1
       vitest:
         specifier: 4.1.8
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(@vitest/ui@4.1.8)(vite@7.3.5(@types/node@25.9.2)(yaml@2.9.0))
