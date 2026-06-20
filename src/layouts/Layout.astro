@@ -45,7 +45,7 @@ const disable_breadcrumbs = Astro.props.disable_breadcrumbs ?? false;
     <header>
       {disable_breadcrumbs ? null : 
         <div class="breadcrumbs-wrapper">
-          <Breadcrumbs linkTextFormat='sentence'>
+          <Breadcrumbs linkTextFormat='sentence' excludeCurrentPage>
             <div slot='separator'>»</div>
           </Breadcrumbs>
         </div>
