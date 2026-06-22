@@ -8,7 +8,8 @@ import icon from 'astro-icon';
 import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import remarkMath from 'remark-math';
-
+import { browserslistToTargets } from 'lightningcss';
+import browserslist from 'browserslist';
 import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
@@ -56,5 +57,13 @@ export default defineConfig({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex, rehypeSlug],
     }),
+  },
+  vite: {
+    css: {
+      transformer: 'lightningcss',
+      lightningcss: {
+        targets: browserslistToTargets(browserslist('defaults')),
+      },
+    },
   },
 });
