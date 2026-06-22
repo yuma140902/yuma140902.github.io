@@ -4,7 +4,7 @@ description: 'Rust 製の Entity Component System (ECS) ライブラリ'
 since: '2021年10月'
 repo: 'https://github.com/yuma140902/Xanadu'
 technologies: ['rust']
-sortKey: 3
+sortKey: 1
 ---
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yuma140902/xanadu/ci.yml?logo=github&label=CI)](https://github.com/yuma140902/Xanadu/actions/workflows/ci.yml)
 [![Crates.io Version](https://img.shields.io/crates/v/xanadu)](https://crates.io/crates/xanadu)

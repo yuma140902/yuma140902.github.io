@@ -16,7 +16,7 @@ interface Props {
 const { work } = Astro.props;
 ---
 
-<Layout title={work.name}>
+<Layout title={work.name} og_description={work.description}>
   <hgroup slot="title">
     <div>
       <h1>{work.name}</h1>
