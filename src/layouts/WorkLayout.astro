@@ -5,60 +5,35 @@ import ContentWithToc from '../components/ContentWithToc.astro';
 import Link from '../components/Link.astro';
 import {
   getSinceUntilText,
-  old_projects,
-  type Project,
-  projects,
-  scrap_projects,
-} from '../data/projects';
+  type Work,
+} from '../data/works';
 import Layout from './Layout.astro';
 
 /* プロジェクトの詳細ページで用いるレイアウト */
 interface Props {
-  frontmatter: {
-    // プロジェクトの名前。src/data/projects.ts に定義されているものと一致させる
-    name: string;
-    no_toc?: boolean;
-  };
+  work: Work;
 }
-
-const { frontmatter } = Astro.props;
-function findProject(name: string): Project | undefined {
-  let pj = projects.find((pj) => pj.name === name);
-  if (pj) {
-    return pj;
-  }
-  pj = old_projects.find((pj) => pj.name === name);
-  if (pj) {
-    return pj;
-  }
-  pj = scrap_projects.find((pj) => pj.name === name);
-  return pj;
-}
-const pj = findProject(frontmatter.name);
+const { work } = Astro.props;
 ---
 
-<Layout title={frontmatter.name}>
+<Layout title={work.name}>
   <hgroup slot="title">
     <div>
-      <h1>{frontmatter.name}</h1>
+      <h1>{work.name}</h1>
       <span>
-        {pj?.technologies?.map(t => 
+        {work?.technologies?.map(t => 
           <Badge t={t} />
         )}
       </span>
     </div>
     <div>
-    {pj?.repo && <Link url={pj.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</Link>}
-      {(pj?.since || pj?.until) && <><Icon name="carbon:calendar" />{getSinceUntilText(pj?.since, pj?.until)}</>}
+    {work?.repo && <Link url={work.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</Link>}
+      {(work?.since || work?.until) && <><Icon name="carbon:calendar" />{getSinceUntilText(work?.since, work?.until)}</>}
     </div>
   </hgroup>
-  {
-  frontmatter.no_toc ? 
-  <slot /> :
   <ContentWithToc>
     <slot />
   </ContentWithToc>
-  }
 </Layout>
 
 <style>

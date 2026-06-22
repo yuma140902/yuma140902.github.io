@@ -1,8 +1,10 @@
 ---
-import Project from '../components/features/Project.astro';
-import Link from '../components/Link.astro';
-import { projects } from '../data/projects';
-import MdLayout from '../layouts/MdLayout.astro';
+import { getCollection } from 'astro:content';
+import Work from '../../components/features/Work.astro';
+import Link from '../../components/Link.astro';
+import MdLayout from '../../layouts/MdLayout.astro';
+
+const works = await getCollection('works');
 ---
 
 <MdLayout frontmatter={{
@@ -15,7 +17,11 @@ import MdLayout from '../layouts/MdLayout.astro';
 
   <p>開発中のプロジェクト</p>
 
-  <div> {projects.map(pj => <Project pj={pj} showDate/>)} </div>
+  <div>
+    {
+      works.map((work) => <Work work={work.data} showDate slugToLink={work.id}/>)
+    }
+  </div>
 
   <hr />
 

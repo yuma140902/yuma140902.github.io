@@ -1,6 +1,9 @@
 ---
-layout: ../../layouts/WorkLayout.astro
-name: LibJsonModel
+name: 'LibJsonModel'
+description: 'Minecraft の MOD 開発のためのライブラリ'
+repo: 'https://github.com/yuma140902/LibJsonModel'
+since: '2023年7月'
+technologies: ['java', 'minecraft']
 ---
 
 ![LibJsonModel のロゴ](../../images/libjsonmodel.png)

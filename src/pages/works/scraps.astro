@@ -1,6 +1,6 @@
 ---
-import Project from '../../components/features/Project.astro';
-import { scrap_projects } from '../../data/projects';
+import Work from '../../components/features/Work.astro';
+import { scrap_works } from '../../data/works';
 import MdLayout from '../../layouts/MdLayout.astro';
 ---
 
@@ -12,6 +12,6 @@ import MdLayout from '../../layouts/MdLayout.astro';
 }}>
   <p>未完成のままやめてしまったもの。下に行くほど古い。</p>
 
-  <div> {scrap_projects.map(pj => <Project pj={pj} showDate/>)} </div>
+  <div> {scrap_works.map(work => <Work work={work} showDate/>)} </div>
 </MdLayout>
 

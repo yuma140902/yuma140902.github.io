@@ -1,6 +1,9 @@
 ---
-layout: ../../layouts/WorkLayout.astro
-name: Tempura SSG
+name: 'Tempura SSG'
+description: 'Rust 製のパイプラインベースの静的サイトジェネレーター'
+repo: 'https://github.com/yuma140902/tempura'
+since: '2022年8月'
+technologies: ['rust']
 ---
 [![](https://img.shields.io/github/actions/workflow/status/yuma140902/tempura/ci.yml?logo=linux&logoColor=white&label=CI%20on%20Linux)](https://github.com/yuma140902/tempura/actions)
 [![](https://img.shields.io/github/actions/workflow/status/yuma140902/tempura/ci.yml?logo=windows&logoColor=white&label=CI%20on%20Windows)](https://github.com/yuma140902/tempura/actions)

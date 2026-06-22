@@ -1,4 +1,5 @@
-import type { Technology } from './technology_enum';
+import { z } from 'astro/zod';
+import { technologySchema } from './technology_enum';
 
 export function getSinceUntilText(since?: string, until?: string): string {
   if (until && since) {
@@ -13,130 +14,18 @@ export function getSinceUntilText(since?: string, until?: string): string {
   return '';
 }
 
-export type Project = {
-  name: string;
-  description: string;
-  repo?: string;
-  since?: string;
-  until?: string;
-  url?: string;
-  technologies?: Technology[];
-};
+export const workSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  repo: z.string().optional(),
+  since: z.string().optional(),
+  until: z.string().optional(),
+  technologies: z.array(technologySchema).optional(),
+});
 
-export const projects: Project[] = [
-  {
-    name: 'Reverie',
-    description: 'Rust 製の汎用 3D/2D ゲームエンジン',
-    repo: 'https://github.com/yuma140902/Reverie',
-    since: '2021年8月',
-    url: '/works/reverie/',
-    technologies: ['rust', 'opengl'],
-  },
-  {
-    name: 'xanadu',
-    description: 'Rust 製の Entity Component System (ECS) ライブラリ',
-    since: '2021年10月',
-    repo: 'https://github.com/yuma140902/Xanadu',
-    url: '/works/xanadu/',
-    technologies: ['rust'],
-  },
-  {
-    name: 'Tempura SSG',
-    description: 'Rust 製のパイプラインベースの静的サイトジェネレーター',
-    repo: 'https://github.com/yuma140902/tempura',
-    url: '/works/tempura/',
-    since: '2022年8月',
-    technologies: ['rust'],
-  },
-  {
-    name: 'UpToDateMod',
-    description: 'Minecraft の MOD',
-    repo: 'https://github.com/yuma140902/UpToDateMod1.7.10',
-    url: '/works/uptodatemod/',
-    since: '2018年8月',
-    technologies: ['java', 'scala', 'minecraft'],
-  },
-  {
-    name: 'Web Image Editor',
-    description: 'ブラウザ上で動作する画像エディタ',
-    repo: 'https://github.com/yuma140902/web-image-editor',
-    since: '2023年9月',
-    url: '/works/web-image-editor/',
-    technologies: ['ts', 'opencv'],
-  },
-  {
-    name: 'LMML Music Macro Language',
-    description:
-      'MML (Music Macro Language) の方言である独自言語 LMML の仕様と、パーサーやプレイヤーなどの実装',
-    repo: 'https://github.com/yuma140902/lmml',
-    since: '2023年11月',
-    url: '/works/lmml/',
-    technologies: ['rust'],
-  },
-  {
-    name: 'rehype-text-autospace',
-    description: '日本語と英語の間に間隔を開ける rehype プラグイン',
-    repo: 'https://github.com/yuma140902/rehype-text-autospace',
-    since: '2024年9月',
-    url: '/works/rehype-text-autospace/',
-    technologies: ['ts'],
-  },
-  {
-    name: 'LibJsonModel',
-    description: 'Minecraft の MOD 開発のためのライブラリ',
-    repo: 'https://github.com/yuma140902/LibJsonModel',
-    url: '/works/libjsonmodel/',
-    since: '2023年7月',
-    technologies: ['java', 'minecraft'],
-  },
-  {
-    name: 'LaTeXのテンプレート集',
-    description: '9種類のテンプレート',
-    repo: 'https://github.com/yuma140902/lt',
-    since: '2022年1月',
-    technologies: ['latex'],
-  },
-  {
-    name: 'auto-split-direction.nvim',
-    description:
-      'ウィンドウの分割方向を自動的に決定するNeovimプラグイン。\n\nウィンドウが縦長なら水平に、横長なら垂直に分割する。',
-    repo: 'https://github.com/yuma140902/auto-split-direction.nvim',
-    since: '2023年6月',
-    technologies: ['lua'],
-  },
-  {
-    name: 'random-output',
-    description:
-      '標準出力・標準エラー出力にランダムな文字列を出力するCLIツール。\n\nタイムスタンプをつけたり色をつけたりもできる。シェルスクリプトの動作確認に便利。',
-    repo: 'https://github.com/yuma140902/random-output',
-    since: '2022年7月',
-    technologies: ['rust'],
-  },
-  {
-    name: 'dotfiles',
-    description: 'Neovim等の設定ファイルとそのインストーラー',
-    repo: 'https://github.com/yuma140902/dotfiles-public',
-    since: '2023年7月(2019年12月)',
-    technologies: ['lua'],
-  },
-  {
-    name: 'regend',
-    description: '正規表現をε-NFAおよびDFAに変換する',
-    repo: 'https://github.com/yuma140902/regend',
-    since: '2023年11月',
-    technologies: ['rust'],
-  },
-  {
-    name: 'Regend WebUI',
-    description:
-      'regendのフロントエンド。\n\nDFAをマウスで掴んでグリグリ動かして遊べる。',
-    repo: 'https://github.com/yuma140902/regend-webui',
-    since: '2023年11月',
-    technologies: ['rust', 'wasm', 'ts'],
-  },
-];
+export type Work = z.infer<typeof workSchema>;
 
-export const old_projects: Project[] = [
+export const old_works: Work[] = [
   {
     name: 'gallery-viewer',
     description: 'gallery-dlが生成したメタデータを表示する',
@@ -206,15 +95,6 @@ export const old_projects: Project[] = [
     since: '2021年10月',
     until: '2021年12月',
     technologies: ['rust', 'socketio'],
-  },
-  {
-    name: 'RustyCraft',
-    description: 'Reverie Engineのデモとして作られたMinecraft風ゲーム',
-    repo: 'https://github.com/yuma140902/RustyCraft',
-    since: '2021年8月',
-    until: '2021年10月',
-    url: '/works/rustycraft',
-    technologies: ['rust', 'opengl', 'minecraft'],
   },
   {
     name: 'line-echo',
@@ -600,7 +480,7 @@ export const old_projects: Project[] = [
   },
 ];
 
-export const scrap_projects: Project[] = [
+export const scrap_works: Work[] = [
   {
     name: 'WatchDog',
     description: '絶対に終了しないプロセスを作りたかった',

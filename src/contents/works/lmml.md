@@ -1,9 +1,10 @@
 ---
-layout: ../../layouts/WorkLayout.astro
-name: LMML Music Macro Language
+name: 'LMML Music Macro Language'
+description: 'MML (Music Macro Language) の方言である独自言語 LMML の仕様と、パーサーやプレイヤーなどの実装'
+repo: 'https://github.com/yuma140902/lmml'
+since: '2023年11月'
+technologies: ['rust']
 ---
-
-
 [![](https://img.shields.io/crates/v/lmml?color=blue&label=lmml)](https://crates.io/crates/lmml)
 [![](https://img.shields.io/crates/v/lmml-parser?color=blue&label=lmml-parser)](https://crates.io/crates/lmml-parser)
 [![](https://img.shields.io/crates/v/lmml-cli?color=blue&label=lmml-cli)](https://crates.io/crates/lmml-cli)

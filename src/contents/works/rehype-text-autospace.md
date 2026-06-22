@@ -1,6 +1,9 @@
 ---
-layout: "../../layouts/WorkLayout.astro"
-name: rehype-text-autospace
+name: 'rehype-text-autospace'
+description: '日本語と英語の間に間隔を開ける rehype プラグイン'
+repo: 'https://github.com/yuma140902/rehype-text-autospace'
+since: '2024年9月'
+technologies: ['ts']
 ---
 
 [![CI](https://github.com/yuma140902/rehype-text-autospace/actions/workflows/CI.yml/badge.svg)](https://github.com/yuma140902/rehype-text-autospace/actions/workflows/CI.yml)

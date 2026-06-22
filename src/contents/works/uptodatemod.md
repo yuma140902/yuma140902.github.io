@@ -1,6 +1,9 @@
 ---
-layout: ../../layouts/WorkLayout.astro
-name: UpToDateMod
+name: 'UpToDateMod'
+description: 'Minecraft の MOD'
+repo: 'https://github.com/yuma140902/UpToDateMod1.7.10'
+since: '2018年8月'
+technologies: ['java', 'scala', 'minecraft']
 ---
 [![Java CI with Gradle](https://github.com/yuma140902/UpToDateMod1.7.10/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/yuma140902/UpToDateMod1.7.10/actions)
 [![Available on CurseForge](https://cf.way2muchnoise.eu/full_306766_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/uptodatemod)

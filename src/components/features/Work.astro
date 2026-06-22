@@ -1,24 +1,25 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getSinceUntilText, type Project } from '../../data/projects';
+import { getSinceUntilText, type Work } from '../../data/works';
 import Badge from '../Badge.astro';
 
 interface Props {
-  pj: Project;
+  work: Work;
   showDate?: boolean;
+  slugToLink?: string;
 }
 
-const { pj, showDate } = Astro.props;
-const dateText = showDate ? getSinceUntilText(pj.since, pj.until) : undefined;
+const { work, showDate, slugToLink } = Astro.props;
+const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefined;
 ---
 
-<div class="pj-root">
-  <hgroup class="pj-title-wrapper">
-    {pj.repo && <a href={pj.repo} class="repo"><Icon name="simple-icons:github" title="GitHub" size="1.25em"/></a>}
-    <h3>{pj.name}</h3>
+<div class="work-root">
+  <hgroup class="work-title-wrapper">
+    {work.repo && <a href={work.repo} class="repo"><Icon name="simple-icons:github" title="GitHub" size="1.25em"/></a>}
+    <h3>{work.name}</h3>
     <br class="narrow-br"/>
     <span class="badges">
-      {pj.technologies?.map(t => 
+      {work.technologies?.map(t => 
         <Badge t={t} />
       )}
     </span>
@@ -28,9 +29,9 @@ const dateText = showDate ? getSinceUntilText(pj.since, pj.until) : undefined;
     </span>
     }
   </hgroup>
-  <p>
-    {pj.description}
-    {pj.url && <><br /><a href={pj.url} class="details-link">詳細...</a></>}
+  <p class="work-description">
+    {work.description}
+    {slugToLink && <><br /><a href={slugToLink} class="details-link">詳細...</a></>}
   </p>
 </div>
 
@@ -38,16 +39,20 @@ const dateText = showDate ? getSinceUntilText(pj.since, pj.until) : undefined;
 h3 {
   display: inline;
 }
-.pj-title-wrapper {
-  margin-bottom: 0.7em;
+.work-title-wrapper {
+  margin-bottom: 0;
 }
 .repo {
   color: var(--font-color);
   z-index: 1;
   position: sticky;
 }
-.pj-root {
+.work-root {
   position: relative;
+}
+.work-description {
+  padding-top: 0;
+  margin-top: 0;
 }
 a.details-link {
   display: block;

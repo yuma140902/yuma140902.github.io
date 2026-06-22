@@ -1,6 +1,11 @@
 ---
-layout: "../../layouts/WorkLayout.astro"
-name: RustyCraft
+name: 'RustyCraft'
+description: 'Reverie Engineのデモとして作られたMinecraft風ゲーム'
+repo: 'https://github.com/yuma140902/RustyCraft'
+since: '2021年8月'
+until: '2021年10月'
+url: '/works/rustycraft'
+technologies: ['rust', 'opengl', 'minecraft']
 ---
 マインクラフトっぽいゲームです。今はまだ動き回ることしかできないのでゲームとは言えないかもしれません。W、A、S、Dキーで移動、スペースでジャンプ、マウスで視点の回転ができます。ゲームエンジンを使わず、OpenGLを直接使ってゲームを作るという目標で制作しています。
 

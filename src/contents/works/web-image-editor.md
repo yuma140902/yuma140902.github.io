@@ -1,6 +1,9 @@
 ---
-layout: ../../layouts/WorkLayout.astro
-name: Web Image Editor
+name: 'Web Image Editor'
+description: 'ブラウザ上で動作する画像エディタ'
+repo: 'https://github.com/yuma140902/web-image-editor'
+since: '2023年9月'
+technologies: ['ts', 'opencv']
 ---
 ブラウザ上で動作する画像エディタ。ユーザが指定した画像にフィルタをかける形で動作する。
 

@@ -1,6 +1,6 @@
 ---
-import Project from '../../components/features/Project.astro';
-import { old_projects } from '../../data/projects';
+import Work from '../../components/features/Work.astro';
+import { old_works } from '../../data/works';
 import MdLayout from '../../layouts/MdLayout.astro';
 ---
 
@@ -13,6 +13,6 @@ import MdLayout from '../../layouts/MdLayout.astro';
 }}>
   <p>過去のプロジェクト。下に行くほど古い。</p>
 
-  <div> {old_projects.map(pj => <Project pj={pj} showDate/>)} </div>
+  <div> {old_works.map(work => <Work work={work} showDate/>)} </div>
 </MdLayout>
 
