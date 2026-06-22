@@ -4,7 +4,9 @@ import Work from '../../components/features/Work.astro';
 import Link from '../../components/Link.astro';
 import MdLayout from '../../layouts/MdLayout.astro';
 
-const works = await getCollection('works');
+const works = (await getCollection('works')).toSorted((a, b) => {
+  return (a.data.sortKey ?? Infinity) - (b.data.sortKey ?? Infinity);
+});
 ---
 
 <MdLayout frontmatter={{

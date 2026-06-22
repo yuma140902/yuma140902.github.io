@@ -4,6 +4,7 @@ description: 'Rust 製の汎用 3D/2D ゲームエンジン'
 repo: 'https://github.com/yuma140902/Reverie'
 since: '2021年8月'
 technologies: ['rust', 'opengl']
+sortKey: 1
 ---
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yuma140902/reverie/rust.yml?logo=github&label=CI)](https://github.com/yuma140902/reverie/actions/workflows/rust.yml)
 [![Crates.io Version](https://img.shields.io/crates/v/reverie-engine)](https://crates.io/crates/reverie-engine)

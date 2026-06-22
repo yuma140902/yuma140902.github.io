@@ -21,6 +21,7 @@ export const workSchema = z.object({
   since: z.string().optional(),
   until: z.string().optional(),
   technologies: z.array(technologySchema).optional(),
+  sortKey: z.number().optional(),
 });
 
 export type Work = z.infer<typeof workSchema>;

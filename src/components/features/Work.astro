@@ -12,7 +12,6 @@ interface Props {
 const { work, showDate, slugToLink } = Astro.props;
 const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefined;
 ---
-
 <div class="work-root">
   <hgroup class="work-title-wrapper">
     {work.repo && <a href={work.repo} class="repo"><Icon name="simple-icons:github" title="GitHub" size="1.25em"/></a>}
