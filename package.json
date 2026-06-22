@@ -22,6 +22,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@iconify-json/carbon": "^1.2.20",
     "@iconify-json/simple-icons": "^1.2.75",
+    "@resvg/resvg-js": "^2.6.2",
     "@uidotdev/usehooks": "^2.4.1",
     "apache-arrow": "^21.1.0",
     "astro": "^6.1.1",

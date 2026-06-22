@@ -9,7 +9,6 @@ interface Props {
     create_date?: string;
     update_date?: string;
     og_description?: string;
-    og_image?: string;
     no_toc?: boolean;
   };
 }
@@ -22,7 +21,7 @@ function formatDate(date: string) {
 ---
 
 <Layout title={frontmatter.title}
-  og_description={frontmatter.og_description} og_image={frontmatter.og_image}>
+  og_description={frontmatter.og_description} 
   <hgroup slot="title">
     <h1>{frontmatter.title}</h1>
     <p>

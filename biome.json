@@ -6,7 +6,13 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["src/**", "tests/**", "!**/sort.html", "!**/*.astro"]
+    "includes": [
+      "src/**",
+      "tests/**",
+      "!**/sort.html",
+      "!**/*.astro",
+      "!src/ogp/template.svg"
+    ]
   },
   "formatter": {
     "enabled": true,
