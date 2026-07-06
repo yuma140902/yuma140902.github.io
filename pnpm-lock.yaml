@@ -25,7 +25,7 @@ importers:
         version: 1.2.23
       '@iconify-json/simple-icons':
         specifier: ^1.2.75
-        version: 1.2.87
+        version: 1.2.88
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -684,8 +684,8 @@ packages:
   '@iconify-json/carbon@1.2.23':
     resolution: {integrity: sha512-7apXetbRmEiWDXIQyikFJZyq7pCVBKHYRzmeLdtT7wWoHYdWHwnFcBAzpuLoSh+ZEAfXZapSWEe8iuS6dUqf+Q==}
 
-  '@iconify-json/simple-icons@1.2.87':
-    resolution: {integrity: sha512-8YciStObhSji3OZFmWAWK6kBujyqO5bLCxeDwLxf3CR3F4PVelq7keC2LBvgTqviWzSTysj5/g4PCFLiAMVGsw==}
+  '@iconify-json/simple-icons@1.2.88':
+    resolution: {integrity: sha512-+cvi1qCuvReL29ehi6t62L4fb7GDXe+UlGHFcsJcV7I2l9wtqn9XE2IBKcDr3CI5iGUGS5ISnXv699pSGpyx1Q==}
 
   '@iconify/tools@4.2.0':
     resolution: {integrity: sha512-WRxPva/ipxYkqZd1+CkEAQmd86dQmrwH0vwK89gmp2Kh2WyyVw57XbPng0NehP3x4V1LzLsXUneP1uMfTMZmUA==}
@@ -3785,7 +3785,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.87':
+  '@iconify-json/simple-icons@1.2.88':
     dependencies:
       '@iconify/types': 2.0.0
 
