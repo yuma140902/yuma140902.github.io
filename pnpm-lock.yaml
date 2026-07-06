@@ -40,7 +40,7 @@ importers:
         version: 6.4.8(@types/node@26.0.1)(lightningcss@1.32.0)(rollup@4.62.2)(yaml@2.9.0)
       astro-breadcrumbs:
         specifier: ^3.4.0
-        version: 3.4.0(astro@6.4.8(@types/node@26.0.1)(lightningcss@1.32.0)(rollup@4.62.2)(yaml@2.9.0))
+        version: 3.4.1(astro@6.4.8(@types/node@26.0.1)(lightningcss@1.32.0)(rollup@4.62.2)(yaml@2.9.0))
       astro-icon:
         specifier: ^1.1.5
         version: 1.1.5
@@ -1540,10 +1540,10 @@ packages:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
 
-  astro-breadcrumbs@3.4.0:
-    resolution: {integrity: sha512-p8HHKqGXFQ6f4Na10FYdznYLYiYUDk1ZenGr2bzYE+eevwvCicbNQnvA3vlFz7EgqL2AAljb/CLjAhWYBHfdBA==}
+  astro-breadcrumbs@3.4.1:
+    resolution: {integrity: sha512-HWl3s9LNXVJhhIPvsmH7QPTLdqUZtoPLwObmsVUunCe8U2tII10zTV2J3/U+qanFj6sHSIufbZfNiBOIgzzPpw==}
     peerDependencies:
-      astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
+      astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
   astro-icon@1.1.5:
     resolution: {integrity: sha512-CJYS5nWOw9jz4RpGWmzNQY7D0y2ZZacH7atL2K9DeJXJVaz7/5WrxeyIxO8KASk1jCM96Q4LjRx/F3R+InjJrw==}
@@ -4551,7 +4551,7 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-breadcrumbs@3.4.0(astro@6.4.8(@types/node@26.0.1)(lightningcss@1.32.0)(rollup@4.62.2)(yaml@2.9.0)):
+  astro-breadcrumbs@3.4.1(astro@6.4.8(@types/node@26.0.1)(lightningcss@1.32.0)(rollup@4.62.2)(yaml@2.9.0)):
     dependencies:
       astro: 6.4.8(@types/node@26.0.1)(lightningcss@1.32.0)(rollup@4.62.2)(yaml@2.9.0)
 
