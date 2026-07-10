@@ -1,16 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-import { unified } from '@astrojs/markdown-remark';
+import { satteri } from '@astrojs/markdown-satteri';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
-import rehypeKatex from 'rehype-katex';
-import rehypeSlug from 'rehype-slug';
-import remarkMath from 'remark-math';
 import { browserslistToTargets } from 'lightningcss';
 import browserslist from 'browserslist';
 import mdx from '@astrojs/mdx';
+import { satteriKatex } from './src/plugins/satteri-katex.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -53,9 +51,9 @@ export default defineConfig({
       wrap: true,
     },
     syntaxHighlight: 'shiki',
-    processor: unified({
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex, rehypeSlug],
+    processor: satteri({
+      features: { math: true },
+      hastPlugins: [satteriKatex()],
     }),
   },
   vite: {
