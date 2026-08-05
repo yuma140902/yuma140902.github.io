@@ -42,7 +42,7 @@
     "uaplus": "^0.4.0"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.9",
+    "@astrojs/check": "0.9.10",
     "@biomejs/biome": "2.5.6",
     "@types/colormap": "2.3.4",
     "@types/papaparse": "5.5.2",
