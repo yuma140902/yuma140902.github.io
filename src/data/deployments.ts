@@ -25,12 +25,6 @@ export const deployments: DeploymentType[] = [
     repo: 'https://github.com/yuma140902/regend-webui',
   },
   {
-    url: '/dotfiles-public/',
-    badge:
-      'https://img.shields.io/github/deployments/yuma140902/regend-webui/github-pages?logo=github&label=Deployment',
-    repo: 'https://github.com/yuma140902/dotfiles-public',
-  },
-  {
     url: '/tempura-doc/',
     badge:
       'https://img.shields.io/github/deployments/yuma140902/tempura-doc/github-pages?logo=github&label=Deployment',
