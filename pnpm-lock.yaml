@@ -58,7 +58,7 @@ importers:
         version: 1.33.0
       papaparse:
         specifier: ^5.5.3
-        version: 5.6.0
+        version: 5.7.0
       react:
         specifier: ^19.2.4
         version: 19.2.8
@@ -2146,8 +2146,8 @@ packages:
   package-manager-detector@1.8.0:
     resolution: {integrity: sha512-yQA4H19AmPEoMUeavPMDIe1higySl/gH/yaQrkT/s07Qp+7pp2hYz30N3z2l5BkjVkF9Ow6o0wjJamm2y7Sn0A==}
 
-  papaparse@5.6.0:
-    resolution: {integrity: sha512-N2vuNQAYGK1/4vs6HJX86+VYU6OkiSTgdJz3JQfTk1y51cFCO/U8gnaeTF4iNE4r57Tt0sV47dUua1/19pxO6Q==}
+  papaparse@5.7.0:
+    resolution: {integrity: sha512-qBGxg/7Q3Kl9Wfhrz2Z74UnvnHTXLNG6jmKJFeBvP2+y4lV7So+7SR62+Zd47JvdrCkX+nDcnr0ObPzek/+6RA==}
 
   parse-entities@4.0.2:
     resolution: {integrity: sha512-GG2AQYWoLgL877gQIKeRPGO1xF9+eG1ujIb5soS5gPvLQ1y2o8FL90w2QWNdf9I361Mpp7726c+lj3U0qK1uGw==}
@@ -5216,7 +5216,7 @@ snapshots:
 
   package-manager-detector@1.8.0: {}
 
-  papaparse@5.6.0: {}
+  papaparse@5.7.0: {}
 
   parse-entities@4.0.2:
     dependencies:
