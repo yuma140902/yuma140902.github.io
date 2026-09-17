@@ -22,7 +22,7 @@ importers:
         version: 3.7.4
       '@iconify-json/carbon':
         specifier: ^1.2.20
-        version: 1.2.26
+        version: 1.2.27
       '@iconify-json/simple-icons':
         specifier: ^1.2.75
         version: 1.2.95
@@ -640,8 +640,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@iconify-json/carbon@1.2.26':
-    resolution: {integrity: sha512-UVzlnCAzSkrNydW3GYESeggndriR1JSgU5M8DNz9S0Fu10I3NpJUYPWar+WYjMAQUIm9B7mljPpc30oal3PRSQ==}
+  '@iconify-json/carbon@1.2.27':
+    resolution: {integrity: sha512-tufpkYXBDlXqczQEZo6QgvfwBd5aIK36gt+pHOI66eK4KOO8oh7CIHDZ4JsiSnOyjqRbApVHzXv4Nz8NO0GPFQ==}
 
   '@iconify-json/simple-icons@1.2.95':
     resolution: {integrity: sha512-QwWgcoiL+eNCD38QM0OStFVFoOgDvzeHrcwMAvATvcFl0VvMEtED92qp3K3juS0H6RZ9BGUlgq9mODPwNWkjJg==}
@@ -2930,7 +2930,7 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@iconify-json/carbon@1.2.26':
+  '@iconify-json/carbon@1.2.27':
     dependencies:
       '@iconify/types': 2.0.0
 
