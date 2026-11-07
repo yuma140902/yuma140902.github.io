@@ -28,7 +28,7 @@ function setupUi(
   const btn = document.createElement('button');
   let clicked = false;
   btn.type = 'button';
-  btn.innerText = 'カニを召喚';
+  btn.textContent = 'カニを召喚';
   btn.onclick = () => {
     if (clicked) {
       return;
