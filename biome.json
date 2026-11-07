@@ -11,7 +11,8 @@
       "tests/**",
       "!**/sort.html",
       "!**/*.astro",
-      "!src/ogp/template.svg"
+      "!src/ogp/template.svg",
+      "!**/*.md"
     ]
   },
   "formatter": {
