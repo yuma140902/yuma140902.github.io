@@ -13,6 +13,14 @@ import MdLayout from '../../../layouts/MdLayout.astro';
 }}>
   <p>過去のプロジェクト。下に行くほど古い。</p>
 
-  <div> {old_works.map(work => <Work work={work} showDate/>)} </div>
+  <div class="works"> {old_works.map(work => <div><Work work={work} showDate/></div>)} </div>
 </MdLayout>
 
+<style>
+.works > * {
+  padding-bottom: 16px;
+}
+.works > *:nth-child(odd) {
+  background-color: #eee;
+}
+</style>

@@ -12,69 +12,64 @@ interface Props {
 const { work, showDate, slugToLink } = Astro.props;
 const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefined;
 ---
-<div class="work-root">
-  <hgroup class="work-title-wrapper">
-    {work.repo && <a href={work.repo} class="repo"><Icon name="simple-icons:github" title="GitHub" size="1.25em"/></a>}
+<div class="work">
+  <div class="name" style="grid-area: name">
     <h3>{work.name}</h3>
-    <br class="narrow-br"/>
-    <span class="badges">
-      {work.technologies?.map(t => 
-        <Badge t={t} />
-      )}
-    </span>
+  </div>
+  <div class="date" style="grid-area: date">
     { (dateText && dateText.length > 0) &&
-    <span class="date">
-      {dateText}
-    </span>
+      <span>
+        <time>
+          {dateText}
+        </time>
+      </span>
     }
-  </hgroup>
-  <p class="work-description">
+  </div>
+  <div class="desc" style="grid-area: desc">
     {work.description}
-    {slugToLink && <><br /><a href={slugToLink} class="details-link">詳細...</a></>}
-  </p>
+    {slugToLink && <>&nbsp;<a href={slugToLink} >詳細...</a></>}
+  </div>
+  <div class="badges" style="grid-area: badges">
+    {work.technologies?.map(t =>
+      <Badge t={t} />
+    )}
+  </div>
+  <div class="repo" style="grid-area: repo">
+    {work.repo &&
+    <a href={work.repo} >
+      <Icon name="simple-icons:github" title="GitHub" size="1.25em" class="repo-icon"/>
+    </a>
+    }
+  </div>
 </div>
 
 <style>
-h3 {
-  display: inline;
+.work {
+  display: block grid;
+  grid-template:
+    "name date badges .    repo"
+    "desc desc desc   desc desc"
+    / 1fr auto auto 4px auto;
+  align-items: center;
 }
-.work-title-wrapper {
-  margin-bottom: 0;
+.name {
+  > h3 {
+    margin: 0;
+    padding: 0;
+  }
+}
+.date {
+  > * {
+    color: var(--color-grey);
+    font-size: 12px;
+  }
 }
 .repo {
-  color: var(--font-color);
-  z-index: 1;
-  position: sticky;
+  width: 1.25em;
+  height: 1.25em;
 }
-.work-root {
-  position: relative;
-}
-.work-description {
-  padding-top: 0;
-  margin-top: 0;
-}
-a.details-link {
+.repo-icon {
   display: block;
-}
-a.details-link::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-span.badges {
-  padding-left: 12px;
-}
-span.date {
-  padding-left: 12px;
-  color: var(--color-grey);
-  font-size: 12px;
-}
-@media (min-width: 572px) {
-  br.narrow-br {
-    display: none;
-  }
+  color: #000000;
 }
 </style>

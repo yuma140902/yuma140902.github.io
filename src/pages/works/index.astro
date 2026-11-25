@@ -19,9 +19,12 @@ const works = (await getCollection('works')).toSorted((a, b) => {
 
   <p>開発中のプロジェクト</p>
 
-  <div>
+  <div class="works">
     {
-      works.map((work) => <Work work={work.data} showDate slugToLink={work.id}/>)
+    works.map((work) =>
+    <div>
+      <Work work={work.data} showDate slugToLink={work.id}/>
+    </div>)
     }
   </div>
 
@@ -33,3 +36,11 @@ const works = (await getCollection('works')).toSorted((a, b) => {
 
 </MdLayout>
 
+<style>
+.works > * {
+  padding-bottom: 16px;
+}
+.works > *:nth-child(odd) {
+  background-color: #eee;
+}
+</style>
