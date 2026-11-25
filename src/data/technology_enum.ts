@@ -46,3 +46,104 @@ export const technologySchema = z.enum([
 ]);
 
 export type Technology = z.infer<typeof technologySchema>;
+
+const technologyLabels: Record<Technology, string> = {
+  rust: 'Rust',
+  opengl: 'OpenGL',
+  java: 'Java',
+  scala: 'Scala',
+  minecraft: 'Minecraft',
+  ts: 'TypeScript',
+  opencv: 'OpenCV',
+  latex: 'LaTeX',
+  lua: 'Lua',
+  tauri: 'Tauri',
+  wasm: 'WebAssembly',
+  js: 'JavaScript',
+  python: 'Python',
+  kotlin: 'Kotlin',
+  android: 'Android',
+  csharp: 'C#',
+  unity: 'Unity',
+  pwsh: 'PowerShell',
+  socketio: 'Socket.IO',
+  line: 'LINE',
+  postgresql: 'PostgreSQL',
+  elm: 'Elm',
+  winforms: 'Windows Forms',
+  fxaddon: 'Firefox Addon',
+  html: 'HTML',
+  angular: 'Angular',
+  processing: 'Processing',
+  lwjgl: 'LWJGL',
+  wpf: 'WPF',
+  objectivec: 'Objective-C',
+  hsp: 'HSP',
+  cpp: 'C++',
+  applescript: 'AppleScript',
+  nadeshiko: 'なでしこ',
+  gtk: 'GTK',
+  webgl: 'WebGL',
+  electron: 'Electron',
+  piston: 'Piston',
+  javafx: 'JavaFX',
+  qt: 'Qt',
+  win32api: 'Win32 API',
+  swift: 'Swift',
+};
+
+export function getTechnologyLabel(tech: Technology): string {
+  return technologyLabels[tech];
+}
+
+type TechnologyColor = [background: string, foreground: string];
+
+const technologyColors: Record<Technology, TechnologyColor> = {
+  rust: ['#d19b7b', '#000000'],
+  opengl: ['#52829f', '#ffffff'],
+  java: ['#b07219', '#ffffff'],
+  scala: ['#df352e', '#ffffff'],
+  minecraft: ['#388d41', '#ffffff'],
+  ts: ['#3076c3', '#ffffff'],
+  opencv: ['#0101f7', '#ffffff'],
+  latex: ['#0f807f', '#ffffff'],
+  lua: ['#000080', '#ffffff'],
+  tauri: ['#ffc337', '#000000'],
+  wasm: ['#624de8', '#ffffff'],
+  js: ['#efd81d', '#000000'],
+  python: ['#f0e9a4', '#244d87'],
+  kotlin: ['#a97bff', '#000000'],
+  android: ['#36f591', '#000000'],
+  csharp: ['#178600', '#ffffff'],
+  unity: ['#fff51e', '#000000'],
+  pwsh: ['#26364a', '#ffffff'],
+  socketio: ['#efd81d', '#000000'],
+  line: ['#00b300', '#ffffff'],
+  postgresql: ['#31648c', '#ffffff'],
+  elm: ['#60b5cc', '#ffffff'],
+  winforms: ['#3178c6', '#ffffff'],
+  fxaddon: ['#ff473d', '#ffffff'],
+  html: ['#e5552d', '#ffffff'],
+  angular: ['#bd002e', '#ffffff'],
+  processing: ['#092033', '#ffffff'],
+  lwjgl: ['#222755', '#ffffff'],
+  wpf: ['#672877', '#ffffff'],
+  objectivec: ['#ce9d62', '#000000'],
+  hsp: ['#2466b3', '#ffffff'],
+  cpp: ['#6a9dd3', '#000000'],
+  applescript: ['#ffffff', '#000000'],
+  nadeshiko: ['#ffecec', '#000000'],
+  gtk: ['#83e820', '#000000'],
+  webgl: ['#940000', '#ffffff'],
+  electron: ['#333540', '#8df0e4'],
+  piston: ['#ffffff', '#000000'],
+  javafx: ['#e87408', '#000000'],
+  qt: ['#3fc74f', '#ffffff'],
+  win32api: ['#4684e8', '#ffffff'],
+  swift: ['#fe4c2e', '#ffffff'],
+};
+
+export function getTechnologyColor(tech: Technology): TechnologyColor {
+  const [background, foreground] = technologyColors[tech];
+  return [background, foreground];
+}
