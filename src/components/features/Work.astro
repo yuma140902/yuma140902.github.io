@@ -52,6 +52,15 @@ const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefine
     / 1fr auto auto 4px auto;
   align-items: center;
 }
+@media (max-width: 576px) {
+  .work {
+    grid-template:
+      "name   name name   repo"
+      ".      date badges badges"
+      "desc   desc desc   desc"
+      / 1fr auto auto auto;
+  }
+}
 .name {
   > h3 {
     margin: 0;
