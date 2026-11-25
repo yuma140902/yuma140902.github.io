@@ -41,6 +41,16 @@ const app = Astro.props;
     / 80px 4px 1fr auto;
   align-items: center;
 }
+@media (max-width: 576px) {
+  .container {
+    grid-template:
+    "img . name name"
+    "img . copy copy"
+    "img . . badge"
+    / 80px 4px 1fr auto;
+  }
+}
+
 .img {
   aspect-ratio: 1 / 1;
   > a {
