@@ -1,15 +1,15 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getSinceUntilText, type Work } from '../../data/works';
+import { getSinceUntilText, getWorkSlug, type Work } from '../../data/works';
 import Badges from '../Badges.astro';
 
 interface Props {
   work: Work;
   showDate?: boolean;
-  slugToLink?: string;
 }
 
-const { work, showDate, slugToLink } = Astro.props;
+const { work: entry, showDate } = Astro.props;
+const { data: work } = entry;
 const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefined;
 ---
 <div class="work">
@@ -27,7 +27,7 @@ const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefine
   </div>
   <div class="desc" style="grid-area: desc">
     {work.description}
-    {slugToLink && <>&nbsp;<a href={slugToLink} >詳細...</a></>}
+    {work.hasPage && <>&nbsp;<a href={`/works/${getWorkSlug(entry)}`}>詳細...</a></>}
   </div>
   <div class="badges" style="grid-area: badges">
     <div><Badges ts={work.technologies ?? []} /></div>

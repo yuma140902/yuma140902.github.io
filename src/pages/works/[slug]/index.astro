@@ -1,20 +1,18 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
+import { type Work, getWorkPagePaths } from '../../../data/works';
 import WorkLayout from '../../../layouts/WorkLayout.astro';
 
-export async function getStaticPaths() {
-  const works = await getCollection('works');
+export const getStaticPaths = getWorkPagePaths;
 
-  return works.map((work) => ({
-    params: { slug: work.id },
-    props: { work },
-  }));
+interface Props {
+  work: Work;
 }
 
 const { work } = Astro.props;
 const { Content } = await render(work);
 ---
 
-<WorkLayout work={work.data} >
+<WorkLayout work={work.data}>
   <Content />
 </WorkLayout>

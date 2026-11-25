@@ -1,11 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import Work from '../../components/features/Work.astro';
+import { getWorks } from '../../data/works';
 import MdLayout from '../../layouts/MdLayout.astro';
 
-const works = (await getCollection('works')).toSorted((a, b) => {
-  return (a.data.sortKey ?? Infinity) - (b.data.sortKey ?? Infinity);
-});
+const works = await getWorks('main');
 ---
 
 <MdLayout frontmatter={{
@@ -22,7 +20,7 @@ const works = (await getCollection('works')).toSorted((a, b) => {
     {
     works.map((work) =>
     <div>
-      <Work work={work.data} showDate slugToLink={work.id}/>
+      <Work work={work} showDate/>
     </div>)
     }
   </div>

@@ -1,7 +1,9 @@
 ---
 import Work from '../../../components/features/Work.astro';
-import { old_works } from '../../../data/works';
+import { getWorks } from '../../../data/works';
 import MdLayout from '../../../layouts/MdLayout.astro';
+
+const works = await getWorks('old');
 ---
 
 <MdLayout frontmatter={{
@@ -13,7 +15,7 @@ import MdLayout from '../../../layouts/MdLayout.astro';
 }}>
   <p>過去のプロジェクト。下に行くほど古い。</p>
 
-  <div class="works"> {old_works.map(work => <div><Work work={work} showDate/></div>)} </div>
+  <div class="works"> {works.map(work => <div><Work work={work} showDate/></div>)} </div>
 </MdLayout>
 
 <style>

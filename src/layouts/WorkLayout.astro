@@ -2,15 +2,12 @@
 import { Icon } from 'astro-icon/components';
 import Badge from '../components/Badge.astro';
 import ContentWithToc from '../components/ContentWithToc.astro';
-import {
-  getSinceUntilText,
-  type Work,
-} from '../data/works';
+import { getSinceUntilText, type Work } from '../data/works';
 import Layout from './Layout.astro';
 
 /* プロジェクトの詳細ページで用いるレイアウト */
 interface Props {
-  work: Work;
+  work: Work['data'];
 }
 const { work } = Astro.props;
 ---
@@ -20,14 +17,14 @@ const { work } = Astro.props;
     <div>
       <h1>{work.name}</h1>
       <span>
-        {work?.technologies?.map(t => 
+        {work.technologies?.map(t =>
           <Badge t={t} />
         )}
       </span>
     </div>
     <div>
-    {work?.repo && <a href={work.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</a>}
-      {(work?.since || work?.until) && <><Icon name="carbon:calendar" />{getSinceUntilText(work?.since, work?.until)}</>}
+    {work.repo && <a href={work.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</a>}
+      {(work.since || work.until) && <><Icon name="carbon:calendar" />{getSinceUntilText(work.since, work.until)}</>}
     </div>
   </hgroup>
   <ContentWithToc>
