@@ -9,6 +9,7 @@ import { browserslistToTargets } from 'lightningcss';
 import browserslist from 'browserslist';
 import mdx from '@astrojs/mdx';
 import { satteriKatex } from './src/plugins/satteri-katex.mjs';
+import { satteriRemoveManualSpace } from './src/plugins/satteri-remove-manual-space.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -53,7 +54,7 @@ export default defineConfig({
     syntaxHighlight: 'shiki',
     processor: satteri({
       features: { math: true },
-      hastPlugins: [satteriKatex()],
+      hastPlugins: [satteriKatex(), satteriRemoveManualSpace()],
     }),
   },
   vite: {

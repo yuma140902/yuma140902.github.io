@@ -217,6 +217,9 @@ importers:
       colormap:
         specifier: ^2.3.2
         version: 2.3.2
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       katex:
         specifier: ^0.19.0
         version: 0.19.1
