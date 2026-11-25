@@ -43,6 +43,7 @@ export const technologySchema = z.enum([
   'qt',
   'win32api',
   'swift',
+  'riscv',
 ]);
 
 export type Technology = z.infer<typeof technologySchema>;
@@ -90,6 +91,7 @@ const technologyLabels: Record<Technology, string> = {
   qt: 'Qt',
   win32api: 'Win32 API',
   swift: 'Swift',
+  riscv: 'RISC-V',
 };
 
 export function getTechnologyLabel(tech: Technology): string {
@@ -141,6 +143,7 @@ const technologyColors: Record<Technology, TechnologyColor> = {
   qt: ['#3fc74f', '#ffffff'],
   win32api: ['#4684e8', '#ffffff'],
   swift: ['#fe4c2e', '#ffffff'],
+  riscv: ['#eeac19', '#292f6e'],
 };
 
 export function getTechnologyColor(tech: Technology): TechnologyColor {
