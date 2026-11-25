@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import type { App } from '../../data/apps';
+
+type Props = App;
+
+const app = Astro.props;
+---
+<div class="container">
+  <div class="name" style="grid-area: name">
+    <h2>{app.name}</h2>
+  </div>
+  <div class="copy" style="grid-area: copy">
+    <p>{app.copy}</p>
+  </div>
+  <div class="img" style="grid-area: img">
+    <a href={app.url}>
+      <div>
+        {app.img
+        ? <Image src={app.img} alt={`Open the app ${app.name}`} />
+        : <Icon name="carbon:cics-program" title={`Open the app ${app.name}`} size="80px"/>
+        }
+      </div>
+    </a>
+  </div>
+  <div class="badge" style="grid-area: badge">
+    {
+    app.badge &&
+    <img src={app.badge} alt={`Badge of ${app.name}`} />
+    }
+  </div>
+</div>
+
+<style>
+.container {
+  display: block grid;
+  grid-template:
+    "img . name badge"
+    "img . copy copy"
+    / 80px 4px 1fr auto;
+  align-items: center;
+}
+.img {
+  aspect-ratio: 1 / 1;
+  > a {
+    display: block;
+    svg {
+      display: block;
+    }
+    img {
+      display: block;
+      object-fit: contain;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+.name {
+  > h2 {
+    margin: 0;
+    padding: 0;
+  }
+}
+.copy {
+  > p {
+    margin: 0;
+    padding: 0;
+  }
+}
+.badge {
+  > img {
+    display: block;
+  }
+}
+</style>
