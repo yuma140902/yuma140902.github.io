@@ -14,7 +14,7 @@ const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefine
 ---
 <div class="work">
   <div class="name" style="grid-area: name">
-    <h3>{work.name}</h3>
+    <h2>{work.name}</h2>
   </div>
   <div class="date" style="grid-area: date">
     { (dateText && dateText.length > 0) &&
@@ -60,9 +60,10 @@ const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefine
   }
 }
 .name {
-  > h3 {
+  > h2 {
     margin: 0;
     padding: 0;
+    font-size: 19px;
   }
 }
 .date {
