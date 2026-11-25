@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { getSinceUntilText, type Work } from '../../data/works';
 import Badge from '../Badge.astro';
+import Badges from '../Badges.astro';
 
 interface Props {
   work: Work;
@@ -30,9 +31,7 @@ const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefine
     {slugToLink && <>&nbsp;<a href={slugToLink} >詳細...</a></>}
   </div>
   <div class="badges" style="grid-area: badges">
-    {work.technologies?.map(t =>
-      <Badge t={t} />
-    )}
+    <div><Badges ts={work.technologies ?? []} /></div>
   </div>
   <div class="repo" style="grid-area: repo">
     {work.repo &&
@@ -47,9 +46,9 @@ const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefine
 .work {
   display: block grid;
   grid-template:
-    "name date badges .    repo"
-    "desc desc desc   desc desc"
-    / 1fr auto auto 4px auto;
+    "name date badges repo"
+    "desc desc desc   desc"
+    / 1fr auto auto auto;
   align-items: center;
 }
 @media (max-width: 576px) {
@@ -80,5 +79,9 @@ const dateText = showDate ? getSinceUntilText(work.since, work.until) : undefine
 .repo-icon {
   display: block;
   color: #000000;
+}
+.badges > div {
+  padding-left: 4px;
+  padding-right: 4px;
 }
 </style>

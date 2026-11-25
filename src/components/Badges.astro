@@ -1,0 +1,23 @@
+---
+import type { Technology } from '../data/technology_enum';
+import Badge from './Badge.astro';
+
+interface Props {
+  ts: Technology[];
+}
+
+const { ts } = Astro.props;
+---
+
+<div class="badges">
+  {ts.map(t=>
+  <div><Badge t={t} /></div>
+  )}
+</div>
+
+<style>
+.badges {
+  display: flex;
+  gap: 4px;
+}
+</style>
