@@ -1,0 +1,70 @@
+---
+import MdLayout from '../../layouts/MdLayout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<MdLayout frontmatter={{
+  title: "Profile - yuma14",
+  create_date: "2022-11-16",
+  update_date: "2026-11-25",
+  no_toc: true,
+}}>
+  <p>学生です。</p>
+
+  <dl>
+    <div>
+      <dt><Icon name="simple-icons:x"/>&nbsp;X: <a href="https://x.com/yuma140902">@yuma140902</a></dt>
+      <dd>ご連絡はDMへお願いします。</dd>
+    </div>
+
+    <div>
+      <dt><Icon name="simple-icons:github"/>&nbsp;GitHub: <a href="https://github.com/yuma140902">@yuma140902</a></dt>
+      <dd>
+        <img alt="Most Used Languages" src="http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=yuma140902&amp;theme=github" />
+        <img alt="GitHub Stats" src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=yuma140902&amp;theme=github" />
+      </dd>
+    </div>
+
+    <div>
+      <dt><Icon name="simple-icons:zenn"/>&nbsp;Zenn: <a href="https://zenn.dev/yuma14">@yuma14</a></dt>
+      <dd>
+        記事を投稿しています
+        <p><strong>最近の記事</strong></p>
+        <dl>
+          <div>
+            <dt><a href="https://zenn.dev/yuma14/articles/ddc-vim-with-lua">ddc.vimの解説とinit.luaでの設定方法</a></dt>
+            <dd><q>この記事は筆者が`:help ddc`を読んだときのメモです。公式のドキュメント `:help ddc`を読もう！</q></dd>
+            <dt><a href="https://zenn.dev/yuma14/articles/ssh-pubkey-auth-to-conoha-vps">ConoHa VPSに公開鍵認証でSSH/SCP接続する手順</a></dt>
+            <dd><q>最近ConoHa VPSで新しくサーバーを立てて、公開鍵認証でSSH/SCP接続できるようにしたのでその手順を書いておきます。</q></dd>
+            <dt><a href="https://zenn.dev/yuma14/articles/sccache-rust-benchmark">sccacheでどのくらいRustのビルドを高速化できるのか (Windows)</a></dt>
+            <dd><q>sccacheを使用することでWindow上でのRustプロジェクトのビルドをどのくらい高速化できるのか検証します。</q></dd>
+          </div>
+        </dl>
+      </dd>
+    </div>
+
+    <div>
+      <dt><Icon name="simple-icons:qiita"/>&nbsp;Qiita: <a href="https://qiita.com/yuma140902">@yuma140902</a></dt>
+      <dd>
+        記事を投稿しています2
+        <p><strong>最近の記事</strong></p>
+
+        <dl>
+          <div>
+            <dt><a href="https://qiita.com/yuma140902/items/4580f2632d507fd53071">Rust で Entity Component System を実装する</a></dt>
+            <dd><q>Entity Component System (ECS) について理解を深めるために、機能が非常に限定された ECS を Rust で実装しました。</q></dd>
+          </div>
+          <div>
+            <dt><a href="https://qiita.com/yuma140902/items/d50e696bbef513405ef5">RustでMMLを実装した</a></dt>
+            <dd><q>Music Macro Language (MML) の方言を設計し、Rustで実装しました。</q></dd>
+          </div>
+        </dl>
+      </dd>
+    </div>
+
+    <div>
+      <dt><Icon name="carbon:txt" /> <a href="/twtxt.txt">twtxt</a></dt>
+      <dd>私の<a href="https://twtxt.readthedocs.io/en/stable/">twtxt</a>用のテキストファイルをこのサーバでホストしています。</dd>
+    </div>
+  </dl>
+</MdLayout>
