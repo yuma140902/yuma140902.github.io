@@ -132,36 +132,42 @@ body {
 :root {
   --color-grey: #888888;
 }
-html {
-  font-family: sans-serif;
-  text-autospace: normal;
+
+@layer reset {
+  html {
+    font-family: sans-serif;
+    text-autospace: normal;
+  }
+  pre, code, kbd, samp, time {
+    text-autospace: no-autospace;
+  }
+  img {
+    display: inline;
+  }
+  hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--color-grey);
+    margin: 10px 0 10px 0;
+  }
+  q {
+    quotes: "“" "”" "‘" "’";
+  }
+  pre {
+    padding: 6px;
+    border-radius: 6px;
+  }
 }
-pre, code, kbd, samp {
-  text-autospace: no-autospace;
-}
+
 img:not(.manual) {
   height: auto;
   max-width: min(700px, 100%);
 }
-img {
-  display: inline;
-}
-hr {
-  border: 0;
-  height: 1px;
-  background-color: var(--color-grey);
-  margin: 10px 0 10px 0;
-}
+
 main a:not(main h2 a) {
   text-decoration: underline;
 }
-q {
-  quotes: "“" "”" "‘" "’";
-}
-pre {
-  padding: 6px;
-  border-radius: 6px;
-}
+
 .breadcrumbs-wrapper {
   padding: 3px;
   a {
