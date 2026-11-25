@@ -2,7 +2,6 @@
 import { Icon } from 'astro-icon/components';
 import Badge from '../components/Badge.astro';
 import ContentWithToc from '../components/ContentWithToc.astro';
-import Link from '../components/Link.astro';
 import {
   getSinceUntilText,
   type Work,
@@ -27,7 +26,7 @@ const { work } = Astro.props;
       </span>
     </div>
     <div>
-    {work?.repo && <Link url={work.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</Link>}
+    {work?.repo && <a href={work.repo}><Icon name="simple-icons:github" size="1em"/> GitHub</a>}
       {(work?.since || work?.until) && <><Icon name="carbon:calendar" />{getSinceUntilText(work?.since, work?.until)}</>}
     </div>
   </hgroup>
