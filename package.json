@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
-    "@biomejs/biome": "2.6.7",
+    "@biomejs/biome": "2.6.8",
     "@types/colormap": "2.3.4",
     "@types/papaparse": "5.5.2",
     "@types/react": "19.3.0",
